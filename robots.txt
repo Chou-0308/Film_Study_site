@@ -1,0 +1,3 @@
+# 교내 학습용 자료 — 검색엔진 수집 금지
+User-agent: *
+Disallow: /
