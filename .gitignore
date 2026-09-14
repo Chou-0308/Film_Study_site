@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+._*
+.fuse_hidden*
+
+# 자동 백업본 (올릴 필요 없음)
+index_bak_*.html
+index_수정전_*.html
+
+# 작업용 스크립트 (올려도 되지만 사이트와 무관)
+문장수정-적용.py
+fetch-failed.txt
+_잠금파일_치움/
