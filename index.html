@@ -420,6 +420,138 @@ b{color:#fff;font-weight:700}
   z-index:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--amber);
   background:var(--ink3);border:1px solid var(--line2);border-radius:4px;padding:3px 6px;pointer-events:none}
 
+
+/* ===================================================================
+   진도 기록 · 강의 목차 · 정답 접기        (2026-09 추가)
+   =================================================================== */
+
+/* ---------- 사이드바 읽음 표시 ---------- */
+.nav-ck{width:15px;height:15px;flex:0 0 15px;border-radius:50%;
+  border:1px solid var(--line2);display:grid;place-items:center;opacity:.32;transition:.16s}
+.nav-ck svg{width:9px;height:9px;display:none}
+.nav-item.done .nav-ck{background:var(--teal);border-color:var(--teal);opacity:1}
+.nav-item.done .nav-ck svg{display:block}
+.nav-item.done .nav-t{color:var(--mute)}
+.nav-item.done:hover .nav-t,.nav-item.done.active .nav-t{color:#fff}
+
+/* 사이드바 하단 진도 요약 */
+.sb-prog{margin:22px 4px 0;padding:14px 12px;border-radius:11px;
+  background:var(--ink2);border:1px solid var(--line)}
+.sb-prog .spl{display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mute);margin-bottom:9px}
+.sb-prog .spn{color:var(--teal);font-weight:700;font-size:12.5px}
+.sb-reset{margin-top:10px;width:100%;padding:6px;border-radius:7px;cursor:pointer;
+  background:none;border:1px solid var(--line2);color:var(--mute);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;transition:.15s}
+.sb-reset:hover{border-color:var(--rec);color:var(--rec)}
+
+/* 공용 진도 막대 */
+.pbar{height:6px;border-radius:999px;background:var(--ink3);overflow:hidden}
+.pbar>i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--teal),var(--amber));transition:width .5s ease}
+
+/* ---------- 홈 · 이어서 보기 ---------- */
+.resume{margin:0 0 30px;padding:18px 20px;border-radius:14px;
+  background:linear-gradient(100deg,rgba(85,199,192,.11),rgba(240,162,60,.05) 65%,transparent);
+  border:1px solid rgba(85,199,192,.3)}
+.rs-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.rs-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--teal)}
+.rs-count{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-left:auto}
+.rs-count b{color:var(--amber);font-weight:700}
+.rs-go{display:flex;align-items:center;gap:13px;margin-top:15px;padding:13px 15px;
+  border-radius:11px;background:var(--ink2);border:1px solid var(--line);transition:.15s}
+.rs-go:hover{border-color:var(--amber-b);background:var(--ink3);transform:translateY(-2px)}
+.rs-go .rs-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--amber);
+  display:block;margin-bottom:3px}
+.rs-go .rs-t{font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+.rs-go .rs-txt{flex:1;min-width:0}
+.rs-go .rs-t{display:block}
+.rs-go .rs-arrow{margin-left:auto;color:var(--amber);font-size:19px;flex:0 0 auto}
+[hidden]{display:none!important}
+
+/* 홈 카드 안 완료 표시 */
+.hc-row.done .hc-t{color:var(--mute)}
+.hc-row.done:hover .hc-t{color:#fff}
+.hc-ck{flex:0 0 auto;color:var(--teal);font-size:12px;display:none}
+.hc-row.done .hc-ck{display:block}
+
+/* ---------- 강의 목차 ---------- */
+.ltoc{margin:22px 0 6px;border:1px solid var(--line);border-radius:12px;
+  background:linear-gradient(180deg,var(--ink2),#181b21);overflow:hidden}
+.ltoc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;
+  padding:13px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;color:var(--amber)}
+.ltoc>summary::-webkit-details-marker{display:none}
+.ltoc>summary::after{content:"▾";margin-left:auto;transition:transform .2s ease;font-size:12px}
+.ltoc[open]>summary::after{transform:rotate(180deg)}
+.ltoc>summary:hover{background:var(--ink3)}
+.ltoc-n{color:var(--mute);letter-spacing:.06em}
+.ltoc-list{padding:4px 10px 12px;border-top:1px solid var(--line)}
+.ltoc-list a{display:block;padding:7px 10px;border-radius:8px;font-size:14px;
+  color:var(--paper2);line-height:1.4;border-left:2px solid transparent}
+.ltoc-list a:hover{background:var(--ink3);color:#fff}
+.ltoc-list a.lv3{font-size:13.2px;padding-left:26px;color:var(--mute)}
+.ltoc-list a.lv3:hover{color:var(--paper2)}
+
+/* 넓은 화면 · 오른쪽 고정 목차 */
+.toc-rail{display:none;position:fixed;top:92px;right:22px;width:196px;max-height:72vh;
+  overflow-y:auto;z-index:30;padding-left:13px;border-left:1px solid var(--line)}
+.toc-rail .tr-h{font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  color:var(--mute);margin-bottom:9px}
+.toc-rail a{display:block;padding:5px 9px;margin-left:-10px;border-radius:7px;
+  font-size:12.4px;line-height:1.42;color:var(--mute);
+  border-left:2px solid transparent;transition:.14s}
+.toc-rail a:hover{color:var(--paper);background:var(--ink3)}
+.toc-rail a.lv3{padding-left:20px;font-size:11.8px}
+.toc-rail a.cur{color:var(--amber);border-left-color:var(--amber);background:var(--amber-d)}
+/* 목차로 이동했을 때 제목이 상단바에 가리지 않도록 */
+.lesson-body h2[id],.lesson-body h3[id]{scroll-margin-top:22px}
+@media(max-width:860px){.lesson-body h2[id],.lesson-body h3[id]{scroll-margin-top:78px}}
+.ltoc-list .tn,.toc-rail .tn{font-family:var(--mono);font-size:.84em;font-weight:600;
+  color:var(--amber);margin-right:8px;letter-spacing:.02em}
+.ltoc-list a.lv3 .tn,.toc-rail a.lv3 .tn{color:var(--mute)}
+@media(min-width:1500px){
+  .toc-rail.on{display:block}
+  body.rail-on .ltoc{display:none}
+}
+
+/* ---------- 강의 끝 · 완료 버튼 ---------- */
+.done-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin-top:44px;padding:17px 19px;border-radius:12px;
+  background:var(--ink2);border:1px solid var(--line)}
+.done-bar p{margin:0;font-size:13.7px;color:var(--mute);flex:1;min-width:180px}
+.done-btn{display:inline-flex;align-items:center;gap:9px;padding:11px 19px;border-radius:10px;
+  cursor:pointer;font-family:var(--sans);font-weight:700;font-size:14px;
+  background:var(--amber);color:#1a1205;border:1px solid var(--amber);transition:.16s}
+.done-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(240,162,60,.6)}
+.done-bar.is-done{background:var(--teal-d);border-color:rgba(85,199,192,.3)}
+.done-bar.is-done p{color:var(--paper2)}
+.done-bar.is-done .done-btn{background:none;color:var(--teal);border-color:rgba(85,199,192,.45)}
+.done-bar.is-done .done-btn:hover{box-shadow:none;border-color:var(--teal)}
+
+/* ---------- 정답 접기 ---------- */
+.qa{margin:14px 0;border:1px solid var(--line);border-radius:11px;
+  background:var(--ink2);overflow:hidden}
+.qa>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;
+  padding:12px 16px;font-family:var(--mono);font-size:12px;letter-spacing:.09em;color:var(--amber)}
+.qa>summary::-webkit-details-marker{display:none}
+.qa>summary::before{content:"＋";font-size:13px;line-height:1}
+.qa[open]>summary::before{content:"－"}
+.qa>summary:hover{background:var(--ink3)}
+.qa[open]>summary{border-bottom:1px solid var(--line);color:var(--teal)}
+.qa-body{padding:6px 17px 15px}
+.qa-body>:first-child{margin-top:8px}
+.qa-body>:last-child{margin-bottom:0}
+.qa-all{display:flex;justify-content:flex-end;margin:18px 0 6px}
+.qa-all button{padding:8px 15px;border-radius:9px;cursor:pointer;background:none;
+  border:1px solid var(--line2);color:var(--paper2);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;transition:.15s}
+.qa-all button:hover{border-color:var(--amber-b);color:var(--amber)}
+
+@media(max-width:860px){
+  .resume{padding:16px}
+  .done-bar{margin-top:34px}
+}
+
 @media(max-width:1080px){:root{--sb:260px}}
 @media(max-width:860px){
   .topbar{display:flex}
@@ -588,6 +720,17 @@ b{color:#fff;font-weight:700}
     <div class="content">
       
 <article class="page active" id="home">
+  <div class="resume" id="resume" hidden>
+    <div class="rs-top">
+      <span class="rs-eyebrow">MY PROGRESS</span>
+      <span class="rs-count"></span>
+    </div>
+    <div class="pbar"><i></i></div>
+    <a class="rs-go" href="#home" hidden>
+      <span class="rs-txt"><span class="rs-k"></span><span class="rs-t"></span></span>
+      <span class="rs-arrow">&rarr;</span>
+    </a>
+  </div>
   <section class="hero">
     <div class="board">
       <div class="board-stripes"></div>
@@ -19874,7 +20017,7 @@ J/L컷     — 소리로 부드럽게 잇기
   <nav class="pn-wrap"><a class="pn prev" href="#c3"><span class="pn-k">← 이전</span><span class="pn-t">S#03 · 편집의 사고 (〈콩나물〉)</span></a><a class="pn next" href="#c5"><span class="pn-k">다음 →</span><span class="pn-t">S#05 · [해설집] 영상 기술 기초 퀴즈</span></a></nav>
 </article>
 
-<article class="page" id="c5">
+<article class="page" id="c5" data-quiz>
   <div class="clapper"></div>
   <header class="lh">
     <div class="lh-top"><span class="lh-tag">CLASS · S#05</span>
@@ -20082,7 +20225,7 @@ J/L컷     — 소리로 부드럽게 잇기
   <nav class="pn-wrap"><a class="pn prev" href="#c4"><span class="pn-k">← 이전</span><span class="pn-t">S#04 · 편집 데이터의 다리 — XML</span></a><a class="pn next" href="#c6"><span class="pn-k">다음 →</span><span class="pn-t">S#06 · [해설집] 촬영·편집 퀴즈</span></a></nav>
 </article>
 
-<article class="page" id="c6">
+<article class="page" id="c6" data-quiz>
   <div class="clapper"></div>
   <header class="lh">
     <div class="lh-top"><span class="lh-tag">CLASS · S#06</span>
@@ -25040,7 +25183,11 @@ document.addEventListener('error',function(e){
       const art=document.getElementById(id); if(!art) return;
       const body=art.querySelector('.lesson-body')||art;
       const f=mark(body,kw);
-      if(f) f.scrollIntoView({block:'center',behavior:'smooth'});
+      if(f){
+        let d=f.closest('details');
+        while(d){ d.open=true; d=d.parentElement&&d.parentElement.closest('details'); }
+        f.scrollIntoView({block:'center',behavior:'smooth'});
+      }
     },90);
     box.hidden=true;
   });
@@ -25062,6 +25209,310 @@ document.addEventListener('error',function(e){
   });
 })();
 
+/* ===================================================================
+   진도 기록 · 강의 목차 · 정답 접기
+   =================================================================== */
+(function(){
+  'use strict';
+
+  /* ---------- 저장소 (차단돼 있어도 사이트는 그대로 동작) ---------- */
+  var KEY_DONE='fs.done.v1', KEY_LAST='fs.last.v1', store=null;
+  try{ var t='__t'; localStorage.setItem(t,t); localStorage.removeItem(t); store=localStorage; }catch(e){}
+
+  function load(){
+    if(!store) return {};
+    try{ var v=JSON.parse(store.getItem(KEY_DONE)||'{}'); return (v&&typeof v==='object')?v:{}; }
+    catch(e){ return {}; }
+  }
+  function save(){ if(store){ try{ store.setItem(KEY_DONE,JSON.stringify(done)); }catch(e){} } }
+  function lastSeen(){ if(!store) return ''; try{ return store.getItem(KEY_LAST)||''; }catch(e){ return ''; } }
+  function setLast(id){ if(store){ try{ store.setItem(KEY_LAST,id); }catch(e){} } }
+
+  var done=load();
+
+  /* ---------- 대상 강의 (목록에 보이는 것만) ---------- */
+  var lessons=navItems.filter(function(n){
+    return !n.classList.contains('is-hidden')
+        && !n.closest('.nav-group').classList.contains('is-hidden');
+  });
+  var lessonIds=lessons.map(function(n){ return n.dataset.id; });
+  var TOTAL=lessonIds.length;
+
+  function titleOf(id){
+    var a=document.querySelector('#'+CSS.escape(id)+' .lh-title');
+    if(a) return a.textContent.trim();
+    var n=document.querySelector('.nav-item[data-id="'+id+'"] .nav-t');
+    return n?n.textContent.trim():id;
+  }
+  function tagOf(id){
+    var n=document.querySelector('.nav-item[data-id="'+id+'"]');
+    var g=n&&n.closest('.nav-group');
+    var tag=g&&g.querySelector('.nav-tag');
+    var s=n&&n.querySelector('.slate');
+    return ((tag?tag.textContent.trim():'')+' · '+(s?s.textContent.trim():'')).replace(/^ · /,'');
+  }
+  function doneCount(){
+    return lessonIds.reduce(function(a,id){ return a+(done[id]?1:0); },0);
+  }
+
+  var CK='<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 L4.8 8.6 L9.5 3.6" fill="none" stroke="#14161b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ---------- 사이드바 체크 + 진도 패널 ---------- */
+  lessons.forEach(function(n){
+    var c=document.createElement('span');
+    c.className='nav-ck'; c.innerHTML=CK;
+    n.appendChild(c);
+  });
+
+  var panel=document.createElement('div');
+  panel.className='sb-prog';
+  panel.innerHTML='<div class="spl"><span>MY PROGRESS</span><span class="spn"></span></div>'+
+                  '<div class="pbar"><i></i></div>'+
+                  '<button type="button" class="sb-reset">진도 초기화</button>';
+  document.getElementById('sidebar').appendChild(panel);
+  panel.querySelector('.sb-reset').addEventListener('click',function(){
+    if(!confirm('읽음 표시를 전부 지울까요?')) return;
+    done={}; save(); if(store){ try{ store.removeItem(KEY_LAST); }catch(e){} }
+    paintAll();
+  });
+
+  /* ---------- 홈 · 이어서 보기 ---------- */
+  function paintHome(){
+    var card=document.getElementById('resume');
+    if(!card) return;
+    var n=doneCount(), last=lastSeen();
+    if(!n && !last){ card.hidden=true; return; }
+    card.hidden=false;
+    card.querySelector('.rs-count').innerHTML='<b>'+n+'</b> / '+TOTAL+'강 완료';
+    card.querySelector('.pbar > i').style.width=(TOTAL?n/TOTAL*100:0)+'%';
+
+    /* 이어서 볼 강의: 마지막으로 본 강의가 끝났으면 그 다음 미완료 강의 */
+    var next=last;
+    if(!next || done[next]){
+      var from=next?order.indexOf(next)+1:0;
+      next='';
+      for(var i=from;i<order.length;i++){ if(!done[order[i]]){ next=order[i]; break; } }
+      if(!next) for(var j=0;j<order.length;j++){ if(!done[order[j]]){ next=order[j]; break; } }
+    }
+    var go=card.querySelector('.rs-go');
+    if(next && document.getElementById(next)){
+      go.hidden=false;
+      go.href='#'+next;
+      go.querySelector('.rs-k').textContent=(done[last]&&last!==next?'다음 강의 → ':'이어서 보기 → ')+tagOf(next);
+      go.querySelector('.rs-t').textContent=titleOf(next);
+    }else{
+      go.hidden=true;
+    }
+  }
+
+  /* ---------- 전체 다시 칠하기 ---------- */
+  function paintAll(){
+    lessons.forEach(function(n){ n.classList.toggle('done',!!done[n.dataset.id]); });
+    document.querySelectorAll('.hc-row').forEach(function(r){
+      var id=(r.getAttribute('href')||'').slice(1);
+      r.classList.toggle('done',!!done[id]);
+      if(!r.querySelector('.hc-ck')){
+        var s=document.createElement('span'); s.className='hc-ck'; s.textContent='✓';
+        r.appendChild(s);
+      }
+    });
+    var n=doneCount();
+    panel.querySelector('.spn').textContent=n+' / '+TOTAL;
+    panel.querySelector('.pbar > i').style.width=(TOTAL?n/TOTAL*100:0)+'%';
+    paintHome();
+    var bar=document.querySelector('.page.active .done-bar');
+    if(bar) paintDoneBar(bar);
+  }
+
+  function setDone(id,val){
+    if(val) done[id]=Date.now(); else delete done[id];
+    save(); paintAll();
+  }
+
+  /* ---------- 강의 끝 · 완료 버튼 ---------- */
+  function paintDoneBar(bar){
+    var id=bar.closest('.page').id, is=!!done[id];
+    bar.classList.toggle('is-done',is);
+    bar.querySelector('p').textContent=is?'이 강의를 다 봤습니다.':'다 읽으면 여기를 눌러 표시해 두세요. 끝까지 스크롤해도 자동으로 표시됩니다.';
+    bar.querySelector('.done-btn').textContent=is?'✓ 완료 취소':'이 강의 다 봤어요';
+  }
+  function ensureDoneBar(art){
+    if(art.id==='home'||art.querySelector('.done-bar')) return;
+    if(lessonIds.indexOf(art.id)<0) return;
+    var bar=document.createElement('div');
+    bar.className='done-bar';
+    bar.innerHTML='<p></p><button type="button" class="done-btn"></button>';
+    bar.querySelector('.done-btn').addEventListener('click',function(){
+      setDone(art.id,!done[art.id]);
+    });
+    var pn=art.querySelector('.pn-wrap');
+    if(pn) art.insertBefore(bar,pn); else art.appendChild(bar);
+    paintDoneBar(bar);
+  }
+
+  /* ---------- 강의 목차 ---------- */
+  var rail=document.createElement('nav');
+  rail.className='toc-rail';
+  rail.innerHTML='<div class="tr-h">이 강의 목차</div><div class="tr-list"></div>';
+  document.body.appendChild(rail);
+
+  function buildToc(art){
+    if(art.id==='home'||art.dataset.tocBuilt) return;
+    art.dataset.tocBuilt='1';
+    var body=art.querySelector('.lesson-body');
+    if(!body) return;
+    var hs=[].slice.call(body.querySelectorAll('h2,h3'));
+    if(hs.length<3) return;
+
+    var esc=function(s){ return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); };
+    var links='';
+    hs.forEach(function(h,i){
+      if(!h.id) h.id='h-'+art.id+'-'+i;
+      var lv=h.tagName==='H3'?' lv3':'';
+      var hn=h.querySelector('.hn');
+      var num=hn?hn.textContent.trim():'';
+      var txt=h.textContent.trim();
+      if(num && txt.indexOf(num)===0) txt=txt.slice(num.length).trim();
+      links+='<a class="tl'+lv+'" href="#'+h.id+'">'+
+             (num?'<span class="tn">'+esc(num)+'</span>':'')+esc(txt)+'</a>';
+    });
+
+    var box=document.createElement('details');
+    box.className='ltoc';
+    if(window.innerWidth>860 && hs.length<=12) box.open=true;
+    box.innerHTML='<summary>이 강의 목차 <span class="ltoc-n">'+hs.length+'개 항목</span></summary>'+
+                  '<div class="ltoc-list">'+links+'</div>';
+    var head=art.querySelector('header.lh');
+    if(head) head.insertAdjacentElement('afterend',box); else art.insertBefore(box,body);
+  }
+
+  /* 목차 링크는 해시를 바꾸지 않고 부드럽게 이동 (라우터와 충돌 방지) */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('.ltoc-list a, .toc-rail a');
+    if(!a) return;
+    e.preventDefault();
+    var el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el) el.scrollIntoView({block:'start',behavior:'smooth'});
+  });
+
+  function fillRail(art){
+    var list=rail.querySelector('.tr-list');
+    var toc=art.querySelector('.ltoc-list');
+    if(!toc){ rail.classList.remove('on'); document.body.classList.remove('rail-on'); list.innerHTML=''; return; }
+    list.innerHTML=toc.innerHTML;
+    rail.classList.add('on');
+    document.body.classList.add('rail-on');
+  }
+
+  var heads=[];
+  function collectHeads(art){
+    heads=[].slice.call(art.querySelectorAll('.lesson-body h2[id], .lesson-body h3[id]'));
+  }
+  function spy(){
+    if(!rail.classList.contains('on')||!heads.length) return;
+    var cur=null;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i].getBoundingClientRect().top<=130) cur=heads[i]; else break;
+    }
+    rail.querySelectorAll('a').forEach(function(a){
+      a.classList.toggle('cur',!!cur && a.getAttribute('href')==='#'+cur.id);
+    });
+  }
+
+  /* ---------- 끝까지 읽으면 자동 완료 ---------- */
+  var dwell=null;
+  function watchRead(id){
+    clearTimeout(dwell);
+    if(!id||id==='home'||done[id]||lessonIds.indexOf(id)<0) return;
+    var h=document.documentElement;
+    if(h.scrollHeight-h.clientHeight<80){
+      dwell=setTimeout(function(){ if(!done[id]) setDone(id,true); },9000);
+    }
+  }
+  window.addEventListener('scroll',function(){
+    var id=location.hash.slice(1)||'home';
+    if(id==='home'||done[id]||lessonIds.indexOf(id)<0){ spy(); return; }
+    var h=document.documentElement;
+    if(h.scrollTop+h.clientHeight>=h.scrollHeight-140) setDone(id,true);
+    spy();
+  },{passive:true});
+
+  /* ---------- 정답 접기 (해설집) ---------- */
+  function foldQuiz(art){
+    if(art.dataset.quizBuilt) return;
+    art.dataset.quizBuilt='1';
+    var body=art.querySelector('.lesson-body');
+    if(!body) return;
+
+    /* <hr> 로 끊어 블록을 만들고, 앞머리 제목만 남기고 나머지를 접는다 */
+    var blocks=[[]];
+    [].slice.call(body.children).forEach(function(el){
+      if(el.tagName==='HR'){ blocks.push([]); blocks[blocks.length-1].hr=el; }
+      else blocks[blocks.length-1].push(el);
+    });
+
+    var made=0;
+    blocks.forEach(function(nodes){
+      var i=0;
+      while(i<nodes.length && /^H[23]$/.test(nodes[i].tagName)) i++;
+      if(i===0||i>=nodes.length) return;           /* 제목이 없거나 내용이 없으면 그대로 */
+      var head=nodes[i-1];                          /* 앞머리 제목 중 마지막 = 접기 제목 */
+      var rest=nodes.slice(i);
+
+      var d=document.createElement('details');
+      d.className='qa';
+      var sm=document.createElement('summary');
+      sm.textContent='정답 · 해설 보기';
+      var inner=document.createElement('div');
+      inner.className='qa-body';
+      d.appendChild(sm); d.appendChild(inner);
+      head.insertAdjacentElement('afterend',d);
+      rest.forEach(function(n){ inner.appendChild(n); });
+      made++;
+    });
+
+    if(made){
+      var ctl=document.createElement('div');
+      ctl.className='qa-all';
+      ctl.innerHTML='<button type="button">전체 펼치기</button>';
+      var btn=ctl.querySelector('button');
+      btn.addEventListener('click',function(){
+        var all=[].slice.call(body.querySelectorAll('details.qa'));
+        var open=all.every(function(d){ return d.open; });
+        all.forEach(function(d){ d.open=!open; });
+        btn.textContent=open?'전체 펼치기':'전체 접기';
+      });
+      body.insertBefore(ctl,body.firstChild);
+    }
+  }
+  document.querySelectorAll('article.page[data-quiz]').forEach(foldQuiz);
+
+  /* ---------- 페이지가 바뀔 때 ---------- */
+  function sync(id){
+    id=id||location.hash.slice(1)||'home';
+    var art=document.getElementById(id);
+    if(!art) return;
+    if(id!=='home'){
+      buildToc(art);
+      ensureDoneBar(art);
+      collectHeads(art);
+      fillRail(art);
+      if(lessonIds.indexOf(id)>=0) setLast(id);
+    }else{
+      rail.classList.remove('on');
+      document.body.classList.remove('rail-on');
+      heads=[];
+    }
+    paintAll();
+    watchRead(id);
+    spy();
+  }
+
+  var _show=window.show;
+  window.show=function(id){ _show(id); sync(id); };
+
+  sync();
+})();
 </script>
 </body>
 </html>
