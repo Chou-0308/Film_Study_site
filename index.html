@@ -477,7 +477,7 @@ b{color:#fff;font-weight:700}
 
 /* ---------- 강의 목차 ---------- */
 .ltoc{margin:22px 0 6px;border:1px solid var(--line);border-radius:12px;
-  background:linear-gradient(180deg,var(--ink2),#181b21);overflow:hidden}
+  background:var(--ink2);overflow:hidden}
 .ltoc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;
   padding:13px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;color:var(--amber)}
 .ltoc>summary::-webkit-details-marker{display:none}
@@ -493,8 +493,9 @@ b{color:#fff;font-weight:700}
 .ltoc-list a.lv3:hover{color:var(--paper2)}
 
 /* 넓은 화면 · 오른쪽 고정 목차 */
-.toc-rail{display:none;position:fixed;top:92px;right:22px;width:196px;max-height:72vh;
+.toc-rail{display:none;position:fixed;top:92px;max-height:72vh;
   overflow-y:auto;z-index:30;padding-left:13px;border-left:1px solid var(--line)}
+.toc-rail.on{display:block}
 .toc-rail .tr-h{font-family:var(--mono);font-size:10px;letter-spacing:.16em;
   color:var(--mute);margin-bottom:9px}
 .toc-rail a{display:block;padding:5px 9px;margin-left:-10px;border-radius:7px;
@@ -509,10 +510,7 @@ b{color:#fff;font-weight:700}
 .ltoc-list .tn,.toc-rail .tn{font-family:var(--mono);font-size:.84em;font-weight:600;
   color:var(--amber);margin-right:8px;letter-spacing:.02em}
 .ltoc-list a.lv3 .tn,.toc-rail a.lv3 .tn{color:var(--mute)}
-@media(min-width:1500px){
-  .toc-rail.on{display:block}
-  body.rail-on .ltoc{display:none}
-}
+body.rail-on .ltoc{display:none}
 
 /* ---------- 강의 끝 · 완료 버튼 ---------- */
 .done-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
@@ -25395,14 +25393,33 @@ document.addEventListener('error',function(e){
     if(el) el.scrollIntoView({block:'start',behavior:'smooth'});
   });
 
+  var hasToc=false;
   function fillRail(art){
     var list=rail.querySelector('.tr-list');
     var toc=art.querySelector('.ltoc-list');
-    if(!toc){ rail.classList.remove('on'); document.body.classList.remove('rail-on'); list.innerHTML=''; return; }
-    list.innerHTML=toc.innerHTML;
-    rail.classList.add('on');
-    document.body.classList.add('rail-on');
+    hasToc=!!toc;
+    list.innerHTML=toc?toc.innerHTML:'';
+    layoutRail();
   }
+  /* 본문 오른쪽에 실제로 남는 여백을 재서 레일을 켠다 (테마·화면폭 무관) */
+  var RAIL_MIN=176, RAIL_MAX=212, RAIL_GAP=26;
+  function layoutRail(){
+    var content=document.querySelector('.content');
+    var free=hasToc && content
+      ? window.innerWidth - content.getBoundingClientRect().right - RAIL_GAP*2
+      : 0;
+    if(free>=RAIL_MIN){
+      var w=Math.min(free,RAIL_MAX);
+      rail.style.left=Math.round(window.innerWidth-RAIL_GAP-w)+'px';
+      rail.style.width=w+'px';
+      rail.classList.add('on');
+      document.body.classList.add('rail-on');
+    }else{
+      rail.classList.remove('on');
+      document.body.classList.remove('rail-on');
+    }
+  }
+  window.addEventListener('resize',function(){ layoutRail(); spy(); },{passive:true});
 
   var heads=[];
   function collectHeads(art){
@@ -25499,6 +25516,7 @@ document.addEventListener('error',function(e){
       fillRail(art);
       if(lessonIds.indexOf(id)>=0) setLast(id);
     }else{
+      hasToc=false;
       rail.classList.remove('on');
       document.body.classList.remove('rail-on');
       heads=[];
