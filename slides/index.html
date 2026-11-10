@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>프레젠테이션 — 영상 제작 심화 | 필름잇다 기능반</title>
+<meta name="description" content="필름잇다 기능반 학습터 강의를 수업 시간에 띄워 쓰는 프레젠테이션 모음">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314161b'/%3E%3Cpath d='M6 20h52v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z' fill='%23f0a23c'/%3E%3Cpath d='M6 8h52v12H6z' fill='%23ece7dc'/%3E%3Cpath d='M14 8l-6 12h8l6-12zM28 8l-6 12h8l6-12zM42 8l-6 12h8l6-12z' fill='%2314161b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<script>
+/* 학습터와 같은 테마 설정을 씁니다 (fs.theme.v1) */
+(function(){try{
+  var s=localStorage.getItem('fs.theme.v1');
+  if(s!=='light'&&s!=='dark')
+    s=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+  if(s==='light')document.documentElement.setAttribute('data-theme','light');
+}catch(e){}})();
+</script>
+<style>
+:root{
+  --ink:#08080a; --ink2:#111114; --ink3:#1a1a1f; --raise:#222228;
+  --line:#242429; --line2:#34343c;
+  --paper:#f2efe9; --paper2:#a8a39a; --mute:#837d74;
+  --amber:#e8b64a; --amber-d:rgba(232,182,74,.09); --amber-b:rgba(232,182,74,.32);
+  --teal:#93aac6; --teal-d:rgba(147,170,198,.09); --teal-b:rgba(147,170,198,.32);
+  --rec:#d8453a;
+  --hi:#ffffff; --on-amber:#1a1205;
+  --deep:#050507;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:'Pretendard','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+}
+:root[data-theme="light"]{
+  --ink:#faf8f4; --ink2:#ffffff; --ink3:#f1ece3; --raise:#e8e2d7;
+  --line:#e4dfd5; --line2:#cbc4b6;
+  --paper:#1a1815; --paper2:#4e4a43; --mute:#6d685f;
+  --amber:#9a6710; --amber-d:rgba(154,103,16,.08); --amber-b:rgba(154,103,16,.30);
+  --teal:#3a6185; --teal-d:rgba(58,97,133,.08); --teal-b:rgba(58,97,133,.30);
+  --rec:#bd3729;
+  --hi:#12100c; --on-amber:#fffdf8;
+  --deep:#17140f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);
+  font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+b{color:var(--hi);font-weight:700}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ── 상단 바 ── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px}
+.brand svg{width:32px;height:32px;flex:0 0 32px}
+.brand .bt{font-weight:800;letter-spacing:-.02em;font-size:15.5px;line-height:1.15}
+.brand .bs{font-family:var(--mono);font-size:10.5px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase}
+.tog{display:flex;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.tog button{font:inherit;font-size:13px;background:none;border:0;color:var(--paper2);
+  padding:7px 13px;cursor:pointer}
+.tog button[aria-pressed="true"]{background:var(--amber-d);color:var(--hi)}
+
+/* ── 헤더 ── */
+.hero{padding:64px 0 46px;position:relative}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--amber);
+  text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--rec);
+  box-shadow:0 0 0 4px rgba(216,69,58,.18)}
+.hero h1{font-size:clamp(34px,6vw,60px);font-weight:800;letter-spacing:-.035em;line-height:1.1;
+  margin-top:18px;color:var(--hi)}
+.hero p{margin-top:16px;max-width:620px;color:var(--paper2);font-size:clamp(15.5px,2.2vw,18px)}
+.chips{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;border:1px solid var(--line2);border-radius:8px;padding:7px 13px;color:var(--paper2)}
+a.chip:hover{border-color:var(--amber-b);color:var(--hi)}
+.chip .m{font-family:var(--mono);color:var(--amber);margin-right:6px}
+
+/* ── 사용법 ── */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.how div{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.how .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--teal);text-transform:uppercase}
+.how h3{font-size:17px;margin:6px 0 4px;color:var(--hi)}
+.how p{font-size:14.5px;color:var(--paper2)}
+
+/* ── 섹션 제목 ── */
+.sec{display:flex;align-items:baseline;gap:14px;margin:56px 0 18px}
+.sec .n{font-family:var(--mono);font-size:13px;color:var(--amber);font-weight:600}
+.sec h2{font-size:21px;letter-spacing:-.02em;color:var(--hi)}
+.sec .c{font-size:13.5px;color:var(--mute)}
+.sec::after{content:'';flex:1;height:1px;background:var(--line);align-self:center}
+
+/* ── 덱 카드 ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.dk{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:14px;
+  padding:20px 22px 18px;display:flex;flex-direction:column;gap:6px;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease}
+.dk .hdr{display:flex;align-items:center;justify-content:space-between}
+.slate{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--amber);
+  border:1px solid var(--line2);border-radius:5px;padding:3px 7px;letter-spacing:.02em}
+.dk h3{font-size:18.5px;font-weight:700;letter-spacing:-.02em;line-height:1.35;color:var(--hi);margin-top:6px}
+.dk p{font-size:14px;color:var(--paper2);line-height:1.55}
+.dk .meta{font-family:var(--mono);font-size:11.5px;color:var(--teal);margin-top:2px}
+.dk .ft{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-top:1px dashed var(--line);margin-top:12px}
+.badge{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.02em}
+.meta{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
+.cover{position:absolute;inset:0;border-radius:14px;z-index:1}
+.read{position:relative;z-index:2;font-size:13px;color:var(--teal);border-bottom:1px solid var(--teal-b)}
+.read:hover{color:var(--hi);border-color:var(--hi)}
+
+.dk.ready{border-color:var(--amber-b)}
+.dk.ready:hover{transform:translateY(-3px);background:var(--ink3);border-color:var(--amber)}
+.dk.ready .slate{background:var(--amber);color:var(--on-amber);border-color:var(--amber)}
+.dk.ready .badge{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b)}
+.dk.ready .arr{font-family:var(--mono);color:var(--amber);opacity:.5;transition:.16s}
+.dk.ready:hover .arr{opacity:1;transform:translateX(3px)}
+.dk.soon .badge{background:var(--ink3);color:var(--mute)}
+.dk.soon h3{color:var(--paper2)}
+.dk.soon .arr{display:none}
+
+/* ── 다음 시리즈 ── */
+.series{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.sr{border:1px dashed var(--line2);border-radius:12px;padding:15px 18px}
+.sr b{display:block;font-size:15px;color:var(--paper2)}
+.sr span{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
+
+/* ── 조작키 ── */
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.key{display:flex;align-items:center;gap:14px;background:var(--ink2);border:1px solid var(--line);
+  border-radius:12px;padding:13px 16px;font-size:14.5px;color:var(--paper2)}
+kbd{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--amber);
+  background:var(--deep);border:1px solid var(--line2);border-bottom-width:3px;
+  border-radius:7px;padding:3px 10px;min-width:44px;text-align:center}
+:root[data-theme="light"] kbd{color:#f0c46a}
+
+footer{margin-top:72px;padding:28px 0 56px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:13px;color:var(--mute)}
+footer a{color:var(--paper2);border-bottom:1px solid var(--line2)}
+
+@media (max-width:640px){
+  .how{grid-template-columns:1fr}
+  .hero{padding:44px 0 34px}
+  .sec{margin-top:44px}
+  .brand .bs{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="../#home" aria-label="학습터 홈으로">
+      <svg viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1" y="2" width="32" height="9" rx="2" fill="#0c0d11" stroke="#3f4650"/>
+        <path d="M4 2 L11 11 M12 2 L19 11 M20 2 L27 11 M28 2 L33 8.5" stroke="#ece7dc" stroke-width="3.4"/>
+        <rect x="1" y="12" width="32" height="20" rx="2.5" fill="#0c0d11" stroke="#3f4650"/>
+        <line x1="4.5" y1="19" x2="21" y2="19" stroke="#f0a23c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.5" y1="24.5" x2="15" y2="24.5" stroke="#8b929d" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="27.5" cy="25.5" r="3.2" fill="none" stroke="#e5544b" stroke-width="1.8"/>
+      </svg>
+      <div><div class="bt">영상 제작 심화</div><div class="bs">필름잇다 기능반 학습터</div></div>
+    </a>
+    <div class="tog" role="group" aria-label="화면 모드">
+      <button type="button" data-set="light" aria-pressed="false">일반</button>
+      <button type="button" data-set="dark" aria-pressed="true">다크</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">Presentation · 수업용 슬라이드</div>
+    <h1>수업 시간에 띄우는<br>프레젠테이션</h1>
+    <p>학습터 강의를 교실 화면에 맞게 다시 짠 슬라이드입니다. 수업 때는 <b>프레젠테이션</b>을 띄우고, 복습할 때는 같은 번호의 <b>읽기 자료</b>를 엽니다.</p>
+    <div class="chips">
+      <a class="chip" href="../#home"><span class="m">←</span>학습터로 돌아가기</a>
+      <span class="chip"><span class="m">05</span>공개 5편 · 준비 중 4편</span>
+      <a class="chip" href="#keys"><span class="m">⌨</span>조작키 보기</a>
+    </div>
+  </header>
+
+  <div class="how">
+    <div>
+      <span class="lab">In class</span>
+      <h3>수업 때 — 프레젠테이션</h3>
+      <p>카드를 누르면 슬라이드가 열립니다. <b>F</b> 키로 전체화면, <b>N</b> 키로 교사 메모. 영상은 그 자리에서 재생되고 다음 장으로 넘기면 멈춥니다.</p>
+    </div>
+    <div>
+      <span class="lab">After class</span>
+      <h3>복습할 때 — 읽기 자료</h3>
+      <p>카드 아래 <b>읽기 자료</b>를 누르면 학습터의 같은 강의로 갑니다. 예시 영상과 표가 모두 들어 있습니다.</p>
+    </div>
+  </div>
+
+  <div class="sec"><span class="n">01</span><h2>기초 이론</h2><span class="c">9편</span></div>
+  <div class="grid">
+
+    <div class="dk ready">
+      <a class="cover" href="01-narrative/" aria-label="S#01 내러티브와 시나리오 프레젠테이션 열기"></a>
+      <div class="hdr"><span class="slate">S#01</span><span class="arr">→</span></div>
+      <h3>내러티브 &amp; 시나리오</h3>
+      <p>스토리와 플롯 · 씬·샷·테이크 · 3막 구조와 다섯 전환점</p>
+      <span class="meta">유튜브 3편</span>
+      <div class="ft"><span class="badge">공개</span><a class="read" href="../#t1">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk ready">
+      <a class="cover" href="02-mise-en-scene/" aria-label="S#02 미장센 프레젠테이션 열기"></a>
+      <div class="hdr"><span class="slate">S#02</span><span class="arr">→</span></div>
+      <h3>미장센</h3>
+      <p>공간 · 의상과 분장 · 인물 배치 · 조명과 색채</p>
+      <span class="meta">유튜브 10편</span>
+      <div class="ft"><span class="badge">공개</span><a class="read" href="../#t2">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk ready">
+      <a class="cover" href="03-shot-angle/" aria-label="S#03 촬영 구도와 앵글 프레젠테이션 열기"></a>
+      <div class="hdr"><span class="slate">S#03</span><span class="arr">→</span></div>
+      <h3>촬영 구도와 앵글</h3>
+      <p>숏 사이즈 · 카메라 앵글 · 카메라 움직임 · 180도 규칙</p>
+      <span class="meta">사진 8장 · 영상 1편</span>
+      <div class="ft"><span class="badge">공개</span><a class="read" href="../#t3">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk ready">
+      <a class="cover" href="04-lens-exposure/" aria-label="S#04 렌즈 · 노출 · 색온도 프레젠테이션 열기"></a>
+      <div class="hdr"><span class="slate">S#04</span><span class="arr">→</span></div>
+      <h3>렌즈 · 노출 · 색온도</h3>
+      <p>초점거리 · 노출 삼각형 · ND 필터 · 화이트 밸런스</p>
+      <span class="meta">영상 10편 · 사진 1장</span>
+      <div class="ft"><span class="badge">공개</span><a class="read" href="../#t4">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk ready">
+      <a class="cover" href="05-composition/" aria-label="S#05 화면구성과 해석 프레젠테이션 열기"></a>
+      <div class="hdr"><span class="slate">S#05</span><span class="arr">→</span></div>
+      <h3>화면구성과 해석</h3>
+      <p>선의 감정 · 3분할 · 프레임 속 프레임 · 여백</p>
+      <span class="meta">유튜브 7편 · 사진 4장</span>
+      <div class="ft"><span class="badge">공개</span><a class="read" href="../#t5">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk soon">
+      <div class="hdr"><span class="slate">S#06</span><span class="arr">→</span></div>
+      <h3>편집</h3>
+      <p>쿨레쇼프 효과 · 연속 편집 · 교차 편집 · 장면 전환</p>
+      <div class="ft"><span class="badge">준비 중</span><a class="read" href="../#t6">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk soon">
+      <div class="hdr"><span class="slate">S#07</span><span class="arr">→</span></div>
+      <h3>사운드</h3>
+      <p>다이어제틱 · 폴리와 ADR · 영화음악 · 무음</p>
+      <div class="ft"><span class="badge">준비 중</span><a class="read" href="../#t7">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk soon">
+      <div class="hdr"><span class="slate">S#08</span><span class="arr">→</span></div>
+      <h3>조명</h3>
+      <p>하드·소프트 · 3포인트 라이팅 · 하이키·로우키</p>
+      <div class="ft"><span class="badge">준비 중</span><a class="read" href="../#t8">읽기 자료 ↗</a></div>
+    </div>
+
+    <div class="dk soon">
+      <div class="hdr"><span class="slate">S#09</span><span class="arr">→</span></div>
+      <h3>장르 문법 치트시트</h3>
+      <p>같은 장면, 다른 장르 — 카메라 · 조명 · 편집 · 소리</p>
+      <div class="ft"><span class="badge">준비 중</span><a class="read" href="../#t9">읽기 자료 ↗</a></div>
+    </div>
+
+  </div>
+
+  <div class="sec"><span class="n">02</span><h2>다음 시리즈</h2><span class="c">기초 이론 뒤에 이어집니다</span></div>
+  <div class="series">
+    <div class="sr"><b>시나리오 작법</b><span>14강 · 준비 중</span></div>
+    <div class="sr"><b>심화 촬영</b><span>9강 · 준비 중</span></div>
+    <div class="sr"><b>현장 음향</b><span>7강 · 준비 중</span></div>
+    <div class="sr"><b>편집 심화</b><span>4강 · 준비 중</span></div>
+    <div class="sr"><b>컬러 그레이딩</b><span>4강 · 준비 중</span></div>
+  </div>
+
+  <div class="sec" id="keys"><span class="n">03</span><h2>조작키</h2><span class="c">슬라이드를 연 뒤 키보드로</span></div>
+  <div class="keys">
+    <div class="key"><kbd>← →</kbd>슬라이드 넘기기</div>
+    <div class="key"><kbd>F</kbd>전체화면</div>
+    <div class="key"><kbd>N</kbd>교사 메모 켜고 끄기</div>
+    <div class="key"><kbd>O</kbd>목차 — 눌러서 바로 이동</div>
+    <div class="key"><kbd>B</kbd>빈칸 정답 공개</div>
+    <div class="key"><kbd>T</kbd>타이머 시작 · 정지</div>
+    <div class="key"><kbd>P</kbd>이 장의 영상 재생 · 정지</div>
+    <div class="key"><kbd>G</kbd>사진에 3분할 격자</div>
+    <div class="key"><kbd>L</kbd>밝은 화면으로 바꾸기</div>
+    <div class="key"><kbd>Home</kbd>첫 장으로</div>
+  </div>
+
+  <footer>
+    <span>필름잇다 기능반 · 영상 제작 심화 프레젠테이션</span>
+    <span>최종 업데이트 2026-11-10 · <a href="../#home">학습터 홈</a></span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, btns=document.querySelectorAll('.tog button');
+  function paint(){var light=root.getAttribute('data-theme')==='light';
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String((b.dataset.set==='light')===light));});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    if(b.dataset.set==='light')root.setAttribute('data-theme','light');else root.removeAttribute('data-theme');
+    try{localStorage.setItem('fs.theme.v1',b.dataset.set);}catch(e){}
+    paint();});});
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -684,6 +684,14 @@ body.rail-on .ltoc{display:none}
 @media(max-width:560px){.paths{grid-template-columns:1fr}}
 /* 영상 제목 */
 .vid-title{margin:22px 0 8px;font-weight:700}
+
+/* 프레젠테이션 링크 (slides/) */
+.nav-ext{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;margin:2px 0 6px;
+  color:var(--paper2);font-size:14.3px;line-height:1.35;border:1px dashed var(--amber-b);transition:.14s}
+.nav-ext:hover{background:var(--amber-d);color:var(--hi);border-style:solid}
+.nav-ext .slate{color:var(--on-amber);background:var(--amber);border-color:var(--amber)}
+.nav-ext .nav-new{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--amber);
+  border:1px solid var(--amber-b);border-radius:4px;padding:2px 5px}
 </style>
 </head>
 <body>
@@ -721,6 +729,7 @@ body.rail-on .ltoc{display:none}
       <button type="button" data-theme-set="dark" aria-pressed="true"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16.3 12.4A7 7 0 0 1 7.6 3.7a7 7 0 1 0 8.7 8.7z"/></svg> 다크</button>
     </div>
     <a class="nav-home" id="navHome" href="#home"><span class="ic">▸</span> 홈 · 첫 화면</a>
+    <a class="nav-ext" href="slides/"><span class="slate">▶</span><span class="nav-t">수업용 프레젠테이션</span><span class="nav-new">NEW</span></a>
     <div class="nav-group"><div class="nav-head">기초 이론</div>
 <a class="nav-item" href="#t1" data-id="t1"><span class="slate">S#01</span><span class="nav-t">파트 1 — 내러티브 &amp; 시나리오</span></a>
 <a class="nav-item" href="#t2" data-id="t2"><span class="slate">S#02</span><span class="nav-t">파트 2 — 미장센</span></a>
@@ -873,7 +882,7 @@ body.rail-on .ltoc{display:none}
 <div class="path"><h3>입시 실기와 면접</h3><p>각 파트 끝의 '입시에서는 이렇게 나온다'를 보고, 총정리로 복습합니다.</p><div class="path-steps"><a href="#t1">파트 1</a><i>→</i><a href="#t2">파트 2</a><i>→</i><a href="#t5">파트 5</a><i>→</i><a href="#t6">파트 6</a><i>→</i><a href="#x1">영화의 이해 총정리</a></div></div>
 <div class="path"><h3>편집 프로그램 익히기</h3><p>쓰는 프로그램을 골라 처음부터 따라 하고, 편집 심화로 이어 갑니다.</p><div class="path-steps"><a href="#pp0">Premiere Pro</a><i>·</i><a href="#dv1">다빈치 리졸브</a><i>→</i><a href="#e1">편집 심화</a></div></div>
 <div class="path"><h3>시나리오 쓰기</h3><p>작법 개요에서 시작해 마지막 강의에서 내 시나리오를 완성합니다.</p><div class="path-steps"><a href="#w0">시나리오 작법 개요</a><i>→</i><a href="#w4">3막 구조</a><i>→</i><a href="#w12">내 시나리오 완성하기</a></div></div>
-<div class="path"><h3>현장 녹음 맡기</h3><p>영화 사운드의 기초를 보고, 현장 음향 일곱 강을 차례로 익힙니다.</p><div class="path-steps"><a href="#t7">파트 7 사운드</a><i>→</i><a href="#s1">현장 음향 1강</a><i>→</i><a href="#s3">붐 오퍼레이터</a></div></div></div>
+<div class="path"><h3>현장 녹음 맡기</h3><p>영화 사운드의 기초를 보고, 현장 음향 일곱 강을 차례로 익힙니다.</p><div class="path-steps"><a href="#t7">파트 7 사운드</a><i>→</i><a href="#s1">현장 음향 1강</a><i>→</i><a href="#s3">붐 오퍼레이터</a></div></div><div class="path"><h3>수업 시간에 띄우기</h3><p>강의를 교실 화면에 맞게 다시 짠 프레젠테이션입니다. 같은 번호의 강의와 짝을 이룹니다.</p><div class="path-steps"><a href="slides/">프레젠테이션 목록</a><i>→</i><a href="slides/01-narrative/">S#01 내러티브</a></div></div></div>
   </section>
 
   <section class="home-sec">
