@@ -15,7 +15,7 @@ const $=id=>document.getElementById(id);
 stage.insertAdjacentHTML('beforeend',
   '<a id="hubbtn" href="../" title="프레젠테이션 목록으로">☰&nbsp; 프레젠테이션 목록</a>'+
   '<div id="bar"></div><div id="num"></div>'+
-  '<div id="help"><a href="../">← 목록</a>&nbsp; · &nbsp;← → 이동 · F 전체화면 · N 메모 · O 목차 · B 빈칸 · L 밝게</div>');
+  '<div id="help"><a href="../">← 목록</a>&nbsp; · &nbsp;← → 이동 · F 전체화면 · N 메모 · O 목차 · B 빈칸 · L 다크</div>');
 document.body.insertAdjacentHTML('beforeend',
   '<div id="notes"></div>'+
   '<div id="ov"><h2>슬라이드 목차 — 클릭하면 이동합니다 (O 또는 Esc로 닫기)</h2><div id="ovg"></div></div>'+
