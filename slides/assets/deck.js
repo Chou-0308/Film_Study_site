@@ -21,7 +21,13 @@ document.body.insertAdjacentHTML('beforeend',
   '<div id="ov"><h2>슬라이드 목차 — 클릭하면 이동합니다 (O 또는 Esc로 닫기)</h2><div id="ovg"></div></div>'+
   '<div id="lb"><img alt=""></div>');
 
-try{if(localStorage.getItem('fs.slides.light')==='1')document.body.classList.add('light');}catch(e){}
+/* 화면 모드: 덱에 <body data-theme="light">가 있으면 그 덱은 밝은 화면으로 시작하고,
+   L 키로 바꾼 설정은 그 덱에만 기억합니다. 나머지 덱은 공통 설정을 씁니다. */
+const DEF=document.body.dataset.theme||'';
+const TKEY=DEF?'fs.slides.theme.'+location.pathname:'fs.slides.light';
+(function(){let v=null;try{v=localStorage.getItem(TKEY);}catch(e){}
+  const light=v!==null?v==='1':DEF==='light';
+  document.body.classList.toggle('light',light);})();
 
 function fit(){
   const vw=document.documentElement.clientWidth||innerWidth,vh=document.documentElement.clientHeight||innerHeight;
@@ -133,7 +139,7 @@ addEventListener('keydown',e=>{
   else if(k==='b'||k==='B')document.body.classList.toggle('hideblank');
   else if(k==='o'||k==='O')$('ov').classList.toggle('on');
   else if(k==='g'||k==='G')document.body.classList.toggle('grid');
-  else if(k==='l'||k==='L'){const on=document.body.classList.toggle('light');try{localStorage.setItem('fs.slides.light',on?'1':'0');}catch(_){}}
+  else if(k==='l'||k==='L'){const on=document.body.classList.toggle('light');try{localStorage.setItem(TKEY,on?'1':'0');}catch(_){}}
   else if(k==='p'||k==='P'){
     const v=slides[cur].querySelector('video');
     if(v){v.paused?v.play():v.pause();}
