@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S#05 화면구성과 해석 — 프레젠테이션 | 필름잇다 기능반</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314161b'/%3E%3Cpath d='M6 20h52v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z' fill='%23f0a23c'/%3E%3Cpath d='M6 8h52v12H6z' fill='%23ece7dc'/%3E%3Cpath d='M14 8l-6 12h8l6-12zM28 8l-6 12h8l6-12zM42 8l-6 12h8l6-12z' fill='%2314161b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/deck.css">
+<style>
+/* 이 덱 전용 */
+.sv{width:100%;height:100%}
+.lines5{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-content:center}
+.ln5{background:var(--bg2);border:1.5px solid var(--line);border-radius:16px;padding:18px 20px 22px;display:flex;flex-direction:column}
+.ln5 svg{width:100%;height:150px;margin-bottom:10px}
+.ln5 b{font-size:30px;color:var(--hi)}
+.ln5 p{font-size:21px;color:var(--tx2);line-height:1.45;margin-top:6px}
+.ln5 em{font-style:normal;margin-top:auto;padding-top:12px;font-size:19px;color:var(--teal);border-top:1.5px dashed var(--line2)}
+.ln5 .s{stroke:var(--amber);stroke-width:7;fill:none;stroke-linecap:round}
+.ln5 .f{stroke:var(--line2);stroke-width:2;fill:none}
+.thirds{flex:1;display:grid;grid-template-columns:1000px 1fr;gap:40px;align-items:center;min-height:0}
+.thirds .ph .fr{width:1000px;height:412px}
+.thirds .side3{display:flex;flex-direction:column;gap:16px}
+.thirds .side3 p{font-size:25px;color:var(--tx2);line-height:1.55}
+.thirds .side3 .col{padding:22px 26px}
+.thirds .side3 .col h3{font-size:28px;margin-bottom:8px}
+.thirds .side3 .col p{font-size:23px}
+.room{flex:1;display:grid;grid-template-columns:760px 1fr;gap:40px;align-items:center;min-height:0}
+.room svg text{font-family:var(--sans)}
+.trio{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-content:center}
+.trio .ph .fr{aspect-ratio:1600/660}
+.trio .ph figcaption{font-size:21px}
+.sw4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;width:100%}
+.sw4 .c{background:var(--bg2);border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.sw4 .c i{display:flex;height:130px}
+.sw4 .c i span{flex:1}
+.sw4 .c div{padding:18px 22px}
+.sw4 .c b{display:block;font-size:30px;color:var(--hi)}
+.sw4 .c p{font-size:21px;color:var(--tx2);line-height:1.45;margin-top:4px}
+.sw4 .c em{display:block;font-style:normal;font-size:20px;color:var(--teal);margin-top:10px}
+</style>
+</head>
+<body>
+<div id="stage">
+
+
+<!-- 01 표지 -->
+<section class="slide" data-title="표지" data-note="F 전체화면 · N 메모. 사진이 있는 장에서는 G 키로 3분할 격자를 켜고 끕니다. 유튜브는 클릭하면 그 자리에서 재생, 넘기면 자동 정지.">
+  <div class="cover">
+    <div>
+      <div class="kick">필름잇다 기능반 · 기초 이론 · S#05</div>
+      <h1>화면구성과<br>해석</h1>
+      <p>만드는 눈과 읽는 눈을<br>동시에 기른다</p>
+      <div class="hint">F 전체화면 · → 넘기기 · O 목차 · N 교사 메모 · G 3분할 격자</div>
+    </div>
+    <div class="slateb" aria-hidden="true">
+      <div class="stripes"></div>
+      <div class="grid">
+        <div><span class="k">SCENE</span><span class="v">05</span></div>
+        <div><span class="k">SHOT</span><span class="v">01</span></div>
+        <div><span class="k">TAKE</span><span class="v">01</span></div>
+        <div class="prod"><span class="k">PROD.</span><span class="v">프레임 안의 질서</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 질문 -->
+<section class="slide" data-title="오늘의 질문" data-note="2분. 같은 친구를 가운데 vs 한쪽으로 찍은 사진을 머릿속에 그려 보게 합니다. 어느 쪽이 '이야기가 있어' 보이는가?">
+  <div class="hd"><div class="sl">S#05 · 오늘의 질문</div><h1>사진 속 친구를 어디에 놓을까?</h1></div>
+  <div class="body center">
+    <div class="qbox">
+      <p><b class="tl">A</b> &nbsp;화면 <b>정가운데</b>에 반듯하게</p>
+      <p style="margin-top:22px"><b class="am">B</b> &nbsp;한쪽으로 비켜서, 바라보는 쪽에 <b>여백</b>을 두고</p>
+      <div class="punch">정답은 없다 — 다만 <u>느낌이 전혀 다르다</u></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 흐름 -->
+<section class="slide" data-title="오늘의 흐름" data-note="2차시라면 1교시 = 선 · 3분할 · 시선 유도 · 프레임, 2교시 = 여백 · 대칭 · 색 + 분석 실습.">
+  <div class="hd"><div class="sl">S#05 · 오늘의 흐름</div><h1>오늘 배울 네 가지</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">01</span><h3>선의 감정</h3><p>수직 · 수평 · 사선 · 곡선 · 수렴선</p><div class="ex">〈기생충〉 계단</div></div>
+      <div class="cd"><span class="n">02</span><h3>구도의 법칙</h3><p>3분할 · 시선 유도 · 프레임 속 프레임</p><div class="ex">G 키 = 격자</div></div>
+      <div class="cd"><span class="n">03</span><h3>여백과 균형</h3><p>헤드룸 · 룩킹룸 · 대칭과 비대칭</p><div class="ex">웨스 앤더슨</div></div>
+      <div class="cd"><span class="n">04</span><h3>색과 분석</h3><p>색채 대비 · 장면 한 컷 읽기</p><div class="ex">〈매드맥스〉 〈기생충〉</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 정의 -->
+<section class="slide" data-title="화면구성이란" data-note="1분. 보기 좋은 그림이 아니라 '시선을 이끄는 언어'라는 점.">
+  <div class="hd"><div class="sl">01 · 화면구성 Composition</div><h1>이차원 프레임에 삼차원 현실을 놓는 법</h1></div>
+  <div class="body" style="justify-content:center">
+    <table>
+      <tr><th style="width:20%">구분</th><th>나쁜 구성</th><th>좋은 구성</th></tr>
+      <tr><td class="c0">관객 경험</td><td>시선이 헤맨다 — 무엇을 봐야 할지 모름</td><td>자연스럽게 <b>핵심으로</b> 시선이 간다</td></tr>
+      <tr><td class="c0">정보 전달</td><td>중요한 것과 아닌 것이 구분 안 됨</td><td>중요도에 따라 <b>시각적 위계</b>가 분명</td></tr>
+      <tr><td class="c0">감정 전달</td><td>분위기가 느껴지지 않음</td><td>구성 자체가 <b>감정</b>을 만든다</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 05 선 -->
+<section class="slide" data-title="선이 감정을 만든다" data-note="2분. 교실 안에서 각 선을 찾아보게 합니다 — 창틀(수직), 칠판 아래(수평), 복도(수렴선).">
+  <div class="hd"><div class="sl">02 · 선형 요소</div><h1>선이 감정을 만든다</h1></div>
+  <div class="body">
+    <div class="lines5">
+      <div class="ln5"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="6" class="f"/><path d="M100 22 V128" class="s"/></svg><b>수직선</b><p>경직 · 강인함 · 권위</p><em>고층 빌딩 · 서 있는 왕</em></div>
+      <div class="ln5"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="6" class="f"/><path d="M22 90 H178" class="s"/></svg><b>수평선</b><p>안정 · 평온 · 고요 · 죽음</p><em>누운 인물 · 바다</em></div>
+      <div class="ln5"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="6" class="f"/><path d="M28 126 L172 24" class="s"/></svg><b>사선</b><p>활력 · 긴장 · 역동 · 불안</p><em>액션 · 추격 · 공포</em></div>
+      <div class="ln5"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="6" class="f"/><path d="M24 110 C70 20 120 140 176 40" class="s"/></svg><b>곡선</b><p>부드러움 · 유연함 · 자연</p><em>강물 · 구불구불한 길</em></div>
+      <div class="ln5"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="6" class="f"/><path d="M20 140 L100 62 L180 140 M60 140 L100 62 L140 140" class="s" style="stroke-width:5"/><circle cx="100" cy="62" r="7" style="fill:var(--rec)"/></svg><b>수렴선</b><p>깊이감 · 원근 · 방향성</p><em>철로 · 복도 · 도로</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 기생충 선 -->
+<section class="slide" data-title="〈기생충〉 수평선과 사선" data-note="한국어 해석 영상. 반지하 창문의 수평선(고정된 계층) + 위로 뻗은 계단의 사선(상승 욕망).">
+  <div class="hd"><div class="sl">02 · 선형 요소 · 예시</div><h1>〈기생충〉 — 화면 속 또 하나의 선</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">수평선 + 사선</span>
+        <h3>반지하 창문의 <span class="tl">수평선</span>과 계단의 <span class="am">사선</span></h3>
+        <p>움직일 수 없는 <b>계층의 고정성</b>과, 그 위로 오르려는 <b>상승 욕망</b>을 한 화면에 동시에.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="B7V_Ylfpgr4" data-title="〈기생충〉 영화에서 보이지 않았던 또 하나의 선 — 해석"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 3분할 -->
+<section class="slide" data-title="3분할 법칙" data-note="격자가 켜진 상태로 열립니다(G로 끄기). 주인공이 교차점 근처에 있는지 학생에게 찾게 하세요. 사진 클릭 = 크게.">
+  <div class="hd"><div class="sl">03 · 구도의 법칙 · 3분할 Rule of Thirds</div><h1>아홉 칸, 네 개의 교차점</h1></div>
+  <div class="body">
+    <div class="thirds">
+      <figure class="ph g3 always"><div class="fr"><img src="../../img-ext/0a8a1578af39.jpg" alt="〈마션〉 롱숏에 3분할 격자"></div><figcaption><b>예시</b>〈마션〉 — 인물은 어느 칸에 있을까?</figcaption></figure>
+      <div class="side3">
+        <p>화면을 가로 · 세로 <b>3등분</b> — 교차점 근처에 피사체를 놓는다</p>
+        <div class="col a"><h3>왜 효과적일까</h3><p>사람의 눈은 정가운데보다 <b>살짝 비켜난 곳</b>을 더 자연스럽고 역동적으로 느낀다</p></div>
+        <button class="gbtn" type="button">격자 켜기 · 끄기 (G)</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 정중앙 -->
+<section class="slide" data-title="규칙을 깨는 정중앙" data-note="영어 영상(자막 권장). 규칙을 아는 것보다 '언제 어떻게 깰지' 아는 것이 진짜 실력.">
+  <div class="hd"><div class="sl">03 · 구도의 법칙 · 정중앙</div><h1>규칙을 일부러 깨는 정중앙 배치</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">Center Framing</span>
+        <h3><span class="tl">3분할</span> = 자연스러운 움직임 · 여백<br><span class="am">정중앙</span> = 대결 · 긴장 · 신성함</h3>
+        <ul><li>웨스 앤더슨 — 정중앙으로 자기만의 세계</li><li>스탠리 큐브릭 — 클라이맥스에서 즐겨</li></ul>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="rSW_20EtyaE" data-title="Using the Rule of Thirds in Filmmaking — 영어 해설"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 시선 유도 -->
+<section class="slide" data-title="시선 유도" data-note="1분. 네 가지를 영화 포스터 한 장에서 찾아보게 하면 좋습니다.">
+  <div class="hd"><div class="sl">03 · 구도의 법칙 · Leading Lines</div><h1>관객의 눈을 데려가는 네 가지 길</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">LINE</span><h3>수렴하는 선</h3><p>철로 · 도로가 화면 깊숙이 사라지며 시선을 끌어당긴다</p></div>
+      <div class="cd"><span class="n">LIGHT</span><h3>빛의 방향</h3><p>눈은 <b>밝은 곳</b>으로 먼저 간다</p></div>
+      <div class="cd"><span class="n">COLOR</span><h3>색채 대비</h3><p>주변과 <b>다른 색</b>의 피사체에 시선이 모인다</p></div>
+      <div class="cd"><span class="n">MOTION</span><h3>움직임</h3><p>멈춘 배경 속 <b>움직이는 것</b>으로 시선이 옮겨 간다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 프레임 속 프레임 -->
+<section class="slide" data-title="프레임 속 프레임" data-note="영어 분석 영상(구도 · 색 · 조명). 반지하 창문 장면 부분을 찾아서 보여 주세요.">
+  <div class="hd"><div class="sl">03 · 구도의 법칙 · Frame within Frame</div><h1>창문 · 문틀로 한 번 더 가둔다</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm">
+          <tr><th style="width:34%">효과</th><th>설명</th></tr>
+          <tr><td class="c0">시선 집중</td><td>이중 프레임이 안쪽으로 시선을 강제</td></tr>
+          <tr><td class="c0">감금 · 고립</td><td>인물이 틀 안에 <b>갇힌</b> 느낌</td></tr>
+          <tr><td class="c0">관음</td><td>몰래 엿보는 듯한 느낌</td></tr>
+          <tr><td class="c0">거리</td><td>인물 사이의 심리적 거리</td></tr>
+        </table>
+      </div>
+      <div class="ytw" style="flex-basis:760px"><div class="yt" data-vid="V4wIrtUVbZA" data-title="Composition, Color, &amp; Lighting Analysis — Parasite"></div><p class="note">〈기생충〉 반지하 창문 — 기택 가족의 <b>제한된 시야</b>와 갇힌 삶</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 여백 -->
+<section class="slide" data-title="헤드룸 · 룩킹룸 · 노즈룸" data-note="2분. 학생 한 명을 옆으로 세우고 휴대폰 화면으로 직접 보여 주세요. 바라보는 쪽에 여백!">
+  <div class="hd"><div class="sl">04 · 여백의 언어</div><h1>헤드룸 · 룩킹룸 · 노즈룸</h1></div>
+  <div class="body">
+    <div class="room">
+      <svg class="sv" viewBox="0 0 760 520" aria-label="헤드룸과 룩킹룸 그림">
+        <rect x="20" y="20" width="720" height="480" rx="10" style="fill:var(--bg2);stroke:var(--line2);stroke-width:3"/>
+        <rect x="20" y="20" width="720" height="70" style="fill:rgba(147,170,198,.16)"/>
+        <rect x="330" y="90" width="410" height="410" style="fill:rgba(232,182,74,.12)"/>
+        <!-- 옆모습 인물 -->
+        <path d="M150 500 C150 380 190 330 240 320 L240 300 C200 290 180 250 180 200 C180 140 220 95 270 95 C320 95 345 130 345 175 L362 200 L345 210 C345 250 330 285 300 300 L300 320 C350 330 390 380 390 500 Z" style="fill:var(--tx2)"/>
+        <circle cx="318" cy="170" r="7" style="fill:var(--bg)"/>
+        <path d="M372 190 H700" style="stroke:var(--amber);stroke-width:4;stroke-dasharray:14 10"/>
+        <path d="M690 180 L705 190 L690 200" style="stroke:var(--amber);stroke-width:4;fill:none"/>
+        <text x="400" y="60" font-size="28" font-weight="800" style="fill:var(--teal)">헤드룸 — 머리 위 여백</text>
+        <text x="450" y="290" font-size="28" font-weight="800" style="fill:var(--amber)">룩킹룸 · 노즈룸</text>
+        <text x="450" y="328" font-size="22" style="fill:var(--tx2)">바라보는 쪽의 여백</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="col" style="padding:22px 28px"><h3>헤드룸</h3><p style="font-size:24px">너무 많으면 어색, 너무 없으면 답답</p></div>
+        <div class="col a" style="padding:22px 28px"><h3>룩킹룸 · 노즈룸</h3><p style="font-size:24px">있으면 여유 · 기대감<br>없애면 <b>압박 · 절박함</b></p></div>
+        <p style="font-size:23px;color:var(--tx2)">오른쪽을 본다면 → 오른쪽에 더 많은 공간</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 룩킹룸 영상 -->
+<section class="slide" data-title="룩킹룸 — 영상과 예시" data-note="영어 튜토리얼(짧음, 화면 예시가 많아 자막 없이도 이해됩니다). 〈살인의 추억〉 예시는 말로 덧붙이세요.">
+  <div class="hd"><div class="sl">04 · 여백 · 예시</div><h1>여백을 일부러 없애면 — 절박함</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈살인의 추억〉 2003</span>
+        <h3>범인을 쫓는 장면 — 룩킹룸을 <span class="rd">줄여</span> 막힌 느낌</h3>
+        <p>반대로 도입부 들판 장면에서는 <b>넓은 헤드룸</b>으로 인물의 고독을 보여 줍니다.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="w3Shy7VTqeQ" data-title="Looking Room, Lead Room &amp; Short Siding — 영어 튜토리얼"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 대칭 -->
+<section class="slide" data-title="대칭과 비대칭" data-note="영어 영상(StudioBinder). 웨스 앤더슨의 장난감 집 같은 대칭 — 인위적 세계관과 통제된 감정.">
+  <div class="hd"><div class="sl">05 · 대칭과 비대칭</div><h1>완벽한 대칭, 의도된 불균형</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm">
+          <tr><th style="width:28%">구분</th><th>느낌</th><th>대표</th></tr>
+          <tr><td class="c0 am">대칭</td><td>균형 · 안정 · 권위 · 인위적 완벽함</td><td>웨스 앤더슨</td></tr>
+          <tr><td class="c0 tl">비대칭</td><td>역동 · 불안 · 자연스러움</td><td>봉준호 · 박찬욱</td></tr>
+        </table>
+        <p style="margin-top:22px">〈그랜드 부다페스트 호텔〉 — 모든 장면이 <b>장난감 집처럼</b> 반듯하게</p>
+      </div>
+      <div class="ytw" style="flex-basis:760px"><div class="yt" data-vid="q-XoLPmZZl4" data-title="Wes Anderson Symmetry — StudioBinder"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 색채 대비 -->
+<section class="slide" data-title="색채 대비 네 가지" data-note="1분. 보색 대비(주황 ↔ 파랑)는 할리우드 포스터에서 가장 흔한 조합입니다.">
+  <div class="hd"><div class="sl">06 · 색채 구성</div><h1>화면을 채우는 감정의 팔레트</h1></div>
+  <div class="body center">
+    <div class="sw4">
+      <div class="c"><i><span style="background:#e0642b"></span><span style="background:#2b6bb0"></span></i><div><b>보색 대비</b><p>반대색을 나란히</p><em>강렬한 긴장 · 시선 집중</em></div></div>
+      <div class="c"><i><span style="background:#c9a23a"></span><span style="background:#d8833a"></span><span style="background:#b8652e"></span></i><div><b>유사색 조화</b><p>비슷한 계열의 색</p><em>안정감 · 통일된 분위기</em></div></div>
+      <div class="c"><i><span style="background:#1d3b5c"></span><span style="background:#2f5f8f"></span><span style="background:#6f9ccc"></span><span style="background:#b9d1ea"></span></i><div><b>단색 조화</b><p>한 색의 명암만</p><em>몽환적 · 세련된 느낌</em></div></div>
+      <div class="c"><i><span style="background:linear-gradient(90deg,#5b8fd6,#f0a24a)"></span></i><div><b>색온도 대비</b><p>차가운 파랑 ↔ 따뜻한 주황</p><em>과거 ↔ 현재 · 현실 ↔ 환상</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 매드맥스 -->
+<section class="slide" data-title="〈매드맥스〉 보색 대비" data-note="공식 예고편(2분 30초). 처음 30초만으로도 오렌지 ↔ 파랑 대비가 충분히 보입니다. 액션 장면 포함.">
+  <div class="hd"><div class="sl">06 · 색채 · 예시</div><h1>〈매드맥스: 분노의 도로〉 2015</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">보색 대비</span>
+        <h3><span style="color:#f08a3a">오렌지색 사막</span>과<br><span style="color:#6fa0e8">파란 하늘</span></h3>
+        <p>두 반대색의 충돌이 영화 전체의 <b>에너지</b>를 만듭니다.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="hEJnMQG9ev8" data-title="〈매드맥스: 분노의 도로〉 공식 예고편"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 시각적 스토리텔링 -->
+<section class="slide" data-title="화면 구성 = 시각적 스토리텔링" data-note="1분. 다음 장의 〈기생충〉 분석이 이 표를 그대로 적용한 것입니다.">
+  <div class="hd"><div class="sl">07 · 시각적 스토리텔링</div><h1>화면 구성은 감독의 언어</h1></div>
+  <div class="body" style="justify-content:center">
+    <table>
+      <tr><th style="width:28%">구성 요소</th><th>전달하는 것</th></tr>
+      <tr><td class="c0">인물 위치</td><td>권력 관계 · 심리 상태</td></tr>
+      <tr><td class="c0">공간의 크기</td><td>인물의 고독함 · 위압감</td></tr>
+      <tr><td class="c0">선의 방향</td><td>긴장 · 이완 · 방향성</td></tr>
+      <tr><td class="c0">색채</td><td>감정 · 주제 · 시간</td></tr>
+      <tr><td class="c0">여백</td><td>심리적 여유 · 압박</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 17 기생충 계단 분석 -->
+<section class="slide" data-title="분석 · 〈기생충〉 계단" data-note="영어 분석 영상(In Depth Cine). 실습 직전 모범 답안 — 표를 한 줄씩 읽고 바로 실습으로.">
+  <div class="hd"><div class="sl">분석 실습 · 모범 답안</div><h1>〈기생충〉 계단 장면 — 다섯 요소로 읽기</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm">
+          <tr><th style="width:30%">요소</th><th>분석</th></tr>
+          <tr><td class="c0">선</td><td>계단의 사선 = 오르려는 욕망과 그 한계</td></tr>
+          <tr><td class="c0">수직 · 수평</td><td>위로 갈수록 밝고 넓게, 아래로 갈수록 어둡고 좁게</td></tr>
+          <tr><td class="c0">프레임 속 프레임</td><td>창문 = 반지하 가족의 제한된 세계</td></tr>
+          <tr><td class="c0">색채</td><td>저택의 황금색 ↔ 반지하의 차갑고 어두운 색</td></tr>
+          <tr><td class="c0">인물 배치</td><td>상류층은 늘 위, 하류층은 늘 아래</td></tr>
+        </table>
+      </div>
+      <div class="ytw" style="flex-basis:640px"><div class="yt" data-vid="VQ9aElC-mUk" data-title="Parasite: Cinematography Of A Modern Classic"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 퀴즈 -->
+<section class="slide" data-title="퀴즈 · 무슨 구성?" data-blank="1" data-note="빈칸 가린 채 시작 — 답을 듣고 B.">
+  <div class="hd"><div class="sl">확인 퀴즈</div><h1>어떤 화면 구성일까?</h1></div>
+  <div class="body center">
+    <div class="qz">
+      <div class="qi"><span class="n">Q1</span><p>복도 끝으로 모이는 선들이 시선을 끌어당긴다</p><span class="blank">수렴선</span></div>
+      <div class="qi"><span class="n">Q2</span><p>창문 틀 안에 인물을 한 번 더 가둔다</p><span class="blank">프레임 속 프레임</span></div>
+      <div class="qi"><span class="n">Q3</span><p>오른쪽을 보는 인물 — 오른쪽에 공간을 둔다</p><span class="blank">룩킹룸</span></div>
+      <div class="qi"><span class="n">Q4</span><p>주황 사막과 파란 하늘을 나란히</p><span class="blank">보색 대비</span></div>
+    </div>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 19 사진 분석 실습 -->
+<section class="slide" data-title="실습 · 사진 세 장 분석" data-note="G 키(또는 버튼)로 격자를 켜고 함께 봅니다. 사진 클릭 = 크게. 조별로 한 장씩 맡아 다섯 요소(선 · 3분할 · 여백 · 대칭 · 색)를 씁니다.">
+  <div class="hd"><div class="sl">실습</div><h1>이 장면들은 어떻게 구성되었나</h1></div>
+  <div class="body">
+    <div class="trio">
+      <figure class="ph g3"><div class="fr"><img src="../../img-ext/7b1fbd1456a4.jpg" alt="실습 사진 1"></div><figcaption><b>1조</b>〈장고: 분노의 추적자〉</figcaption></figure>
+      <figure class="ph g3"><div class="fr"><img src="../../img-ext/bb3f3ab86a32.jpg" alt="실습 사진 2"></div><figcaption><b>2조</b>〈원더 우먼〉</figcaption></figure>
+      <figure class="ph g3"><div class="fr"><img src="../../img-ext/c7d47e584806.jpg" alt="실습 사진 3"></div><figcaption><b>3조</b>〈유주얼 서스펙트〉</figcaption></figure>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;justify-content:center;margin-top:10px">
+      <button class="gbtn" type="button">3분할 격자 켜기 · 끄기 (G)</button>
+      <span style="font-size:23px;color:var(--tx2)">선 · 3분할 · 여백 · 대칭 · 색 — 다섯 칸을 한 문장씩</span>
+    </div>
+  </div>
+</section>
+
+<!-- 20 타이머 -->
+<section class="slide" data-title="⏱ 실습 10분" data-note="T 시작 · 정지, R 처음부터. 끝나면 조별 발표 — 발표할 때 O 키로 19장으로 돌아가 사진을 띄우세요.">
+  <div class="hd"><div class="sl">실습</div><h1>⏱ 사진 한 장, 다섯 요소</h1></div>
+  <div class="body center">
+    <div class="timer" data-min="10"><div class="tval">10:00</div><div class="tstate">대기</div></div>
+    <div class="tmarks"><div class="tmark"><b>05:00</b>선 · 3분할 · 여백</div><div class="tmark"><b>02:00</b>대칭 · 색까지</div><div class="tmark"><b>00:00</b>발표</div></div>
+    <div class="thint"><b>T</b> 시작 · 정지 &nbsp;·&nbsp; <b>R</b> 처음부터 &nbsp;·&nbsp; 숫자를 클릭해도 됩니다</div>
+  </div>
+</section>
+
+<!-- 21 입시 -->
+<section class="slide" data-title="입시 체크리스트" data-note="'이 장면의 화면 구성을 분석하라' 또는 '이 주제를 표현하는 장면을 구성하라' 유형이 자주 나옵니다.">
+  <div class="hd"><div class="sl">입시에서는 이렇게 나온다</div><h1>“이 장면의 화면 구성을 분석하라”</h1></div>
+  <div class="body center">
+    <ul class="chk">
+      <li><b>3분할 법칙</b>을 적용한 구도를 그릴 수 있다</li>
+      <li><b>선 다섯 가지</b>와 각각의 심리 효과</li>
+      <li><b>프레임 속 프레임</b>의 효과</li>
+      <li><b>헤드룸 · 룩킹룸</b>의 의도적 활용</li>
+      <li><b>대칭 · 비대칭</b>의 차이</li>
+      <li>영화 한 장면을 보고 <b>구성 요소</b>를 분석</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 22 정리 -->
+<section class="slide" data-title="오늘의 정리" data-blank="1" data-note="빈칸 가린 채 시작 — 먼저 묻고 B.">
+  <div class="hd"><div class="sl">정리</div><h1>오늘의 정리</h1></div>
+  <div class="body center">
+    <ol class="recap">
+      <li>사선은 <span class="blank">긴장</span>, 수평선은 <span class="blank">안정</span></li>
+      <li>화면을 9칸으로 나눠 교차점에 = <span class="blank">3분할</span> 법칙</li>
+      <li>바라보는 쪽의 여백 = <span class="blank">룩킹룸</span></li>
+      <li>반대색을 나란히 = <span class="blank">보색 대비</span></li>
+    </ol>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 23 다음 -->
+<section class="slide" data-title="다음 시간 · 편집" data-note="1분. 좋은 구성으로 찍었다면, 이제 어떻게 이을까.">
+  <div class="hd"><div class="sl">다음 시간</div><h1>잘 찍었다면, 이제 어떻게 이을까</h1></div>
+  <div class="body center">
+    <div class="next">
+      <div class="col a"><h3>다음 시간 · S#06 편집</h3><ul><li>쿨레쇼프 효과</li><li>연속 편집 · 교차 편집</li><li>장면 전환의 문법</li></ul></div>
+      <div class="col"><h3>복습</h3><ul><li>학습터 <b>기초 이론 · S#05</b> 읽기</li><li>좋아하는 영화 포스터 한 장을 다섯 요소로</li><li>휴대폰 카메라 <b>격자 기능</b> 켜 두기</li></ul></div>
+    </div>
+    <div class="ft" style="margin-top:34px"><a href="../../#t5" style="color:var(--teal)">학습터 S#05 읽기 자료 열기 ↗</a> &nbsp;·&nbsp; <a href="../" style="color:var(--teal)">프레젠테이션 목록 ↗</a></div>
+  </div>
+</section>
+
+<!-- 24 부록 -->
+<section class="slide" data-title="부록 · 핵심 용어" data-note="질문이 나올 때 O 키로 바로 여세요.">
+  <div class="hd"><div class="sl">부록</div><h1>핵심 용어 한눈에</h1></div>
+  <div class="body">
+    <div class="gl">
+      <div class="gi"><b>화면구성</b><span>프레임 안에 시각 요소를 의미 있게 배치</span></div>
+      <div class="gi"><b>3분할 법칙</b><span>9칸의 교차점에 피사체를</span></div>
+      <div class="gi"><b>시선 유도</b><span>선 · 빛 · 색 · 움직임으로 시선을 이끈다</span></div>
+      <div class="gi"><b>프레임 속 프레임</b><span>창문 · 문틀로 한 번 더 감싸기</span></div>
+      <div class="gi"><b>헤드룸 · 룩킹룸</b><span>머리 위 여백 · 바라보는 쪽 여백</span></div>
+      <div class="gi"><b>소실점</b><span>수렴하는 선이 만나는 점 = 깊이감</span></div>
+      <div class="gi"><b>대칭 구성</b><span>좌우가 같다 = 안정 · 권위</span></div>
+      <div class="gi"><b>비대칭 구성</b><span>불균형 = 역동 · 자연스러움</span></div>
+      <div class="gi"><b>보색 대비</b><span>반대색 배치 = 강렬한 긴장</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="../assets/deck.js"></script>
+</body>
+</html>
