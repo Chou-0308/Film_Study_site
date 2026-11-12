@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S#09 장르 문법 치트시트 — 프레젠테이션 | 필름잇다 기능반</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314161b'/%3E%3Cpath d='M6 20h52v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z' fill='%23f0a23c'/%3E%3Cpath d='M6 8h52v12H6z' fill='%23ece7dc'/%3E%3Cpath d='M14 8l-6 12h8l6-12zM28 8l-6 12h8l6-12zM42 8l-6 12h8l6-12z' fill='%2314161b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/deck.css">
+<style>
+/* 이 덱 전용 */
+.gs{flex:1;display:grid;grid-template-columns:960px 1fr;gap:32px;min-height:0;align-items:center}
+.gs .scr{width:960px;height:540px;position:relative;overflow:hidden;border-radius:14px;border:3px solid var(--line2);background:#111}
+.gs .scr svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,.7,.2,1),filter .7s;transform-origin:50% 55%}
+.gs .scr .bgL{transition:filter .7s}
+.gs .ov{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s}
+.gs .tint{mix-blend-mode:multiply}
+.gs .vig{background:radial-gradient(ellipse at 50% 55%,transparent 30%,rgba(0,0,0,.85) 80%)}
+.gs .blinds{background:repeating-linear-gradient(-28deg,rgba(0,0,0,.72) 0 26px,transparent 26px 50px)}
+.gs .rain{background:repeating-linear-gradient(100deg,transparent 0 22px,rgba(220,230,255,.18) 22px 24px);animation:rain .5s linear infinite}
+@keyframes rain{to{background-position:-12px 60px}}
+.gs .speed{background:repeating-linear-gradient(0deg,transparent 0 30px,rgba(255,255,255,.25) 30px 32px,transparent 32px 70px);mask-image:linear-gradient(90deg,#000,transparent 30%,transparent 70%,#000);-webkit-mask-image:linear-gradient(90deg,#000,transparent 30%,transparent 70%,#000)}
+.gs .leak{background:radial-gradient(600px 400px at 85% 10%,rgba(255,190,110,.75),transparent 60%),radial-gradient(500px 300px at 10% 100%,rgba(255,140,90,.35),transparent 70%);mix-blend-mode:screen}
+.gs .tag2{position:absolute;font-family:var(--mono);font-weight:700;color:#fff;opacity:0;transition:opacity .5s;pointer-events:none}
+.gs .lower{left:28px;bottom:28px;font-family:var(--sans);background:rgba(10,10,12,.82);padding:12px 20px;border-left:6px solid #e5544b}
+.gs .lower b{display:block;color:#fff;font-size:26px} .gs .lower span{font-size:17px;color:#ccc;font-weight:500}
+.gs .stamp{right:24px;top:20px;font-size:19px;background:rgba(0,0,0,.6);padding:4px 12px;border-radius:6px}
+.gs .rec{left:24px;top:20px;font-size:20px;color:#ff5b50}
+.gs .slow{right:24px;bottom:22px;font-size:22px;background:rgba(120,50,20,.55);padding:5px 14px;border-radius:8px}
+.gs .heart{left:50%;top:22px;transform:translateX(-50%);font-size:26px;color:#9fe0d0;letter-spacing:.3em}
+.gs .boom{right:30px;top:24px;font-family:var(--sans);font-size:66px;font-weight:900;color:#ffd23f;-webkit-text-stroke:3px #c3261c;transform:rotate(8deg)}
+.gs .mono{left:50%;bottom:26px;transform:translateX(-50%);font-family:var(--sans);font-size:22px;font-weight:500;color:#e6e6e6;background:rgba(0,0,0,.5);padding:6px 16px;border-radius:6px;white-space:nowrap}
+.gs .dots{left:50%;top:26px;transform:translateX(-50%);font-family:var(--sans);font-size:40px;color:#222;background:#fff;border:3px solid #222;padding:2px 22px;border-radius:30px}
+/* 장르별 */
+.g-horror svg{transform:rotate(-9deg) scale(2.1) translate(-12%,-2%);filter:brightness(.55) saturate(.35) contrast(1.3)}
+.g-horror .tint{opacity:1;background:#3f7d78} .g-horror .vig{opacity:1} .g-horror .heart{opacity:1}
+.g-action svg{transform:rotate(6deg) scale(1.3);filter:saturate(1.5) contrast(1.25)}
+.g-action .speed{opacity:1} .g-action .boom{opacity:1}
+.g-romance svg{transform:scale(1.55) translate(0,-3%);filter:saturate(1.15) brightness(1.08)}
+.g-romance .bgL{filter:blur(6px)} .g-romance .tint{opacity:1;background:#ffcf9e} .g-romance .leak{opacity:1} .g-romance .slow{opacity:1}
+.g-comedy svg{transform:scale(1);filter:brightness(1.12) saturate(1.1)} .g-comedy .dots{opacity:1}
+.g-docu svg{transform:scale(1.05);filter:saturate(.75)} .g-docu .lower,.g-docu .stamp,.g-docu .rec{opacity:1}
+.g-noir svg{transform:rotate(-3deg) scale(1.2);filter:grayscale(1) contrast(1.7) brightness(.6)}
+.g-noir .blinds,.g-noir .rain,.g-noir .vig{opacity:1} .g-noir .mono{opacity:1}
+.gs .side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.gs .gb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gbt{font:inherit;font-size:22px;font-weight:800;color:var(--tx);background:var(--bg2);border:2px solid var(--line2);border-radius:12px;padding:11px 8px;cursor:pointer}
+.gbt:hover{border-color:var(--amber)} .gbt.on{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.gs .info{background:var(--bg2);border:1.5px solid var(--line);border-radius:16px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.gs .info .ln{font-size:27px;font-weight:800;color:var(--hi);line-height:1.35;letter-spacing:-.5px;padding-bottom:8px;border-bottom:1.5px dashed var(--line2)}
+.gs .info .r{display:grid;grid-template-columns:62px 1fr;gap:10px;font-size:21px;line-height:1.4;color:var(--tx2)}
+.gs .info .r i{font-style:normal;font-family:var(--mono);font-size:16px;color:var(--amber);font-weight:700;padding-top:3px}
+.gm{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;min-height:0;align-content:center}
+.gm .c{background:var(--bg2);border:1.5px solid var(--line);border-radius:18px;padding:24px 28px}
+.gm .c h3{font-family:var(--mono);font-size:20px;letter-spacing:.12em;color:var(--amber);margin-bottom:10px}
+.gm .c ul{list-style:none}
+.gm .c li{font-size:24px;line-height:1.4;padding:7px 0 7px 22px;position:relative;color:var(--tx)}
+.gm .c li::before{content:'';position:absolute;left:0;top:18px;width:9px;height:9px;background:var(--line2);border-radius:2px}
+.gm .c li b{color:var(--hi)}
+.emo{display:inline-block;font-size:.42em;font-weight:700;color:var(--teal);border:2px solid var(--teal-b);border-radius:30px;padding:4px 16px;vertical-align:middle;margin-left:16px;letter-spacing:0}
+.apply{margin-top:18px;display:flex;align-items:center;gap:18px;background:var(--amber-d);border:2px solid var(--amber-b);border-radius:14px;padding:14px 22px}
+.apply small{font-family:var(--mono);font-size:16px;letter-spacing:.1em;color:var(--amber);font-weight:700;white-space:nowrap}
+.apply p{font-size:23px;color:var(--tx);line-height:1.4}
+.apply p em{font-style:normal;color:var(--tx2)}
+.reps{margin-top:12px;font-size:21px;color:var(--tx2)} .reps b{color:var(--hi)}
+.cmp{width:100%;font-size:21px} .cmp th{font-size:19px;padding:12px 14px;text-align:center} .cmp td{padding:12px 14px;text-align:center;line-height:1.35}
+.cmp td.c0{text-align:left}
+.six{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;text-align:left}
+.six div{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;background:var(--bg2);border:1.5px solid var(--line);border-radius:14px;padding:16px 22px}
+.six b{font-size:28px;color:var(--amber)} .six span{font-size:23px;line-height:1.4;color:var(--tx)}
+.proj{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:34px;min-height:0;align-items:center}
+.proj .col li{font-size:26px;padding:8px 0 8px 32px}
+</style>
+</head>
+<body class="light" data-theme="light">
+<div id="stage">
+
+
+<!-- 01 표지 -->
+<section class="slide" data-title="표지" data-note="기초 이론 마지막 시간. 지금까지 배운 카메라(S#03 · 04) · 미장센(S#02) · 편집(S#06) · 사운드(S#07) · 조명(S#08)을 장르별로 '조합'하는 시간입니다. 5장 '장르 스위처'는 버튼으로 같은 장면의 장르를 바꿔 보여 주는 장입니다.">
+  <div class="cover">
+    <div>
+      <div class="kick">필름잇다 기능반 · 기초 이론 · S#09</div>
+      <h1>장르 문법<br>치트시트</h1>
+      <p>장르는 내용이 아니라<br><b class="am">문법</b>이다</p>
+      <div class="hint">F 전체화면 · → 넘기기 · O 목차 · N 교사 메모 · B 빈칸</div>
+    </div>
+    <div class="slateb" aria-hidden="true">
+      <div class="stripes"></div>
+      <div class="grid">
+        <div><span class="k">SCENE</span><span class="v">09</span></div>
+        <div><span class="k">SHOT</span><span class="v">01</span></div>
+        <div><span class="k">TAKE</span><span class="v">01</span></div>
+        <div class="prod"><span class="k">PROD.</span><span class="v">같은 장면, 다른 장르</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 정의 -->
+<section class="slide" data-title="장르는 문법이다" data-note="1분. '공포 영화'는 귀신이 나와서가 아니라 공포의 문법(앵글 · 빛 · 컷 · 소리)으로 찍어서 무서운 것. 그래서 삼각김밥 하나로도 공포 영화를 만들 수 있습니다.">
+  <div class="hd"><div class="sl">S#09 · 핵심 한 줄</div><h1>장르를 정하는 건 <span class="am">무엇을</span>이 아니라 <span class="tl">어떻게</span></h1></div>
+  <div class="body center">
+    <div class="eq" style="gap:22px">
+      <span class="p" style="font-size:52px">카메라</span><span class="op">+</span><span class="p" style="font-size:52px">조명</span><span class="op">+</span><span class="p" style="font-size:52px">편집</span><span class="op">+</span><span class="p" style="font-size:52px">소리</span><span class="op">=</span><span class="p s" style="font-size:52px">관객의 감정</span>
+    </div>
+    <div class="sub">같은 장면이라도 장르가 바뀌면 <b>찍는 방식</b>이 완전히 달라진다</div>
+  </div>
+</section>
+
+<!-- 03 흐름 -->
+<section class="slide" data-title="오늘의 흐름" data-note="2차시라면 1교시 = 장르 스위처 + 스릴러 · 느와르 · 액션, 2교시 = 로맨스 · 코미디 · 다큐 + 비교표 + 장르 패러디 기획.">
+  <div class="hd"><div class="sl">S#09 · 오늘의 흐름</div><h1>여섯 장르, 하나의 프로젝트</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">01</span><h3>같은 장면, 여섯 장르</h3><p>삼각김밥 하나로 장르를 바꿔 보기</p><div class="ex">장르 스위처</div></div>
+      <div class="cd"><span class="n">02</span><h3>어둡고 무거운 장르</h3><p>스릴러 · 공포 · 느와르 · 드라마</p><div class="ex">〈올드보이〉 〈샤이닝〉 〈버닝〉</div></div>
+      <div class="cd"><span class="n">03</span><h3>빠르고 따뜻하고 웃긴</h3><p>액션 · 로맨스 · 코미디 · 다큐</p><div class="ex">〈매드맥스〉 〈극한직업〉</div></div>
+      <div class="cd"><span class="n">04</span><h3>장르 패러디 따라찍기</h3><p>학교 소재에 장르 문법을 입힌다</p><div class="ex">첫 프로젝트 기획</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 삼각김밥 여섯 장르 -->
+<section class="slide" data-title="같은 장면, 여섯 장르" data-note="장면을 먼저 말로 들려주고, 학생에게 '공포로 찍으면?'처럼 하나씩 물어본 뒤 이 장을 보여 주세요. 다음 장에서 그림으로 바로 바꿔 봅니다.">
+  <div class="hd"><div class="sl">워밍업</div><h1>“마지막 삼각김밥에 두 사람이 동시에 손을 뻗는다”</h1></div>
+  <div class="body center">
+    <div class="six">
+      <div><b>공포</b><span>침묵 + 상대 손 <b>ECU</b> + 심장 소리</span></div>
+      <div><b>액션</b><span><b>핸드헬드</b> 추격 · 빠른 컷 · 효과음 폭발</span></div>
+      <div><b>로맨스</b><span>손이 닿는 순간 <b>슬로모션</b> · 따뜻한 빛</span></div>
+      <div><b>다큐</b><span>“편의점 삼각김밥 분쟁, 이것이 현실이다” <b>내레이션</b></span></div>
+      <div><b>코미디</b><span>둘 다 멈추고 서로 쳐다보는 <b>리액션숏</b></span></div>
+      <div><b>느와르</b><span>빗속 편의점 · 형광등 하나 · <b>독백</b></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 장르 스위처 -->
+<section class="slide" data-title="장르 스위처 · 직접 바꿔 보기" data-note="버튼을 누르면 같은 그림이 그 장르의 문법(앵글 · 색 · 크기 · 자막)으로 바뀝니다. 그림 자체는 하나도 다시 그리지 않았다는 점을 강조하세요 — 카메라 위치 · 조명 · 후반 작업만 바꾼 것. 그림은 설명용으로 새로 그린 것입니다.">
+  <div class="hd"><div class="sl">직접 보기 · 장르 스위처</div><h1>그림은 하나, <span class="am">문법</span>만 바꾼다</h1></div>
+  <div class="body" style="padding-top:18px;padding-bottom:60px">
+    <div class="gs" id="gs">
+      <div class="scr g-base">
+        <svg viewBox="0 0 960 540" aria-label="편의점 진열대의 마지막 삼각김밥에 양쪽에서 손이 다가오는 그림">
+          <g class="bgL">
+            <rect width="960" height="540" fill="#d7dde2"/>
+            <rect x="0" y="0" width="960" height="40" fill="#eef2f4"/><rect x="180" y="12" width="600" height="14" rx="7" fill="#fff"/>
+            <rect x="60" y="60" width="840" height="470" fill="#bfc8cf"/>
+            <g fill="#8e9aa4"><rect x="60" y="180" width="840" height="14"/><rect x="60" y="330" width="840" height="14"/><rect x="60" y="480" width="840" height="14"/></g>
+            <g>
+              <path d="M90 175 L120 120 L150 175Z" fill="#f4f1ea"/><path d="M160 175 L190 120 L220 175Z" fill="#f4f1ea"/><path d="M230 175 L260 120 L290 175Z" fill="#f4f1ea"/>
+              <path d="M300 175 L330 120 L360 175Z" fill="#f4f1ea"/><path d="M600 175 L630 120 L660 175Z" fill="#f4f1ea"/><path d="M670 175 L700 120 L730 175Z" fill="#f4f1ea"/><path d="M740 175 L770 120 L800 175Z" fill="#f4f1ea"/><path d="M810 175 L840 120 L870 175Z" fill="#f4f1ea"/>
+              <g fill="#3f8a4f"><rect x="100" y="150" width="40" height="10"/><rect x="170" y="150" width="40" height="10"/><rect x="240" y="150" width="40" height="10"/><rect x="310" y="150" width="40" height="10"/></g>
+              <g fill="#c4473a"><rect x="610" y="150" width="40" height="10"/><rect x="680" y="150" width="40" height="10"/><rect x="750" y="150" width="40" height="10"/><rect x="820" y="150" width="40" height="10"/></g>
+              <rect x="380" y="110" width="200" height="65" rx="4" fill="#e8b64a" opacity=".85"/><text x="480" y="152" text-anchor="middle" font-size="26" font-weight="800" fill="#5a3a06" font-family="sans-serif">삼각김밥</text>
+              <g fill="#7f8b95" opacity=".55"><rect x="90" y="400" width="70" height="78" rx="6"/><rect x="175" y="410" width="70" height="68" rx="6"/><rect x="700" y="400" width="70" height="78" rx="6"/><rect x="785" y="410" width="70" height="68" rx="6"/></g>
+            </g>
+          </g>
+          <g class="fg">
+            <path d="M420 325 L480 228 L540 325Z" fill="#fbfaf6" stroke="#cfc9bb" stroke-width="3"/>
+            <rect x="436" y="283" width="88" height="22" fill="#3f8a4f"/><rect x="452" y="305" width="56" height="20" fill="#1d2a22"/>
+            <path d="M-10 300 L300 288 L304 330 L-10 350Z" fill="#253554"/><rect x="290" y="282" width="18" height="54" rx="6" fill="#1b2740"/>
+            <path d="M304 290 C340 282 372 286 404 296 C414 299 414 309 404 311 L370 312 C380 318 382 328 372 330 L320 334 C308 334 304 326 304 318Z" fill="#e2c3a3"/>
+            <path d="M970 302 L660 290 L656 332 L970 352Z" fill="#c7402f"/><rect x="652" y="284" width="18" height="54" rx="6" fill="#a8301f"/>
+            <path d="M656 292 C620 284 588 288 556 298 C546 301 546 311 556 313 L590 314 C580 320 578 330 588 332 L640 336 C652 336 656 328 656 320Z" fill="#d6ad86"/>
+          </g>
+        </svg>
+        <div class="ov tint"></div><div class="ov leak"></div><div class="ov speed"></div><div class="ov blinds"></div><div class="ov rain"></div><div class="ov vig"></div>
+        <span class="tag2 heart">쿵 … 쿵 …</span>
+        <span class="tag2 boom">타앗!</span>
+        <span class="tag2 slow">▶▶ 120fps 슬로모션</span>
+        <span class="tag2 dots">…………?</span>
+        <span class="tag2 rec">● REC</span><span class="tag2 stamp">2026년 11월, 의정부</span>
+        <span class="tag2 lower"><b>편의점 삼각김밥 분쟁</b><span>이것이 현실이다 — 오후 4시 12분</span></span>
+        <span class="tag2 mono">“그날 밤, 김밥은 하나뿐이었다.”</span>
+      </div>
+      <div class="side">
+        <div class="gb">
+          <button class="gbt" type="button" data-g="horror">공포</button>
+          <button class="gbt" type="button" data-g="action">액션</button>
+          <button class="gbt" type="button" data-g="romance">로맨스</button>
+          <button class="gbt" type="button" data-g="comedy">코미디</button>
+          <button class="gbt" type="button" data-g="docu">다큐</button>
+          <button class="gbt" type="button" data-g="noir">느와르</button>
+        </div>
+        <div class="info" id="gsInfo">
+          <div class="ln">버튼을 눌러 장르를 바꿔 보세요</div>
+          <div class="r"><i>카메라</i><span>—</span></div>
+          <div class="r"><i>조명</i><span>—</span></div>
+          <div class="r"><i>편집</i><span>—</span></div>
+          <div class="r"><i>소리</i><span>—</span></div>
+        </div>
+        <button class="gbt" type="button" data-g="base" style="font-size:18px;padding:8px">↺ 원래 그림</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 스릴러 vs 공포 -->
+<section class="slide" data-title="스릴러 vs 공포 · 〈올드보이〉" data-note="⚠ 〈올드보이〉는 청소년 관람불가 영화이고 예고편에도 폭력적인 장면이 짧게 나옵니다. 상황에 따라 영상은 건너뛰고 표만 다뤄도 됩니다.">
+  <div class="hd"><div class="sl">01 · 스릴러 + 공포 Thriller · Horror</div><h1>불안 · 긴장 · 예측 불가<span class="emo">핵심 감정</span></h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm" style="font-size:23px">
+          <tr><th style="width:26%">구분</th><th>스릴러</th><th>공포</th></tr>
+          <tr><td class="c0">위협</td><td>현실 — 범인 · 음모 · 추격</td><td>초자연 · 심리 — 귀신 · 광기</td></tr>
+          <tr><td class="c0">긴장</td><td>추리 · 쫓고 쫓기기</td><td>알 수 없는 것에 대한 공포</td></tr>
+        </table>
+        <p>공통점 — “<b>무슨 일이 일어날지 모른다</b>”</p>
+      </div>
+      <div class="ytw" style="flex-basis:720px"><div class="yt" data-vid="HB2oP52mBSI" data-title="〈올드보이〉 2003 예고편"></div><p class="note">⚠ 청소년 관람불가 영화의 예고편 — <b>교사 판단</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 스릴러 공포 문법 -->
+<section class="slide" data-title="스릴러 · 공포의 문법" data-note="S#03 앵글(로우 · 더치 · POV), S#08 조명(로우키 · 단일 광원), S#07 사운드(무음)와 연결해 복습하세요.">
+  <div class="hd"><div class="sl">01 · 스릴러 + 공포 · 문법</div><h1>그림자 속에 <span class="rd">무언가</span> 있다</h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li><b>로우 앵글</b> — 위협을 크게</li><li><b>더치 앵글</b> — 비정상 심리</li><li><b>POV</b> — 피해자 시점</li><li><b>ECU</b> — 눈 · 손 · 손잡이</li><li><b>느린 트래킹</b> — 다가오는 위협</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li><b>강한 명암 대비</b></li><li><b>단 하나의 광원</b> — 손전등 · 촛불 · 문틈</li><li>차가운 <b>블루 · 녹색</b></li><li><b>역광 실루엣</b> — 정체를 숨김</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li>느리게 쌓다가 <b>갑자기 점프컷</b></li><li><b>평행 편집</b> — 쫓는 자 · 쫓기는 자</li><li><b>침묵</b> — 가장 무서운 소리</li></ul></div>
+    </div>
+    <div class="apply"><small>학교에 적용하면</small><p>“야자 시간, 복도에서 발소리가 들린다” <em>→ 핸드헬드 POV + 더치 앵글 + 침묵 + 갑자기 담임 선생님 등장</em></p></div>
+  </div>
+</section>
+
+<!-- 08 스릴러 공포 영상 -->
+<section class="slide" data-title="스릴러 · 공포 · 영상 두 편" data-note="둘 다 영어 영상(자막 권장). 왼쪽: 〈기생충〉 계단 · 지하 공간의 상징. 오른쪽: 〈샤이닝〉 스테디캠 — 아이의 세발자전거를 낮게 따라가는 장면(공포 분위기, 직접적 폭력 없음).">
+  <div class="hd"><div class="sl">01 · 스릴러 + 공포 · 예시</div><h1>공간이 공포를 만든다</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="AvO8-925Edc" data-title="The Visual Architecture of Parasite"></div><h3>〈기생충〉 2019 · 스릴러</h3><p>계단 · 지하 · 반지하 — <b>공간의 높낮이</b>가 곧 계급</p></div>
+      <div class="it"><div class="yt" data-vid="YpcP-6nBi5c" data-title="〈샤이닝〉 스테디캠 장면"></div><h3>〈샤이닝〉 1980 · 공포</h3><p><b>스테디캠</b>으로 미끄러지듯 따라간다 — 공포 촬영의 교과서</p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈살인의 추억〉</b> 롱테이크 · 와이드 &nbsp;·&nbsp; <b>〈곡성〉</b> 모호함 &nbsp;·&nbsp; <b>〈겟 아웃〉</b> 일상 공간의 공포</p>
+  </div>
+</section>
+
+<!-- 09 느와르 vs 드라마 -->
+<section class="slide" data-title="느와르 vs 드라마 · 〈버닝〉" data-note="⚠ 〈버닝〉은 청소년 관람불가 영화입니다. 예고편은 직접적 장면이 거의 없지만 교사 판단으로. 볼 포인트: 모호함과 침묵, 노을 속 실루엣.">
+  <div class="hd"><div class="sl">02 · 느와르 + 드라마 Noir · Drama</div><h1>무게감 · 인간의 내면<span class="emo">핵심 감정</span></h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm" style="font-size:23px">
+          <tr><th style="width:24%">구분</th><th>느와르</th><th>드라마</th></tr>
+          <tr><td class="c0">스타일</td><td>어둠 · 죄 · 도덕적 모호함 = <b>미학</b></td><td>스타일보다 <b>감정과 관계</b></td></tr>
+          <tr><td class="c0">조명</td><td>극단적 명암 · 블라인드 그림자</td><td>자연광 · 차분한 톤</td></tr>
+        </table>
+        <p>공통점 — 인물을 <b>깊이 들여다본다</b></p>
+      </div>
+      <div class="ytw" style="flex-basis:720px"><div class="yt" data-vid="REq4pkW24OA" data-title="〈버닝〉 2018 예고편"></div><p class="note">⚠ 청소년 관람불가 영화의 예고편 — <b>교사 판단</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 느와르 드라마 문법 -->
+<section class="slide" data-title="느와르 · 드라마의 문법" data-note="블라인드 그림자는 교실 블라인드 + 휴대폰 플래시만으로도 만들 수 있습니다. 실습 때 꼭 시도해 보게 하세요.">
+  <div class="hd"><div class="sl">02 · 느와르 + 드라마 · 문법</div><h1><span class="tl">블라인드 그림자</span>와 <span class="am">말 없는 클로즈업</span></h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li>느와르 — 창살 · <b>블라인드 그림자</b>가 인물 위로</li><li>드라마 — <b>아이레벨 + 클로즈업</b></li><li>공통 — <b>OTS</b>로 관계의 긴장</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li>느와르 — <b>하이 콘트라스트</b> · 흑백 · 차가운 톤</li><li>드라마 — <b>창문 자연광</b> · 흐린 날 · 차분한 온기</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li>느와르 — 느리고 묵직한 컷 · <b>독백 내레이션</b></li><li>드라마 — 롱테이크 → <b>클로즈업</b>으로 절정 → 조용한 컷</li></ul></div>
+    </div>
+    <div class="apply"><small>학교에 적용하면</small><p>느와르 — 교복 입고 <b>블라인드 그림자</b> 아래 독백 <em>· 드라마 — 말없이 밥 먹는 두 친구, 표정만 클로즈업</em></p></div>
+  </div>
+</section>
+
+<!-- 11 느와르 드라마 영상 -->
+<section class="slide" data-title="느와르 · 드라마 · 영상 두 편" data-note="둘 다 영어 영상(자막 권장). 왼쪽: 〈블레이드 러너〉 네온 · 비 · 안개 = SF 느와르. 오른쪽: '비포' 3부작 — 걷고 이야기하는 롱테이크의 교과서.">
+  <div class="hd"><div class="sl">02 · 느와르 + 드라마 · 예시</div><h1>네온 빗속, 그리고 끝없는 대화</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="EMA-Og7PM00" data-title="Blade Runner — Cinematography"></div><h3>〈블레이드 러너〉 1982 · SF 느와르</h3><p><b>네온 + 빗속 + 안개</b>의 완벽한 조합</p></div>
+      <div class="it"><div class="yt" data-vid="H9ZM2C-dJ4k" data-title="Before Trilogy — 롱테이크 대화"></div><h3>‘비포’ 3부작 · 드라마</h3><p>두 사람의 대화 — <b>OTS와 롱테이크</b></p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈차이나타운〉</b> 빛과 그림자 &nbsp;·&nbsp; <b>〈밀양〉</b> 클로즈업 하나로 내면을 &nbsp;·&nbsp; <b>〈봄 여름 가을 겨울 그리고 봄〉</b> 고정 카메라</p>
+  </div>
+</section>
+
+<!-- 12 액션 문법 -->
+<section class="slide" data-title="액션의 문법" data-note="액션은 조명보다 '카메라 움직임'이 장르를 결정합니다. 클라이맥스 결전의 역광 실루엣은 공식 — 〈다크 나이트〉 배트맨, 〈어벤져스〉 어셈블.">
+  <div class="hd"><div class="sl">03 · 액션 Action</div><h1>긴박함 · 스펙터클 · 카타르시스</h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li><b>핸드헬드</b> — 혼돈과 긴박감</li><li><b>와이드</b> — 움직임의 스케일</li><li><b>로우 앵글</b> — 주인공을 영웅처럼</li><li>빠른 <b>패닝 · 틸트</b> — 속도감</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li>강렬한 <b>자연광 · 측면광</b></li><li>결전의 순간 <b>역광 실루엣</b> — 신화적 영웅의 등장</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li><b>1~2초</b> 단위의 빠른 컷</li><li><b>효과음 + BGM</b>이 리듬을 주도</li><li><b>매치컷</b>으로 행동을 잇는다</li></ul></div>
+    </div>
+    <div class="apply"><small>학교에 적용하면</small><p>“마지막 삼각김밥을 두고 두 사람이 달린다” <em>→ 핸드헬드 추격 + 빠른 컷 + 과장된 효과음</em></p></div>
+  </div>
+</section>
+
+<!-- 13 액션 영상 -->
+<section class="slide" data-title="액션 · 〈매드맥스〉 두 편" data-note="왼쪽: 공식 예고편(S#05에서 색채로 봤던 영상) — 이번엔 컷 속도에 집중. 오른쪽: 영어 분석 영상(자막 권장) — 빠른 컷인데도 정신없지 않은 이유: 관객의 시선을 화면 중앙에 고정하는 편집.">
+  <div class="hd"><div class="sl">03 · 액션 · 예시</div><h1>빠른데 왜 <span class="am">정신없지 않을까</span></h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="hEJnMQG9ev8" data-title="〈매드맥스: 분노의 도로〉 공식 예고편"></div><h3>〈매드맥스: 분노의 도로〉 2015</h3><p><b>핸드헬드 + 와이드</b> — 편집 속도의 교과서</p></div>
+      <div class="it"><div class="yt" data-vid="WSQYvHIvjB4" data-title="〈매드맥스〉 편집 리듬 분석"></div><h3>편집 리듬 분석</h3><p>빠르게 잘라도 <b>시선이 한곳에</b> 머물게</p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈아저씨〉</b> 좁은 공간의 격투 &nbsp;·&nbsp; <b>〈다이하드〉</b> 공간 활용과 긴박한 편집</p>
+  </div>
+</section>
+
+<!-- 14 로맨스 문법 -->
+<section class="slide" data-title="로맨스의 문법" data-note="골든아워 = 해 지기 전 약 1시간. 학교에서는 방과 후 창가 역광으로 쉽게 만들 수 있습니다. J컷은 S#06 편집에서 배운 그것.">
+  <div class="hd"><div class="sl">04 · 로맨스 Romance</div><h1>설렘 · 따뜻함 · 운명적 만남</h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li><b>얕은 심도</b> — 배경은 흐리게, 인물만</li><li><b>슬로모션</b> — 특별한 순간</li><li><b>OTS</b> — 눈빛 교환</li><li><b>골든아워</b> 자연광</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li>따뜻한 <b>오렌지 · 노랑</b></li><li>부드럽게 퍼지는 <b>소프트 라이트</b></li><li><b>창문 역광</b> — 감성적 실루엣</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li>느린 페이스 · <b>긴 숏</b></li><li><b>J컷</b> — 음악이 먼저 들어와 분위기를 연다</li></ul></div>
+    </div>
+    <div class="apply"><small>학교에 적용하면</small><p>“같은 책을 동시에 집다가 손이 닿는 도서관” <em>→ 슬로모션 + 따뜻한 조명 + 멜로 BGM</em></p></div>
+  </div>
+</section>
+
+<!-- 15 로맨스 영상 -->
+<section class="slide" data-title="로맨스 · 영상 두 편" data-note="왼쪽: 〈비포 선라이즈〉 예고편 — 대화만으로 로맨스. 오른쪽: 〈이터널 선샤인〉 — 비선형 편집으로 기억과 감정을 표현(영어, 자막 권장).">
+  <div class="hd"><div class="sl">04 · 로맨스 · 예시</div><h1>대화만으로, 기억만으로</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="6MUcuqbGTxc" data-title="〈비포 선라이즈〉 1995 예고편"></div><h3>〈비포 선라이즈〉 1995</h3><p>두 사람의 대화만으로 — <b>롱테이크</b></p></div>
+      <div class="it"><div class="yt" data-vid="Bo1LfPkifhA" data-title="〈이터널 선샤인〉 2004"></div><h3>〈이터널 선샤인〉 2004</h3><p><b>비선형 편집</b>으로 기억과 감정을</p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈건축학개론〉</b> 골든아워와 따뜻한 색온도</p>
+  </div>
+</section>
+
+<!-- 16 코미디 문법 -->
+<section class="slide" data-title="코미디의 문법" data-note="코미디는 타이밍. 리액션숏을 0.5초 늦게 붙이면 안 웃깁니다. 실습 때 같은 리액션을 다른 타이밍에 붙여 비교해 보게 하세요.">
+  <div class="hd"><div class="sl">05 · 코미디 Comedy</div><h1>의외성 · 과장 · 공감</h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li><b>아이레벨 픽스</b> — 리액션을 정면으로</li><li><b>와이드</b> — 상황의 어이없음 전체</li><li><b>리액션숏</b> 타이밍이 핵심</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li><b>밝고 플랫하게</b> — 숨길 게 없다</li><li>자연광으로도 충분</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li>타이밍이 전부 — <b>0.5초</b> 차이</li><li><b>침묵</b> — 말 없이 리액션만</li><li><b>점프컷</b>으로 어이없는 반복</li></ul></div>
+    </div>
+    <div class="apply"><small>학교에 적용하면</small><p>“혼나는 장면인데 배우가 계속 웃음이 터진다” <em>→ 아이레벨 픽스 + 리액션숏 연속 + 침묵</em></p></div>
+  </div>
+</section>
+
+<!-- 17 코미디 영상 -->
+<section class="slide" data-title="코미디 · 영상 두 편" data-note="왼쪽: 〈극한직업〉 티저. 오른쪽: Every Frame a Painting — 에드거 라이트의 '시각적 코미디'(영어, 자막 권장). 대사 없이 카메라와 편집만으로 웃기는 법.">
+  <div class="hd"><div class="sl">05 · 코미디 · 예시</div><h1>카메라와 편집만으로 웃긴다</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="BaIRaKXrLPk" data-title="〈극한직업〉 2019 티저 예고편"></div><h3>〈극한직업〉 2019</h3><p>상황 코미디와 <b>리액션숏</b>의 완벽한 타이밍</p></div>
+      <div class="it"><div class="yt" data-vid="3FOzD4Sfgag" data-title="Edgar Wright — How to Do Visual Comedy"></div><h3>에드거 라이트의 시각적 코미디</h3><p>대사 없이 <b>프레임과 컷</b>으로 웃기기</p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈써니〉</b> 과장된 상황 &nbsp;·&nbsp; <b>〈웰컴 투 동막골〉</b> 장르 혼합 &nbsp;·&nbsp; <b>〈사랑의 블랙홀〉</b> 반복 코미디</p>
+  </div>
+</section>
+
+<!-- 18 다큐 문법 -->
+<section class="slide" data-title="다큐멘터리의 문법" data-note="모크다큐(가짜 다큐)는 학생 단편에서 가장 쉽게 시도할 수 있는 형식입니다 — 인터뷰 · 핸드헬드 · 자막만 있으면 됩니다. 예: 〈오피스〉, 〈베스트 인 쇼〉.">
+  <div class="hd"><div class="sl">06 · 다큐멘터리 Documentary</div><h1>신뢰감 · 리얼리티 · 관찰</h1></div>
+  <div class="body">
+    <div class="gm">
+      <div class="c"><h3>CAMERA</h3><ul><li><b>픽스</b> 또는 의도적 <b>핸드헬드</b></li><li>인터뷰 — 카메라 <b>살짝 옆</b>을 보며</li><li><b>줌</b> — 망원으로 관찰</li><li><b>롱테이크</b> — 현실감</li></ul></div>
+      <div class="c"><h3>LIGHT</h3><ul><li>인위적 조명 <b>최소화</b></li><li>자연광 · 형광등 <b>그대로</b></li><li>사실감이 최우선</li></ul></div>
+      <div class="c"><h3>EDIT · SOUND</h3><ul><li><b>인터뷰 + B-roll</b> 반복</li><li><b>자막 · 타이틀 카드</b> “2026년 11월, 의정부”</li><li><b>내레이션</b></li></ul></div>
+    </div>
+    <div class="apply"><small>+ 모크다큐</small><p>허구의 이야기를 <b>다큐 문법</b>으로 — “학교 급식 문화 심층 취재” <em>→ 인터뷰 + B-roll + “이것이 현실이다”</em></p></div>
+  </div>
+</section>
+
+<!-- 19 다큐 영상 -->
+<section class="slide" data-title="다큐 · 영상 두 편" data-note="왼쪽: 〈님아, 그 강을 건너지 마오〉 예고편 — 자연광과 롱테이크. 오른쪽: 인터뷰 촬영 스타일(영어, 자막 권장) — 카메라를 정면으로 보게 할지, 옆을 보게 할지.">
+  <div class="hd"><div class="sl">06 · 다큐멘터리 · 예시</div><h1>꾸미지 않아서 더 믿는다</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="eUVOTC6U0qQ" data-title="〈님아, 그 강을 건너지 마오〉 2014 예고편"></div><h3>〈님아, 그 강을 건너지 마오〉 2014</h3><p><b>자연광과 롱테이크</b>로 만드는 감동</p></div>
+      <div class="it"><div class="yt" data-vid="1N-Yf2p5C9U" data-title="Documentary Interview Styles"></div><h3>인터뷰 촬영 스타일</h3><p>정면을 볼까, <b>옆</b>을 볼까 — 그 차이</p></div>
+    </div>
+    <p class="reps">그 밖의 대표작 — <b>〈우리학교〉</b> 관찰과 인터뷰의 균형 &nbsp;·&nbsp; 유튜브 <b>닷페이스 · 씨리얼</b> 짧은 다큐</p>
+  </div>
+</section>
+
+<!-- 20 비교표 -->
+<section class="slide" data-title="한눈에 보는 장르 비교표" data-note="이 장이 오늘의 치트시트입니다. 휴대폰으로 찍어 두게 하세요. 기획 시트를 쓸 때 이 표에서 한 열을 골라 그대로 따라가면 됩니다.">
+  <div class="hd"><div class="sl">치트시트</div><h1>한눈에 보는 장르 비교표</h1></div>
+  <div class="body" style="justify-content:center;padding-top:26px">
+    <table class="cmp">
+      <tr><th style="width:12%"></th><th>스릴러 · 공포</th><th>느와르 · 드라마</th><th>액션</th><th>로맨스</th><th>코미디</th><th>다큐</th></tr>
+      <tr><td class="c0">앵글</td><td>로우 · 더치 · POV</td><td>아이레벨 · OTS</td><td>로우 · 와이드</td><td>아이레벨 · OTS</td><td>아이레벨 · 와이드</td><td>아이레벨</td></tr>
+      <tr><td class="c0">카메라</td><td>핸드헬드 · POV</td><td>픽스 · 롱테이크</td><td>핸드헬드</td><td>얕은 심도</td><td>픽스 리액션숏</td><td>픽스 · 핸드헬드</td></tr>
+      <tr><td class="c0">조명</td><td>어둡고 차갑게</td><td>명암 대비 · 차분</td><td>강렬 · 측면광</td><td>따뜻하고 부드럽게</td><td>밝고 플랫</td><td>자연광 그대로</td></tr>
+      <tr><td class="c0">편집 속도</td><td>늘리다가 급격히</td><td>느리고 묵직</td><td>매우 빠름</td><td>느리고 길게</td><td>타이밍이 핵심</td><td>중간</td></tr>
+      <tr><td class="c0">핵심 무기</td><td><b>침묵 + 점프컷</b></td><td><b>롱테이크 + 클로즈업</b></td><td><b>효과음 + 속도</b></td><td><b>슬로 + BGM</b></td><td><b>리액션숏 + 침묵</b></td><td><b>내레이션 + 자막</b></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 21 퀴즈 -->
+<section class="slide" data-title="퀴즈 · 무슨 장르?" data-blank="1" data-note="빈칸 가린 채 시작 — 답을 듣고 B. 근거(앵글 · 빛 · 편집 · 소리 중 무엇을 보고 알았나)까지 말하게 하면 좋습니다.">
+  <div class="hd"><div class="sl">확인 퀴즈</div><h1>이 문법은 어떤 장르?</h1></div>
+  <div class="body center">
+    <div class="qz">
+      <div class="qi"><span class="n">Q1</span><p>더치 앵글 · 손전등 하나 · 긴 침묵 뒤 갑자기 컷</p><span class="blank">공포</span></div>
+      <div class="qi"><span class="n">Q2</span><p>노을 역광 · 얕은 심도 · 손이 닿는 순간 슬로모션</p><span class="blank">로맨스</span></div>
+      <div class="qi"><span class="n">Q3</span><p>인터뷰 + B-roll · “2026년 11월” 자막 · 내레이션</p><span class="blank">다큐</span></div>
+      <div class="qi"><span class="n">Q4</span><p>블라인드 그림자 · 흑백 · 묵직한 독백</p><span class="blank">느와르</span></div>
+    </div>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 22 프로젝트 -->
+<section class="slide" data-title="첫 프로젝트 · 장르 패러디" data-note="조별로 주제 하나 + 장르 하나를 고릅니다. 같은 주제를 두 조가 다른 장르로 찍게 하면 발표 때 비교가 아주 재미있습니다. 연계: S#03 촬영 · S#02 미장센 · S#08 조명 · S#06 편집.">
+  <div class="hd"><div class="sl">첫 프로젝트</div><h1>장르 패러디 따라찍기</h1></div>
+  <div class="body">
+    <div class="proj">
+      <div class="col a"><h3>추천 주제 — 하나 고르기</h3><ul>
+        <li>학교 급식을 먹으러 가는 길</li><li>시험 전날 밤</li><li>마지막 삼각김밥을 두고 경쟁</li><li>좋아하는 사람한테 고백하는 상황</li><li>늦잠 자서 지각하는 아침</li></ul></div>
+      <div class="col"><h3>기획 전 체크리스트</h3><ul>
+        <li>우리 팀의 <b>장르</b>와 <b>핵심 감정</b>은?</li><li>주로 쓸 <b>앵글</b>은?</li><li><b>조명</b> — 자연광 · 형광등 · 휴대폰 플래시?</li><li><b>편집 속도</b> — 빠르게 · 느리게?</li><li><b>BGM · 효과음</b>의 분위기는?</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 실습 기획 시트 -->
+<section class="slide" data-title="실습 · 장르 기획 시트" data-note="20장 비교표에서 한 열을 골라 그대로 옮겨 적고, '우리 장면에서는 구체적으로 어떻게'를 덧붙이게 하세요. 다음 시간에 이 시트로 촬영합니다.">
+  <div class="hd"><div class="sl">실습</div><h1>우리 조의 장르 기획 시트</h1></div>
+  <div class="body center">
+    <div class="warnbar">비교표에서 <b>한 열</b>을 고르고 — 우리 장면에서 <b>구체적으로 어떻게</b> 찍을지 쓴다</div>
+    <div class="sheet">
+      <div class="srow"><span class="i">01</span><b>주제 · 장르</b><span>예) 시험 전날 밤 × 공포</span></div>
+      <div class="srow"><span class="i">02</span><b>핵심 감정</b><span>관객이 느껴야 할 한 단어</span></div>
+      <div class="srow"><span class="i">03</span><b>앵글 · 카메라</b><span>가장 중요한 숏 하나를 그림으로</span></div>
+      <div class="srow"><span class="i">04</span><b>조명</b><span>어떤 광원 하나로?</span></div>
+      <div class="srow"><span class="i">05</span><b>편집 · 소리</b><span>속도 · 핵심 무기 · BGM</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 24 타이머 -->
+<section class="slide" data-title="⏱ 기획 15분" data-note="T 시작 · 정지, R 처음부터. 끝나면 조별 30초 발표 — '우리는 ○○을 ○○ 장르로, 핵심 무기는 ○○'.">
+  <div class="hd"><div class="sl">실습</div><h1>⏱ 장르 기획 시트</h1></div>
+  <div class="body center">
+    <div class="timer" data-min="15"><div class="tval">15:00</div><div class="tstate">대기</div></div>
+    <div class="tmarks"><div class="tmark"><b>10:00</b>주제 · 장르 확정</div><div class="tmark"><b>03:00</b>시트 완성</div><div class="tmark"><b>00:00</b>30초 발표</div></div>
+    <div class="thint"><b>T</b> 시작 · 정지 &nbsp;·&nbsp; <b>R</b> 처음부터 &nbsp;·&nbsp; 숫자를 클릭해도 됩니다</div>
+  </div>
+</section>
+
+<!-- 25 정리 -->
+<section class="slide" data-title="오늘의 정리" data-blank="1" data-note="빈칸 가린 채 시작 — 먼저 묻고 B.">
+  <div class="hd"><div class="sl">정리</div><h1>오늘의 정리</h1></div>
+  <div class="body center">
+    <ol class="recap">
+      <li>장르는 내용이 아니라 <span class="blank">문법</span>이다</li>
+      <li>공포의 핵심 무기 = <span class="blank">침묵</span> + 점프컷</li>
+      <li>코미디는 <span class="blank">리액션숏</span>의 타이밍</li>
+      <li>허구를 다큐 문법으로 = <span class="blank">모크다큐</span></li>
+    </ol>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 26 마무리 -->
+<section class="slide" data-title="기초 이론 완주" data-note="기초 이론 아홉 편이 끝났습니다. 다음은 오늘 기획한 장르 패러디를 실제로 찍는 시간. 프레젠테이션 목록에서 다음 시리즈를 확인하세요.">
+  <div class="hd"><div class="sl">다음 시간</div><h1>기초 이론 아홉 편 — <span class="am">이제 찍을 차례</span></h1></div>
+  <div class="body center">
+    <div class="next">
+      <div class="col a"><h3>다음 시간 · 장르 패러디 촬영</h3><ul><li>오늘 쓴 <b>기획 시트</b> 가져오기</li><li>조별 촬영 → 편집 → 상영</li><li>같은 주제, 다른 장르 비교</li></ul></div>
+      <div class="col"><h3>복습</h3><ul><li>학습터 <b>기초 이론 · S#09</b> 읽기</li><li>비교표 사진으로 저장</li><li>좋아하는 영화의 <b>장르 문법</b> 찾아보기</li></ul></div>
+    </div>
+    <div class="ft" style="margin-top:34px"><a href="../../#t9" style="color:var(--teal)">학습터 S#09 읽기 자료 열기 ↗</a> &nbsp;·&nbsp; <a href="../" style="color:var(--teal)">프레젠테이션 목록 ↗</a></div>
+  </div>
+</section>
+
+<!-- 27 부록 -->
+<section class="slide" data-title="부록 · 핵심 용어" data-note="질문이 나올 때 O 키로 바로 여세요.">
+  <div class="hd"><div class="sl">부록</div><h1>핵심 용어 한눈에</h1></div>
+  <div class="body">
+    <div class="gl">
+      <div class="gi"><b>더치 앵글</b><span>카메라를 기울여 불안정한 심리를</span></div>
+      <div class="gi"><b>POV 숏</b><span>인물의 눈으로 보는 시점</span></div>
+      <div class="gi"><b>OTS</b><span>어깨 너머로 상대를 잡는 숏</span></div>
+      <div class="gi"><b>ECU</b><span>눈 · 손 등 극단적 클로즈업</span></div>
+      <div class="gi"><b>하이 콘트라스트</b><span>밝음과 어둠의 차이를 극단적으로</span></div>
+      <div class="gi"><b>골든아워</b><span>해 지기 전 따뜻하고 부드러운 빛</span></div>
+      <div class="gi"><b>리액션숏</b><span>말이 끝난 직후 상대의 반응</span></div>
+      <div class="gi"><b>B-roll</b><span>인터뷰 사이에 넣는 현장 화면</span></div>
+      <div class="gi"><b>모크다큐</b><span>허구를 다큐 문법으로 찍는 형식</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="../assets/deck.js"></script>
+<script>
+/* S#09 전용 — 장르 스위처 */
+(function(){
+  'use strict';
+  const gs=document.getElementById('gs');if(!gs)return;
+  const scr=gs.querySelector('.scr'),info=document.getElementById('gsInfo');
+  const G={
+    base:['버튼을 눌러 장르를 바꿔 보세요','—','—','—','—'],
+    horror:['상대의 손을 극단 클로즈업, 숨소리와 심장 소리만','더치 앵글 · 손 <b>ECU</b>로 바짝','어둡고 차가운 <b>청록</b> · 가장자리는 어둠','느리게 버티다가 <b>갑자기 컷</b>','<b>침묵</b> + 심장 소리'],
+    action:['핸드헬드로 흔들리며, 손이 번개처럼','기울어진 <b>핸드헬드</b> · 로우 앵글','강렬하게 · <b>채도와 대비 UP</b>','<b>1초</b> 단위의 빠른 컷','효과음 <b>폭발</b> + 빠른 BGM'],
+    romance:['손끝이 닿는 순간, 시간이 멈춘다','<b>얕은 심도</b> — 배경이 흐려진다 · 슬로모션','따뜻한 <b>골든아워</b> · 빛 번짐','느리게 · 긴 숏','멜로 BGM이 <b>먼저</b> 들어온다 (J컷)'],
+    comedy:['둘 다 그대로 멈춰서 서로를 쳐다본다','<b>아이레벨 픽스 · 와이드</b> — 전부 보여 준다','<b>밝고 플랫</b> — 숨길 게 없다','멈춘 뒤 <b>0.5초</b> 기다렸다 리액션숏','<b>침묵</b> … 그리고 효과음 하나'],
+    docu:['“편의점 삼각김밥 분쟁, 이것이 현실이다”','픽스 또는 <b>들고 찍기</b> · 그대로 관찰','형광등 <b>그대로</b> · 꾸미지 않는다','인터뷰 + <b>B-roll</b> · 날짜 자막','<b>내레이션</b> + 현장음'],
+    noir:['빗속 편의점, 형광등 하나, 그리고 독백','살짝 기울여 · <b>블라인드 그림자</b> 사이로','<b>흑백 · 하이 콘트라스트</b> · 빗줄기','느리고 묵직한 컷','낮은 목소리의 <b>독백</b> + 빗소리']
+  };
+  function set(g){
+    scr.className='scr g-'+g;
+    gs.querySelectorAll('.gbt').forEach(b=>b.classList.toggle('on',b.dataset.g===g&&g!=='base'));
+    const d=G[g],rs=info.querySelectorAll('.r span');
+    info.querySelector('.ln').innerHTML=d[0];
+    rs.forEach((s,i)=>s.innerHTML=d[i+1]);
+  }
+  gs.querySelectorAll('.gbt').forEach(b=>b.addEventListener('click',()=>set(b.dataset.g)));
+  window.__genre=set;
+})();
+</script>
+</body>
+</html>

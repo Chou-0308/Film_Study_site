@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S#06 편집 — 프레젠테이션 | 필름잇다 기능반</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314161b'/%3E%3Cpath d='M6 20h52v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z' fill='%23f0a23c'/%3E%3Cpath d='M6 8h52v12H6z' fill='%23ece7dc'/%3E%3Cpath d='M14 8l-6 12h8l6-12zM28 8l-6 12h8l6-12zM42 8l-6 12h8l6-12z' fill='%2314161b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/deck.css">
+<style>
+/* 이 덱 전용 */
+.ku{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px}
+.ku .row{display:flex;align-items:center;gap:26px}
+.ku .fm{width:470px;height:300px;background:#15171c;border:3px solid var(--line2);border-radius:12px;position:relative;overflow:hidden}
+.ku .fm svg{width:100%;height:100%}
+.ku .fm .lb{position:absolute;left:14px;top:10px;font-family:var(--mono);font-size:17px;letter-spacing:.12em;color:#b9b3a8}
+.ku .op{font-size:64px;font-weight:900;color:var(--mute)}
+.ku .res{width:400px;min-height:180px;display:flex;flex-direction:column;justify-content:center;padding:24px 30px;border-radius:16px;background:var(--amber-d);border:2px solid var(--amber-b)}
+.ku .res small{font-family:var(--mono);font-size:17px;letter-spacing:.12em;color:var(--amber)}
+.ku .res b{font-size:46px;letter-spacing:-1.4px;margin-top:6px;line-height:1.2}
+.ku .res span{font-size:22px;color:var(--tx2);margin-top:8px;line-height:1.45}
+.ku .btns{display:flex;gap:14px}
+.kbtn{font:inherit;font-size:24px;font-weight:800;color:var(--tx);background:var(--bg2);border:2px solid var(--line2);border-radius:12px;padding:12px 26px;cursor:pointer}
+.kbtn:hover{border-color:var(--amber)} .kbtn.on{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.ku .b-sh{display:none} .ku .b-sh.on{display:block}
+.ax{flex:1;display:grid;grid-template-columns:720px 1fr;gap:44px;align-items:center;min-height:0}
+.ax svg text{font-family:var(--sans)}
+.mini{display:flex;flex-direction:column;gap:18px}
+.mini .m{display:flex;align-items:center;gap:20px}
+.mini .scr{width:300px;height:169px;border-radius:10px;background:#15171c;border:3px solid var(--line2);position:relative;flex:0 0 auto}
+.mini .scr.bad{border-color:var(--rec)} .mini .scr.ok{border-color:var(--teal)}
+.mini .scr i{position:absolute;top:44px;width:74px;height:100px;border-radius:40px 40px 10px 10px;font-style:normal;font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center;color:#111}
+.mini .scr .pA{background:#e8b64a} .mini .scr .pB{background:#93aac6}
+.mini .m p{font-size:24px;line-height:1.45;color:var(--tx2)}
+.mini .m p b{display:block;font-size:27px}
+.jl{display:flex;flex-direction:column;gap:22px;width:100%}
+.jl .r{display:grid;grid-template-columns:150px 1fr 330px;gap:24px;align-items:center}
+.jl .r>b{font-size:34px;letter-spacing:-1px}
+.jl .r>p{font-size:23px;color:var(--tx2);line-height:1.45}
+.jl .tr{display:flex;flex-direction:column;gap:6px}
+.jl .ln{display:flex;height:50px;border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:18px;font-weight:700}
+.jl .ln span{display:flex;align-items:center;padding-left:14px;color:#111}
+.jl .va{background:#e8b64a} .jl .vb{background:#93aac6}
+.jl .aa{background:repeating-linear-gradient(90deg,#e8b64a 0 6px,#f3d48f 6px 10px)} .jl .ab{background:repeating-linear-gradient(90deg,#93aac6 0 6px,#c4d3e5 6px 10px)}
+.jl .k{font-family:var(--mono);font-size:15px;color:var(--mute);letter-spacing:.1em}
+.ins{display:flex;flex-direction:column;gap:30px;width:100%}
+.ins .r{display:flex;align-items:center;gap:18px}
+.ins .lab{width:170px;font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:.08em}
+.ins .sh{width:260px;height:150px;border-radius:12px;border:2.5px solid var(--line2);background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.ins .sh b{font-size:28px} .ins .sh span{font-size:19px;color:var(--tx2)}
+.ins .sh.in{border-color:var(--amber);background:var(--amber-d)}
+.ins .ar{font-size:36px;color:var(--mute)}
+.ins .jump{font-size:40px;font-weight:900;color:var(--rec)}
+.ins .ok{font-size:26px;font-weight:800;color:var(--teal);margin-left:8px}
+.rh{display:flex;flex-direction:column;gap:30px;width:100%}
+.rh .r{display:grid;grid-template-columns:200px 1fr 300px;gap:26px;align-items:center}
+.rh .r>b{font-size:32px}
+.rh .r>p{font-size:23px;color:var(--tx2);line-height:1.45}
+.rh .tk{display:flex;gap:4px;height:70px}
+.rh .tk i{border-radius:6px;background:var(--amber)}
+.rh .tk.s i{background:var(--teal)} .rh .tk.m i{background:var(--line2)}
+.rh .scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:15px;color:var(--mute);margin-left:226px;margin-right:326px}
+.tx{flex:1;display:grid;grid-template-columns:900px 1fr;gap:40px;align-items:center;min-height:0}
+.tx .scr{width:900px;height:506px;position:relative;overflow:hidden;border-radius:14px;border:3px solid var(--line2);background:#000}
+.tx .sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff}
+.tx .sc b{color:#fff;font-size:54px;letter-spacing:-1.5px}
+.tx .sc span{font-family:var(--mono);font-size:20px;letter-spacing:.14em;opacity:.8}
+.tx .sA{background:radial-gradient(500px 300px at 70% 25%,#2f4d7a,#0d1a30)}
+.tx .sB{background:radial-gradient(600px 360px at 30% 20%,#f7c66b,#c9752e);color:#2a1606}
+.tx .sB b{color:#2a1606}
+.tx .sB.loud{background:#c3261c}
+.tx .sB.loud b{color:#fff;font-size:120px}
+.tx .blk{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.tx .now{position:absolute;right:16px;bottom:12px;font-family:var(--mono);font-size:18px;color:#fff;background:rgba(0,0,0,.55);padding:4px 12px;border-radius:6px}
+.tx .side{display:flex;flex-direction:column;gap:12px}
+.tx .side .kbtn{text-align:left;display:flex;justify-content:space-between;align-items:center}
+.tx .side .kbtn small{font-size:18px;font-weight:600;opacity:.75}
+.tx .side p{font-size:21px;color:var(--tx2);margin-top:8px;line-height:1.45}
+.hist{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative;width:100%}
+.hist::before{content:'';position:absolute;left:0;right:0;top:34px;height:4px;background:var(--line2)}
+.hist .h{position:relative;padding-top:70px}
+.hist .h::before{content:'';position:absolute;left:0;top:22px;width:28px;height:28px;border-radius:50%;background:var(--bg);border:4px solid var(--amber)}
+.hist .h .y{position:absolute;left:44px;top:18px;font-family:var(--mono);font-size:22px;color:var(--amber);font-weight:700}
+.hist .h b{display:block;font-size:31px;letter-spacing:-.8px;line-height:1.25}
+.hist .h p{font-size:23px;color:var(--tx2);line-height:1.5;margin-top:10px}
+.hist .h em{display:block;font-style:normal;margin-top:14px;padding-top:12px;border-top:1.5px dashed var(--line2);font-size:21px;color:var(--teal);line-height:1.4}
+</style>
+</head>
+<body class="light" data-theme="light">
+<div id="stage">
+
+
+<!-- 01 표지 -->
+<section class="slide" data-title="표지" data-note="F 전체화면 · N 메모 · O 목차. 유튜브는 클릭하면 그 자리에서 재생, 넘기면 자동 정지. 쿨레쇼프 · 장면 전환 장은 버튼을 눌러 직접 보여 주는 장입니다.">
+  <div class="cover">
+    <div>
+      <div class="kick">필름잇다 기능반 · 기초 이론 · S#06</div>
+      <h1>편집</h1>
+      <p>편집은 영화를 만드는<br><b class="am">세 번째 창조 행위</b>다</p>
+      <div class="hint">F 전체화면 · → 넘기기 · O 목차 · N 교사 메모 · B 빈칸</div>
+    </div>
+    <div class="slateb" aria-hidden="true">
+      <div class="stripes"></div>
+      <div class="grid">
+        <div><span class="k">SCENE</span><span class="v">06</span></div>
+        <div><span class="k">SHOT</span><span class="v">01</span></div>
+        <div><span class="k">TAKE</span><span class="v">01</span></div>
+        <div class="prod"><span class="k">PROD.</span><span class="v">컷과 컷 사이</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 질문 -->
+<section class="slide" data-title="오늘의 질문" data-note="2분. 한 학생에게 아무 표정 없이 앞을 보게 하고, '이 다음 컷에 무엇이 나오면 이 얼굴이 슬퍼 보일까? 배고파 보일까?'를 물어봅니다. 6장에서 직접 실험합니다.">
+  <div class="hd"><div class="sl">S#06 · 오늘의 질문</div><h1>같은 얼굴, 다른 감정?</h1></div>
+  <div class="body center">
+    <div class="qbox">
+      <p>아무 표정 없는 얼굴 한 컷.</p>
+      <p style="margin-top:14px">그다음에 <b class="am">따뜻한 국 한 그릇</b>이 나오면 — <b class="q">배고파 보이고</b></p>
+      <p>그다음에 <b class="tl">관</b>이 나오면 — <b class="q">슬퍼 보인다</b></p>
+      <div class="punch">얼굴은 그대로 — 바뀐 건 <u>바로 다음 컷</u>뿐</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 흐름 -->
+<section class="slide" data-title="오늘의 흐름" data-note="2차시라면 1교시 = 역사 · 쿨레쇼프 · 연속 편집, 2교시 = 교차 편집 · 시간 · 전환 + 쿨레쇼프 3컷 실습.">
+  <div class="hd"><div class="sl">S#06 · 오늘의 흐름</div><h1>오늘 배울 네 가지</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">01</span><h3>쿨레쇼프 효과</h3><p>숏과 숏이 만나 새 의미가 된다</p><div class="ex">직접 실험해 보기</div></div>
+      <div class="cd"><span class="n">02</span><h3>연속 편집</h3><p>180도 규칙 · 매치컷 · 아이라인 · J컷/L컷</p><div class="ex">〈2001 스페이스 오디세이〉</div></div>
+      <div class="cd"><span class="n">03</span><h3>교차 편집과 시간</h3><p>평행 편집 · 엘립시스 · 플래시백 · 인서트 컷</p><div class="ex">〈대부〉 세례식</div></div>
+      <div class="cd"><span class="n">04</span><h3>전환과 리듬</h3><p>컷 · 디솔브 · 페이드 · 와이프 · 스매시 컷</p><div class="ex">〈전함 포템킨〉</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 편집이란 -->
+<section class="slide" data-title="편집이란" data-note="1분. 촬영한 숏은 '재료', 편집이 '요리'. 같은 재료로 전혀 다른 영화가 나올 수 있다는 점.">
+  <div class="hd"><div class="sl">01 · 편집 Editing</div><h1>찍은 숏을 <span class="am">선택 · 배열 · 연결</span>하는 일</h1></div>
+  <div class="body">
+    <p style="font-size:30px;color:var(--tx2);line-height:1.5;margin-bottom:6px">“하나의 숏은 그 자체보다 <b>다른 영상과 결합될 때</b> 의미를 완성한다.”</p>
+    <div class="cards c4">
+      <div class="cd" style="min-height:300px"><span class="n">STORY</span><h3>이야기 구성</h3><p>숏의 <b>순서</b>로 내러티브를 다시 짠다</p></div>
+      <div class="cd" style="min-height:300px"><span class="n">TIME</span><h3>시간 제어</h3><p>실제 시간을 <b>늘리고 · 줄이고 · 건너뛴다</b></p></div>
+      <div class="cd" style="min-height:300px"><span class="n">MOOD</span><h3>정서 조절</h3><p>느리면 <b>서정적</b>, 빨리 자르면 <b>경쾌한</b> 리듬</p></div>
+      <div class="cd" style="min-height:300px"><span class="n">MEANING</span><h3>의미 생성</h3><p>관계없는 숏을 붙여 <b>새 의미</b>를 만든다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 역사 -->
+<section class="slide" data-title="편집의 역사" data-note="2분. '기록 → 이야기 → 다른 시공간 연결 → 의미 창조' 네 단계로만 기억하면 충분합니다.">
+  <div class="hd"><div class="sl">01 · 편집의 역사</div><h1>기록에서 언어로</h1></div>
+  <div class="body" style="justify-content:center">
+    <div class="hist">
+      <div class="h"><span class="y">1895</span><b>뤼미에르 형제</b><p>카메라를 세워 두고 <b>한 숏</b>으로 찍은 짧은 필름</p><em>“영상으로 기록한다”</em></div>
+      <div class="h"><span class="y">1903</span><b>에드윈 포터</b><p>여러 숏을 이어 <b>이야기</b>를 만든다</p><em>연속 편집의 시작</em></div>
+      <div class="h"><span class="y">1915</span><b>D.W. 그리피스</b><p>숏 분할 · <b>교차 편집</b> · 클로즈업</p><em>다른 시공간을 잇다</em></div>
+      <div class="h"><span class="y">1920s</span><b>소비에트 몽타주</b><p>쿨레쇼프 · 에이젠슈테인 · 푸도프킨 — 숏의 <b>충돌</b></p><em>편집 자체가 예술 언어</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 쿨레쇼프 실험 -->
+<section class="slide" data-title="실험 · 쿨레쇼프 효과" data-note="버튼을 누르기 전에 먼저 학생에게 '이 얼굴의 표정이 어떻게 보이나?'를 묻습니다(대부분 '무표정'). 버튼을 하나씩 눌러 B 컷만 바꿉니다 — 왼쪽 얼굴은 한 번도 바뀌지 않습니다. 그림은 설명용으로 새로 그린 것입니다.">
+  <div class="hd"><div class="sl">02 · 쿨레쇼프 효과 · 직접 실험</div><h1>A 컷은 그대로, B 컷만 바꿔 보자</h1></div>
+  <div class="body" style="padding-top:20px">
+    <div class="ku" id="ku">
+      <div class="row">
+        <div class="fm"><span class="lb">A · 같은 얼굴</span>
+          <svg viewBox="0 0 470 300" aria-label="무표정한 얼굴"><ellipse cx="235" cy="160" rx="92" ry="112" fill="#d9cbb5"/><path d="M143 135 C150 50 320 50 327 135 C300 95 170 95 143 135Z" fill="#3a2f27"/><ellipse cx="200" cy="158" rx="9" ry="6" fill="#222"/><ellipse cx="270" cy="158" rx="9" ry="6" fill="#222"/><path d="M182 138 H216 M254 138 H288" stroke="#3a2f27" stroke-width="5" stroke-linecap="round"/><path d="M235 168 V200 L224 206" stroke="#a08c72" stroke-width="4" fill="none"/><path d="M212 232 H258" stroke="#7b5f52" stroke-width="5" stroke-linecap="round"/></svg>
+        </div>
+        <span class="op">+</span>
+        <div class="fm"><span class="lb">B · 다음 컷</span>
+          <svg class="b-sh on" data-k="0" viewBox="0 0 470 300"><text x="235" y="165" text-anchor="middle" font-size="26" fill="#8b929d" font-family="sans-serif">아래 버튼을 눌러 보세요</text></svg>
+          <svg class="b-sh" data-k="1" viewBox="0 0 470 300" aria-label="김이 나는 국그릇"><path d="M120 165 H350 C345 230 300 262 235 262 C170 262 125 230 120 165Z" fill="#c9c2b6"/><ellipse cx="235" cy="165" rx="115" ry="22" fill="#b5652e"/><path d="M190 140 C175 115 205 100 190 72 M235 138 C220 110 250 96 235 64 M280 140 C265 115 295 100 280 72" stroke="#e8e2d6" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/><rect x="300" y="88" width="10" height="120" rx="5" fill="#a89a84" transform="rotate(28 305 148)"/></svg>
+          <svg class="b-sh" data-k="2" viewBox="0 0 470 300" aria-label="꽃이 놓인 관"><path d="M110 210 L150 160 H330 L370 210 L330 250 H150Z" fill="#5a3b2a"/><path d="M110 210 L150 160 H330 L370 210" fill="none" stroke="#7d5640" stroke-width="5"/><circle cx="230" cy="190" r="13" fill="#f2efe9"/><circle cx="252" cy="198" r="11" fill="#f2efe9"/><circle cx="214" cy="204" r="10" fill="#e9e3d6"/><path d="M220 214 L260 232" stroke="#4d6b3a" stroke-width="5"/><rect x="226" y="70" width="18" height="70" fill="#8a8172"/><ellipse cx="235" cy="66" rx="9" ry="16" fill="#e8b64a"/></svg>
+          <svg class="b-sh" data-k="3" viewBox="0 0 470 300" aria-label="곰 인형을 안은 아이"><circle cx="210" cy="100" r="40" fill="#d9cbb5"/><path d="M170 92 C172 52 250 52 250 92 C238 74 182 74 170 92Z" fill="#6b4a32"/><path d="M196 112 Q210 124 224 112" stroke="#7b5f52" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M160 270 L175 150 H245 L260 270Z" fill="#e5544b"/><circle cx="290" cy="196" r="34" fill="#a8743e"/><circle cx="290" cy="150" r="24" fill="#a8743e"/><circle cx="272" cy="130" r="9" fill="#a8743e"/><circle cx="308" cy="130" r="9" fill="#a8743e"/><circle cx="284" cy="148" r="3" fill="#222"/><circle cx="297" cy="148" r="3" fill="#222"/><path d="M240 180 Q268 196 268 214" stroke="#d9cbb5" stroke-width="14" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <span class="op">=</span>
+        <div class="res"><small>관객이 느끼는 감정</small><b id="kuRes">?</b><span id="kuSub">B 컷을 골라 보세요</span></div>
+      </div>
+      <div class="btns">
+        <button class="kbtn" type="button" data-k="1">① 식탁 위의 음식</button>
+        <button class="kbtn" type="button" data-k="2">② 관에 누운 사람</button>
+        <button class="kbtn" type="button" data-k="3">③ 장난감을 든 아이</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 쿨레쇼프 + 히치콕 -->
+<section class="slide" data-title="쿨레쇼프 효과 · 히치콕" data-note="영어 인터뷰 영상(자막 권장). 히치콕이 직접 '웃는 얼굴 + 아기 → 다정한 노인 / 웃는 얼굴 + 수영복 여성 → 음흉한 노인'으로 설명하는 장면이 핵심입니다.">
+  <div class="hd"><div class="sl">02 · 쿨레쇼프 효과 · 1920년대</div><h1>A 숏 + B 숏 = <span class="am">AB</span> (새로운 의미)</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm">
+          <tr><th style="width:44%">조합</th><th>관객이 느끼는 감정</th></tr>
+          <tr><td class="c0">표정 + 음식</td><td>배고픈 사람</td></tr>
+          <tr><td class="c0">표정 + 관</td><td>비통한 슬픔</td></tr>
+          <tr><td class="c0">표정 + 노는 아이</td><td>자애로운 어른</td></tr>
+        </table>
+        <p>의미는 숏 <b>자체</b>가 아니라 <b>무엇과 나란히 놓이느냐</b>로 결정된다 — 모든 <b>반응숏</b>이 이 원리를 쓴다.</p>
+      </div>
+      <div class="ytw" style="flex-basis:760px"><div class="yt" data-vid="DjSr7QMppi4" data-title="Hitchcock on Editing and the Kuleshov Effect"></div><p class="note">히치콕이 직접 설명하는 쿨레쇼프 효과 — <b>같은 미소, 다른 노인</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 연속 편집 규칙 -->
+<section class="slide" data-title="연속 편집의 규칙" data-note="2분. '관객이 컷을 눈치채지 못하게' 하는 것이 연속 편집의 목표. J컷/L컷은 규칙이라기보다 기법입니다(11장).">
+  <div class="hd"><div class="sl">03 · 연속 편집 Continuity Editing</div><h1>관객이 <span class="am">컷을 눈치채지 못하게</span></h1></div>
+  <div class="body" style="justify-content:center">
+    <table class="sm" style="font-size:26px">
+      <tr><th style="width:23%">규칙</th><th>내용</th><th style="width:31%">어기면</th></tr>
+      <tr><td class="c0">180도 규칙</td><td>두 인물 사이 가상의 선(축)을 넘지 않는다</td><td>누가 어디 있는지 <b>위치가 뒤집힌다</b></td></tr>
+      <tr><td class="c0">매치컷</td><td>구도 · 움직임이 다음 숏으로 자연스럽게 이어진다</td><td>다음 화면이 <b>튀어</b> 보인다</td></tr>
+      <tr><td class="c0">아이라인 매치</td><td>바라보는 방향과 다음 컷 대상의 위치를 맞춘다</td><td>누가 무엇을 보는지 <b>헷갈린다</b></td></tr>
+      <tr><td class="c0">J컷 · L컷</td><td>소리를 먼저 · 늦게 붙여 컷을 부드럽게</td><td><span style="color:var(--mute)">(규칙이 아닌 기법)</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 09 180도 규칙 그림 -->
+<section class="slide" data-title="180도 규칙 그림" data-note="교실 앞에 학생 두 명을 마주 세우고 바닥에 테이프로 선을 그어 보면 바로 이해합니다. 축을 넘은 카메라로 찍으면 A가 오른쪽으로 '순간 이동'합니다.">
+  <div class="hd"><div class="sl">03 · 180도 규칙 Axis Rule</div><h1>카메라는 선의 <span class="tl">한쪽</span>에만</h1></div>
+  <div class="body">
+    <div class="ax">
+      <svg viewBox="0 0 720 560" aria-label="180도 규칙 위에서 본 그림">
+        <rect x="10" y="10" width="700" height="540" rx="16" style="fill:var(--bg2);stroke:var(--line);stroke-width:2"/>
+        <path d="M30 230 H690" style="stroke:var(--rec);stroke-width:4;stroke-dasharray:16 12"/>
+        <text x="40" y="216" font-size="22" font-weight="800" style="fill:var(--rec)">가상의 선 (축)</text>
+        <path d="M30 230 H690 V540 H30Z" style="fill:var(--teal-d)"/>
+        <text x="40" y="528" font-size="22" font-weight="800" style="fill:var(--teal)">카메라는 이쪽 180° 안에서만</text>
+        <circle cx="230" cy="230" r="46" fill="#e8b64a"/><text x="230" y="242" text-anchor="middle" font-size="34" font-weight="900" fill="#111">A</text>
+        <circle cx="490" cy="230" r="46" fill="#93aac6"/><text x="490" y="242" text-anchor="middle" font-size="34" font-weight="900" fill="#111">B</text>
+        <g style="fill:var(--teal)"><rect x="330" y="420" width="60" height="40" rx="6"/><path d="M345 420 L360 395 L375 420Z"/></g>
+        <text x="360" y="490" text-anchor="middle" font-size="20" font-weight="700" style="fill:var(--teal)">카메라 1</text>
+        <g style="fill:var(--teal)"><rect x="140" y="360" width="56" height="38" rx="6" transform="rotate(25 168 379)"/></g>
+        <g style="fill:var(--teal)"><rect x="520" y="360" width="56" height="38" rx="6" transform="rotate(-25 548 379)"/></g>
+        <g style="fill:var(--rec)"><rect x="330" y="70" width="60" height="40" rx="6"/><path d="M345 110 L360 135 L375 110Z"/></g>
+        <text x="360" y="58" text-anchor="middle" font-size="20" font-weight="800" style="fill:var(--rec)">✕ 축을 넘은 카메라 2</text>
+      </svg>
+      <div class="mini">
+        <div class="m"><div class="scr ok"><i class="pA" style="left:40px">A</i><i class="pB" style="right:40px">B</i></div><p><b class="tl">카메라 1</b>A는 왼쪽, B는 오른쪽</p></div>
+        <div class="m"><div class="scr bad"><i class="pB" style="left:40px">B</i><i class="pA" style="right:40px">A</i></div><p><b class="rd">카메라 2</b>두 사람이 <b style="display:inline;font-size:inherit">자리를 바꾼 것</b>처럼 보인다</p></div>
+        <p style="font-size:24px;color:var(--tx2);line-height:1.5">그래서 대화 장면의 숏 · 리버스숏은<br>모두 <b>같은 쪽</b>에서 찍습니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 180도 영상 -->
+<section class="slide" data-title="180도 규칙 · 영상" data-note="영어 영상(StudioBinder, 자막 권장). 축을 '일부러' 넘어 혼란 · 심리 변화를 표현하는 예도 나옵니다 — 규칙을 알아야 깰 수 있다.">
+  <div class="hd"><div class="sl">03 · 180도 규칙 · 예시</div><h1>선을 넘으면 어떻게 느껴질까</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">Axis Rule</span>
+        <h3>지키면 <span class="tl">안정</span>,<br>일부러 넘으면 <span class="rd">혼란</span></h3>
+        <p>인물의 마음이 뒤집히는 순간 감독은 <b>일부러</b> 축을 넘기도 합니다.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="iW0bKUfvH2c" data-title="The 180 Degree Rule in Film — StudioBinder"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 매치컷 2001 -->
+<section class="slide" data-title="매치컷 · 〈2001〉" data-note="뼈가 하늘로 올라가 → 우주선으로 바뀌는 순간만 보여 줘도 충분합니다(영상 1분대). '수백만 년을 컷 하나로' — 매치컷이자 엘립시스.">
+  <div class="hd"><div class="sl">03 · 매치컷 Match Cut</div><h1>뼈 하나가 우주선이 되는 컷</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈2001: 스페이스 오디세이〉 1968</span>
+        <h3>던진 <span class="am">뼈</span> → 떠 있는 <span class="tl">우주선</span></h3>
+        <p>모양과 움직임이 이어지는 <b>매치컷</b>.<br>인류의 수백만 년 역사를 <b>단 하나의 컷</b>으로 압축한, 가장 대담한 생략.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="avjdKTqiVvQ" data-title="〈2001: 스페이스 오디세이〉 뼈 → 우주선 매치컷"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 J컷 L컷 -->
+<section class="slide" data-title="J컷 · L컷" data-note="편집 프로그램 타임라인 모양이 알파벳 J, L처럼 생겨서 붙은 이름입니다. 인터뷰 · 대화 장면에서 가장 많이 씁니다. 다음 시간(사운드)과 이어집니다.">
+  <div class="hd"><div class="sl">03 · 연속 편집 · 소리로 잇기</div><h1>소리를 <span class="am">먼저</span>, 또는 <span class="tl">늦게</span></h1></div>
+  <div class="body" style="justify-content:center">
+    <div class="jl">
+      <div class="r"><b>일반 컷</b>
+        <div class="tr"><span class="k">영상</span><div class="ln"><span class="va" style="width:50%">A 화면</span><span class="vb" style="width:50%">B 화면</span></div><span class="k">소리</span><div class="ln"><span class="aa" style="width:50%">A 소리</span><span class="ab" style="width:50%">B 소리</span></div></div>
+        <p>화면과 소리가 <b>같이</b> 바뀐다 — 뚝 끊기는 느낌</p></div>
+      <div class="r"><b class="am">J 컷</b>
+        <div class="tr"><div class="ln"><span class="va" style="width:50%">A 화면</span><span class="vb" style="width:50%">B 화면</span></div><div class="ln"><span class="aa" style="width:34%">A 소리</span><span class="ab" style="width:66%">B 소리가 먼저 들린다</span></div></div>
+        <p>다음 장면 소리가 <b>먼저</b> — 궁금증을 만들며 넘어간다</p></div>
+      <div class="r"><b class="tl">L 컷</b>
+        <div class="tr"><div class="ln"><span class="va" style="width:50%">A 화면</span><span class="vb" style="width:50%">B 화면</span></div><div class="ln"><span class="aa" style="width:66%">A 소리가 계속 남는다</span><span class="ab" style="width:34%">B 소리</span></div></div>
+        <p>이전 소리가 <b>남아</b> — 여운을 끌고 넘어간다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 교차 편집 대부 -->
+<section class="slide" data-title="교차 편집 · 〈대부〉" data-note="⚠ 총격 · 살해 장면이 연속으로 나옵니다(15세 이상 관람가 영화). 학생 상황에 따라 앞부분(세례식과 준비 장면)만 보여 주거나 소리를 줄이세요. 핵심: 성스러운 의식 ↔ 폭력의 대비.">
+  <div class="hd"><div class="sl">04 · 교차 편집 Parallel · Cross Editing</div><h1>두 장소를 번갈아 — 의미가 충돌한다</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm">
+          <tr><th style="width:36%">유형</th><th>내용</th></tr>
+          <tr><td class="c0">평행 편집</td><td>동시에 다른 장소의 사건을 <b>교대로</b> — 추격 · 구조</td></tr>
+          <tr><td class="c0">인터컷팅</td><td>두 사건을 교차하며 — 대화 속 반응숏</td></tr>
+        </table>
+        <p>〈대부〉 1972 — <b class="am">세례식</b>(“악을 버리겠습니다”) ↔ 동시에 벌어지는 <b class="rd">암살</b>. 권력을 이어받는 마이클의 두 얼굴.</p>
+      </div>
+      <div class="ytw" style="flex-basis:760px"><div class="yt" data-vid="1CDlBLvc3YE" data-title="〈대부〉 세례식 시퀀스 — 평행 편집"></div><p class="note">⚠ 폭력 장면 포함 — <b>앞부분만</b> 보여 줘도 충분합니다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 시간 조작 -->
+<section class="slide" data-title="시간의 조작" data-note="2분. 각 카드마다 학생이 아는 영화 장면을 하나씩 떠올리게 하세요. 엘립시스 = 생략, 가장 많이 쓰는 기법.">
+  <div class="hd"><div class="sl">05 · 시간적 배열</div><h1>영화의 시간은 <span class="am">조작</span>할 수 있다</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">EXPANSION</span><h3>시간 늘리기</h3><p>한 순간을 실제보다 <b>길게</b> — 슬로모션, 같은 행동을 여러 각도로</p><div class="ex">긴장감 최대화</div></div>
+      <div class="cd"><span class="n">ELLIPSIS</span><h3>엘립시스</h3><p>필요 없는 시간을 <b>생략</b>해 압축</p><div class="ex">계절이 바뀌는 장면</div></div>
+      <div class="cd"><span class="n">FLASHBACK</span><h3>플래시백</h3><p>현재에서 <b>과거</b>로 돌아간다</p><div class="ex">주인공의 과거 힌트</div></div>
+      <div class="cd"><span class="n">FLASHFORWARD</span><h3>플래시포워드</h3><p>현재에서 <b>미래</b>를 미리 보여 준다</p><div class="ex">오프닝 · 예고 장면</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 인서트 컷 -->
+<section class="slide" data-title="인서트 컷 = 반창고" data-note="실습할 때 가장 쓸모 있는 기술. 같은 자리 두 숏이 튈 때(점프컷) 사이에 손 · 시계 · 창밖을 끼워 넣으면 매끄럽게 이어지고 시간도 흐른 것처럼 보입니다. '1년 후' 자막 대신 인서트!">
+  <div class="hd"><div class="sl">05 · 인서트 컷 Insert Cut</div><h1>튀는 컷 사이에 <span class="am">한 컷</span>을 끼워 넣는다</h1></div>
+  <div class="body" style="justify-content:center">
+    <div class="ins">
+      <div class="r"><span class="lab rd">그냥 이으면</span>
+        <div class="sh"><b>책상 앞 인물</b><span>공부 시작</span></div><span class="ar">→</span>
+        <div class="sh"><b>책상 앞 인물</b><span>같은 자리 · 1시간 뒤</span></div>
+        <span class="jump">⚡ 점프컷! 화면이 튄다</span></div>
+      <div class="r"><span class="lab tl">인서트를 넣으면</span>
+        <div class="sh"><b>책상 앞 인물</b><span>공부 시작</span></div><span class="ar">→</span>
+        <div class="sh in"><b>🕐 벽시계</b><span>인서트 숏</span></div><span class="ar">→</span>
+        <div class="sh"><b>책상 앞 인물</b><span>1시간 뒤</span></div>
+        <span class="ok">✓ 자연스럽게 시간이 흐른다</span></div>
+    </div>
+    <div class="ft" style="margin-top:40px">“1년 후” 자막 대신 — <b>창밖 풍경 · 시계 · 빈 식탁</b> 인서트 한두 개</div>
+  </div>
+</section>
+
+<!-- 16 인서트 영상 2 -->
+<section class="slide" data-title="인서트 컷 · 영상 두 편" data-note="둘 다 영어 영상(자막 권장). 왼쪽 = 컷인 · 컷어웨이 · 점프컷 강의, 오른쪽 = 컷어웨이 숏 짧은 해설. 하나만 골라도 됩니다.">
+  <div class="hd"><div class="sl">05 · 인서트 · 컷어웨이 · 예시</div><h1>실제로는 이렇게 쓴다</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="Lznsxm8KdD0" data-title="Cut In, Cutaway, Jump Cut — 영상 강의"></div><h3>컷인 · 컷어웨이 · 점프컷</h3><p>같은 공간을 잘게 나누는 <b>컷인</b>, 다른 곳을 잠깐 보여 주는 <b>컷어웨이</b></p></div>
+      <div class="it"><div class="yt" data-vid="WrIwfImLXOA" data-title="What Is a Cutaway Shot? — Fandor"></div><h3>컷어웨이 숏이란</h3><p>점프컷을 덮고 <b>정보</b>와 <b>시간 경과</b>를 동시에</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 리듬 -->
+<section class="slide" data-title="편집의 리듬" data-note="같은 10초라도 컷 수에 따라 완전히 다른 감정. 막대 하나 = 숏 하나. 액션 예고편은 1초 안팎, 서정적인 장면은 10초 이상도 흔합니다.">
+  <div class="hd"><div class="sl">05 · 편집의 리듬과 정서</div><h1>같은 10초, 다른 리듬</h1></div>
+  <div class="body" style="justify-content:center">
+    <div class="rh">
+      <div class="r"><b class="am">빠른 편집</b><div class="tk"><i style="flex:.9"></i><i style="flex:.6"></i><i style="flex:1.1"></i><i style="flex:.5"></i><i style="flex:.8"></i><i style="flex:.4"></i><i style="flex:1"></i><i style="flex:.6"></i><i style="flex:.7"></i><i style="flex:.5"></i><i style="flex:1.2"></i><i style="flex:.6"></i><i style="flex:.8"></i><i style="flex:.5"></i></div><p>짧은 숏 14개 — <b>추격 · 액션 · 공포</b></p></div>
+      <div class="r"><b class="tl">느린 편집</b><div class="tk s"><i style="flex:6.5"></i><i style="flex:3.5"></i></div><p>길고 넓은 숏 2개 — <b>연민 · 시적인 장면</b></p></div>
+      <div class="r"><b>연속적 편집</b><div class="tk m"><i style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i><i style="flex:1"></i></div><p>일정한 리듬 — <b>자연스러운 흐름</b></p></div>
+      <div class="scale"><span>0초</span><span>5초</span><span>10초</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 전환 데모 -->
+<section class="slide" data-title="장면 전환 · 직접 보기" data-note="버튼을 누르면 '밤 장면 → 아침 장면'이 그 방식으로 바뀝니다. 학생에게 버튼을 누르기 전에 '이건 어떤 느낌일까?'를 먼저 물어보세요. 스매시 컷은 조용한 밤 → 갑자기 시끄러운 알람.">
+  <div class="hd"><div class="sl">06 · 컷과 장면 전환 · 직접 보기</div><h1>밤 → 아침, 어떻게 넘어갈까?</h1></div>
+  <div class="body" style="padding-top:24px">
+    <div class="tx" id="tx">
+      <div class="scr">
+        <div class="sc sB"><span>SCENE 2</span><b>아침 · 학교 가는 길</b></div>
+        <div class="sc sA"><span>SCENE 1</span><b>밤 · 불 꺼진 방</b></div>
+        <div class="blk"></div>
+        <span class="now">버튼을 누르세요</span>
+      </div>
+      <div class="side">
+        <button class="kbtn" type="button" data-tx="cut">스트레이트 컷 <small>바로</small></button>
+        <button class="kbtn" type="button" data-tx="dis">디솔브 <small>겹치며</small></button>
+        <button class="kbtn" type="button" data-tx="fade">페이드 <small>검게 → 밝게</small></button>
+        <button class="kbtn" type="button" data-tx="wipe">와이프 <small>밀어내며</small></button>
+        <button class="kbtn" type="button" data-tx="smash">스매시 컷 <small>갑자기 · 충격</small></button>
+        <p>각 버튼은 <b>밤 장면부터 다시</b> 재생합니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 전환 표 + 영상 -->
+<section class="slide" data-title="컷과 전환의 종류" data-note="영어 영상(RocketJump Film School, 자막 권장). 스매시 컷 예: 〈노인을 위한 나라는 없다〉, 〈파이트 클럽〉. 와이프 = 〈스타워즈〉.">
+  <div class="hd"><div class="sl">06 · 컷과 장면 전환의 종류</div><h1>전환 하나가 감정 하나</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm" style="font-size:23px">
+          <tr><th style="width:36%">전환</th><th>주는 느낌</th></tr>
+          <tr><td class="c0">스트레이트 컷</td><td>가장 흔함 · 끊김 없는 흐름</td></tr>
+          <tr><td class="c0">디솔브</td><td>시간의 경과 · 상황의 변화</td></tr>
+          <tr><td class="c0">페이드</td><td>시퀀스의 분명한 끝과 시작</td></tr>
+          <tr><td class="c0">와이프</td><td>옛 연속극 느낌 — 〈스타워즈〉</td></tr>
+          <tr><td class="c0">스매시 컷</td><td>예고 없는 급변 — 충격 · 웃음</td></tr>
+          <tr><td class="c0">인서트 컷</td><td>점프컷 덮기 · 시간 · 공간 암시</td></tr>
+        </table>
+      </div>
+      <div class="ytw" style="flex-basis:760px"><div class="yt" data-vid="OAH0MoAv2CI" data-title="Cuts &amp; Transitions 101 — RocketJump Film School"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 포템킨 -->
+<section class="slide" data-title="몽타주 · 〈전함 포템킨〉" data-note="1925년 무성영화. ⚠ 군인이 시민에게 발포하는 장면(유혈 묘사)이 있습니다. 볼 포인트: 계단을 내려오는 군인 → 쓰러지는 시민 → 굴러떨어지는 유모차를 반복 교차해 실제보다 시간을 길게 늘린 것.">
+  <div class="hd"><div class="sl">07 · 소비에트 몽타주 · 분석</div><h1>〈전함 포템킨〉 1925 — 오데사 계단</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">에이젠슈테인</span>
+        <ul>
+          <li>수십 개의 <b>짧은 숏</b>이 빠르게 충돌</li>
+          <li>내려오는 군인 · 쓰러지는 시민 · <b>굴러떨어지는 유모차</b>를 반복 교차</li>
+          <li>실제보다 <b>시간을 늘려</b> 충격을 키운다</li>
+        </ul>
+        <p>100년이 지난 지금도 <b>편집의 교과서</b>.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="K1Vx3AOpVDo" data-title="〈전함 포템킨〉 오데사 계단 시퀀스"></div><p class="note">⚠ 무성영화 · 발포 장면 포함 — <b>유모차</b> 부분에 집중</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 퀴즈 -->
+<section class="slide" data-title="퀴즈 · 무슨 편집?" data-blank="1" data-note="빈칸 가린 채 시작 — 답을 듣고 B.">
+  <div class="hd"><div class="sl">확인 퀴즈</div><h1>어떤 편집일까?</h1></div>
+  <div class="body center">
+    <div class="qz">
+      <div class="qi"><span class="n">Q1</span><p>무표정한 얼굴 다음에 관을 보여 주니 슬퍼 보인다</p><span class="blank">쿨레쇼프 효과</span></div>
+      <div class="qi"><span class="n">Q2</span><p>구조대와 갇힌 사람을 번갈아 보여 준다</p><span class="blank">평행(교차) 편집</span></div>
+      <div class="qi"><span class="n">Q3</span><p>다음 장면의 소리가 화면보다 먼저 들린다</p><span class="blank">J컷</span></div>
+      <div class="qi"><span class="n">Q4</span><p>점프컷 사이에 벽시계 숏을 끼워 넣는다</p><span class="blank">인서트 컷</span></div>
+    </div>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 22 실습 -->
+<section class="slide" data-title="실습 · 쿨레쇼프 3컷" data-note="휴대폰 하나로 충분합니다. A 컷(무표정 클로즈업 3초)은 딱 한 번만 찍고 세 번 복사해 쓰는 것이 핵심 — 표정이 '같다'는 걸 증명해야 하니까요. 조별로 발표할 때 다른 조가 감정을 맞혀 봅니다.">
+  <div class="hd"><div class="sl">실습</div><h1>한 얼굴로 세 가지 감정 만들기</h1></div>
+  <div class="body center">
+    <div class="warnbar"><b>A 컷은 딱 한 번</b>만 찍는다 — 무표정 클로즈업 3초를 세 번 복사해서 쓴다</div>
+    <div class="sheet">
+      <div class="srow"><span class="i">01</span><b>A 컷 촬영</b><span>친구 얼굴 클로즈업 · 아무 표정 없이 3초</span></div>
+      <div class="srow"><span class="i">02</span><b>B 컷 세 개</b><span>교실에서 찾기 — 예) 매점 빵 · 빈 책상 · 떨어진 시험지</span></div>
+      <div class="srow"><span class="i">03</span><b>편집</b><span>A + B① · A + B② · A + B③ — 컷 편집만, 음악 없이</span></div>
+      <div class="srow"><span class="i">04</span><b>발표</b><span>다른 조가 각 조합의 <b>감정</b>을 맞혀 본다</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 타이머 -->
+<section class="slide" data-title="⏱ 실습 15분" data-note="T 시작 · 정지, R 처음부터. 촬영 7분 → 편집 6분 → 정리 2분.">
+  <div class="hd"><div class="sl">실습</div><h1>⏱ 쿨레쇼프 3컷</h1></div>
+  <div class="body center">
+    <div class="timer" data-min="15"><div class="tval">15:00</div><div class="tstate">대기</div></div>
+    <div class="tmarks"><div class="tmark"><b>08:00</b>촬영 끝</div><div class="tmark"><b>02:00</b>편집 끝</div><div class="tmark"><b>00:00</b>발표</div></div>
+    <div class="thint"><b>T</b> 시작 · 정지 &nbsp;·&nbsp; <b>R</b> 처음부터 &nbsp;·&nbsp; 숫자를 클릭해도 됩니다</div>
+  </div>
+</section>
+
+<!-- 24 입시 -->
+<section class="slide" data-title="입시 체크리스트" data-note="'이 장면에 어떤 편집 기법을 쓰면 좋을까?', '긴 촬영본을 짧게 편집하는 원칙은?' 유형이 자주 나옵니다.">
+  <div class="hd"><div class="sl">입시에서는 이렇게 나온다</div><h1>“이 장면에서 어떤 편집 기법을 쓰겠는가?”</h1></div>
+  <div class="body center">
+    <ul class="chk">
+      <li><b>쿨레쇼프 효과</b>를 예를 들어 설명할 수 있다</li>
+      <li><b>180도 규칙</b>을 지켜야 하는 이유</li>
+      <li><b>평행 편집</b>이 쓰인 영화 장면 하나</li>
+      <li><b>컷과 디솔브</b>의 차이와 어울리는 상황</li>
+      <li><b>시간 늘리기</b>가 주는 심리적 효과</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 25 정리 -->
+<section class="slide" data-title="오늘의 정리" data-blank="1" data-note="빈칸 가린 채 시작 — 먼저 묻고 B.">
+  <div class="hd"><div class="sl">정리</div><h1>오늘의 정리</h1></div>
+  <div class="body center">
+    <ol class="recap">
+      <li>A 숏 + B 숏 = 새 의미 → <span class="blank">쿨레쇼프 효과</span></li>
+      <li>대화 장면에서 카메라는 축의 <span class="blank">한쪽</span>에만</li>
+      <li>두 장소를 번갈아 → <span class="blank">평행 편집</span></li>
+      <li>튀는 컷 사이에 사물 한 컷 → <span class="blank">인서트 컷</span></li>
+    </ol>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 26 다음 -->
+<section class="slide" data-title="다음 시간 · 사운드" data-note="1분. 오늘 J컷 · L컷에서 소리를 살짝 다뤘습니다. 다음 시간은 소리 그 자체.">
+  <div class="hd"><div class="sl">다음 시간</div><h1>이은 장면에, 이제 어떤 소리를 더할까</h1></div>
+  <div class="body center">
+    <div class="next">
+      <div class="col a"><h3>다음 시간 · S#07 사운드</h3><ul><li>다이어제틱 · 논-다이어제틱</li><li>폴리와 ADR</li><li>영화음악과 침묵의 힘</li></ul></div>
+      <div class="col"><h3>복습</h3><ul><li>학습터 <b>기초 이론 · S#06</b> 읽기</li><li>좋아하는 영화 한 장면의 <b>컷 수</b> 세어 보기</li><li>쿨레쇼프 3컷 <b>완성본</b> 올리기</li></ul></div>
+    </div>
+    <div class="ft" style="margin-top:34px"><a href="../../#t6" style="color:var(--teal)">학습터 S#06 읽기 자료 열기 ↗</a> &nbsp;·&nbsp; <a href="../" style="color:var(--teal)">프레젠테이션 목록 ↗</a></div>
+  </div>
+</section>
+
+<!-- 27 부록 -->
+<section class="slide" data-title="부록 · 핵심 용어" data-note="질문이 나올 때 O 키로 바로 여세요.">
+  <div class="hd"><div class="sl">부록</div><h1>핵심 용어 한눈에</h1></div>
+  <div class="body">
+    <div class="gl">
+      <div class="gi"><b>컷 Cut</b><span>효과 없이 다음 숏으로 바로 넘어가는 연결</span></div>
+      <div class="gi"><b>쿨레쇼프 효과</b><span>숏과 숏의 연결로 새 의미가 생긴다</span></div>
+      <div class="gi"><b>180도 규칙</b><span>두 인물 사이 축을 넘지 않는다</span></div>
+      <div class="gi"><b>매치컷</b><span>움직임 · 구도를 자연스럽게 잇는 컷</span></div>
+      <div class="gi"><b>평행 편집</b><span>다른 장소의 사건을 교대로 보여 준다</span></div>
+      <div class="gi"><b>디솔브 · 페이드</b><span>겹치며 전환 · 어두워지거나 밝아지며 전환</span></div>
+      <div class="gi"><b>엘립시스</b><span>편집으로 생략된 시간</span></div>
+      <div class="gi"><b>플래시백</b><span>현재에서 과거로 돌아가는 편집</span></div>
+      <div class="gi"><b>몽타주</b><span>짧은 숏을 이어 시간 압축 · 정서 강조</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="../assets/deck.js"></script>
+<script>
+/* S#06 전용 — 쿨레쇼프 실험 · 장면 전환 데모 */
+(function(){
+  'use strict';
+  /* ① 쿨레쇼프: B 컷만 바꾼다 */
+  const ku=document.getElementById('ku');
+  if(ku){
+    const R={1:['배고픈 사람','음식을 바라보는 얼굴 → 허기'],2:['비통한 슬픔','관을 바라보는 얼굴 → 상실'],3:['자애로운 어른','아이를 바라보는 얼굴 → 다정함']};
+    ku.querySelectorAll('.kbtn').forEach(b=>b.addEventListener('click',()=>{
+      const k=b.dataset.k;
+      ku.querySelectorAll('.kbtn').forEach(x=>x.classList.toggle('on',x===b));
+      ku.querySelectorAll('.b-sh').forEach(s=>s.classList.toggle('on',s.dataset.k===k));
+      document.getElementById('kuRes').textContent=R[k][0];
+      document.getElementById('kuSub').textContent=R[k][1];
+    }));
+  }
+
+  /* ② 장면 전환: 밤 → 아침 */
+  const tx=document.getElementById('tx');
+  if(tx){
+    const A=tx.querySelector('.sA'),B=tx.querySelector('.sB'),K=tx.querySelector('.blk'),now=tx.querySelector('.now');
+    const bt=B.querySelector('b'),bs=B.querySelector('span');
+    let timer=null,anims=[];
+    const NAME={cut:'스트레이트 컷',dis:'디솔브',fade:'페이드 아웃 → 페이드 인',wipe:'와이프',smash:'스매시 컷'};
+    function reset(){
+      clearTimeout(timer);anims.forEach(a=>a.cancel());anims=[];
+      A.style.opacity=1;A.style.clipPath='';B.style.opacity=1;K.style.opacity=0;
+      A.style.zIndex=2;B.style.zIndex=1;B.style.clipPath='';
+      B.classList.remove('loud');bt.textContent='아침 · 학교 가는 길';bs.textContent='SCENE 2';
+    }
+    const an=(el,kf,ms,delay)=>{const a=el.animate(kf,{duration:ms,delay:delay||0,fill:'forwards',easing:'ease-in-out'});anims.push(a);return a;};
+    function run(kind){
+      reset();
+      tx.querySelectorAll('.kbtn').forEach(x=>x.classList.toggle('on',x.dataset.tx===kind));
+      now.textContent='밤 장면…';
+      if(kind==='smash'){B.classList.add('loud');bt.textContent='따르릉!!';bs.textContent='SCENE 2 · 지각이다';}
+      timer=setTimeout(()=>{
+        now.textContent=NAME[kind];
+        if(kind==='cut'||kind==='smash'){A.style.opacity=0;}
+        else if(kind==='dis'){an(A,[{opacity:1},{opacity:0}],1800);}
+        else if(kind==='fade'){an(K,[{opacity:0},{opacity:1},{opacity:1},{opacity:0}],2600);
+          timer=setTimeout(()=>{A.style.opacity=0;},1100);}
+        else if(kind==='wipe'){A.style.zIndex=1;B.style.zIndex=2;
+          an(B,[{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0 0 0)'}],1100);}
+      },kind==='smash'?1600:1000);
+    }
+    tx.querySelectorAll('.kbtn').forEach(b=>b.addEventListener('click',()=>run(b.dataset.tx)));
+    reset();
+  }
+})();
+</script>
+</body>
+</html>

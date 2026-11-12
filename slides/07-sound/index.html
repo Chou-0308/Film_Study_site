@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S#07 사운드 — 프레젠테이션 | 필름잇다 기능반</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314161b'/%3E%3Cpath d='M6 20h52v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z' fill='%23f0a23c'/%3E%3Cpath d='M6 8h52v12H6z' fill='%23ece7dc'/%3E%3Cpath d='M14 8l-6 12h8l6-12zM28 8l-6 12h8l6-12zM42 8l-6 12h8l6-12z' fill='%2314161b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/deck.css">
+<style>
+/* 이 덱 전용 */
+.hist{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative;width:100%}
+.hist::before{content:'';position:absolute;left:0;right:0;top:34px;height:4px;background:var(--line2)}
+.hist .h{position:relative;padding-top:70px}
+.hist .h::before{content:'';position:absolute;left:0;top:22px;width:28px;height:28px;border-radius:50%;background:var(--bg);border:4px solid var(--amber)}
+.hist .h.hot::before{background:var(--amber)}
+.hist .h .y{position:absolute;left:44px;top:18px;font-family:var(--mono);font-size:22px;color:var(--amber);font-weight:700}
+.hist .h b{display:block;font-size:30px;letter-spacing:-.8px;line-height:1.25}
+.hist .h p{font-size:23px;color:var(--tx2);line-height:1.5;margin-top:10px}
+.dq{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:100%;margin-top:40px;text-align:left}
+.dq .col h3{font-size:38px}
+.dq .col .q{font-family:var(--mono);font-size:18px;letter-spacing:.12em;color:var(--mute)}
+.ex4{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1;align-content:center}
+.ex4 .e{background:var(--bg2);border:1.5px solid var(--line);border-radius:16px;padding:24px 28px}
+.ex4 .e small{font-family:var(--mono);font-size:17px;color:var(--amber);letter-spacing:.1em}
+.ex4 .e b{display:block;font-size:30px;margin:6px 0 8px}
+.ex4 .e p{font-size:23px;color:var(--tx2);line-height:1.5}
+.ex4 .e em{font-style:normal;font-weight:800;color:var(--teal)}
+.ex4 .e em.nd{color:var(--amber)}
+.q5 .qi{padding:16px 30px;grid-template-columns:80px 1fr 300px} .q5 .qi p{font-size:28px} .q5{gap:14px}
+.triv{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.triv div{background:var(--bg2);border:1.5px solid var(--line);border-radius:14px;padding:16px 20px}
+.triv b{display:block;font-size:23px} .triv span{font-size:20px;color:var(--tx2);line-height:1.4}
+.mood{flex:1;display:grid;grid-template-columns:880px 1fr;gap:40px;align-items:center;min-height:0}
+.mood .scr{width:880px;height:495px;border-radius:14px;overflow:hidden;border:3px solid var(--line2);background:#0e1015;position:relative}
+.mood .scr svg{width:100%;height:100%;display:block}
+.mood .scr .now{position:absolute;left:16px;top:12px;font-family:var(--mono);font-size:18px;color:#fff;background:rgba(0,0,0,.55);padding:4px 12px;border-radius:6px}
+.mood .side{display:flex;flex-direction:column;gap:12px}
+.sbtn{font:inherit;font-size:25px;font-weight:800;color:var(--tx);background:var(--bg2);border:2px solid var(--line2);border-radius:12px;padding:13px 22px;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center}
+.sbtn small{font-size:18px;font-weight:600;opacity:.75}
+.sbtn:hover{border-color:var(--amber)} .sbtn.on{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.mood .side p{font-size:21px;color:var(--tx2);line-height:1.45;margin-top:6px}
+.knock{margin-top:auto;padding-top:16px}
+.ch3 .cd{min-height:400px}
+.ch3 .cd .sbtn{margin-top:14px;font-size:21px;padding:10px 16px}
+.adr{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;align-items:center}
+</style>
+</head>
+<body class="light" data-theme="light">
+<div id="stage">
+
+
+<!-- 01 표지 -->
+<section class="slide" data-title="표지" data-note="F 전체화면 · N 메모 · O 목차. 이 덱에는 소리가 나는 장(22장 노크 소리, 23장 '같은 장면, 다른 음악')이 있습니다 — 교실 스피커를 켜 두세요. 유튜브는 클릭하면 그 자리에서 재생, 넘기면 자동 정지.">
+  <div class="cover">
+    <div>
+      <div class="kick">필름잇다 기능반 · 기초 이론 · S#07</div>
+      <h1>사운드</h1>
+      <p>영화는 눈으로 보는 게 아니라,<br><b class="am">귀로 느끼는</b> 예술이다</p>
+      <div class="hint">F 전체화면 · → 넘기기 · O 목차 · N 메모 · 🔊 스피커 ON</div>
+    </div>
+    <div class="slateb" aria-hidden="true">
+      <div class="stripes"></div>
+      <div class="grid">
+        <div><span class="k">SCENE</span><span class="v">07</span></div>
+        <div><span class="k">SHOT</span><span class="v">01</span></div>
+        <div><span class="k">TAKE</span><span class="v">01</span></div>
+        <div class="prod"><span class="k">PROD.</span><span class="v">귀로 보는 영화</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 질문 -->
+<section class="slide" data-title="오늘의 질문" data-note="2분. 실제로 해 보면 좋습니다 — 19장 〈범죄도시〉처럼 영상 하나를 소리 끄고 10초, 켜고 10초. '소리 없이는 공포 영화가 무섭지 않다.'">
+  <div class="hd"><div class="sl">S#07 · 오늘의 질문</div><h1>귀를 막고 영화를 본 적 있나요?</h1></div>
+  <div class="body center">
+    <div class="qbox">
+      <p>소리를 끄면 — 공포 영화가 <b class="q">무섭지 않고</b>,<br>액션이 <b class="q">짜릿하지 않고</b>, 슬픈 장면에서 <b class="q">눈물이 안 난다</b></p>
+      <div class="punch" style="font-size:46px">이미지는 <span class="tl">무엇을 볼지</span>, 소리는 <u>어떻게 느낄지</u>를 정한다</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 흐름 -->
+<section class="slide" data-title="오늘의 흐름" data-note="2차시라면 1교시 = 역사 · 재료 · 다이어제틱 구분(퀴즈까지), 2교시 = 폴리 · 음악 · 무음 · 시옹 + 교실 폴리 실습.">
+  <div class="hd"><div class="sl">S#07 · 오늘의 흐름</div><h1>오늘 배울 네 가지</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">01</span><h3>소리의 재료</h3><p>대사 · 효과음 · 음악 + 앰비언트</p><div class="ex">〈재즈 싱어〉 1927</div></div>
+      <div class="cd"><span class="n">02</span><h3>누가 듣는 소리?</h3><p>다이어제틱 · 논-다이어제틱 · 트랜스</p><div class="ex">〈죠스〉 〈베이비 드라이버〉</div></div>
+      <div class="cd"><span class="n">03</span><h3>소리를 만드는 사람</h3><p>폴리 · ADR(후시 녹음)</p><div class="ex">교실 폴리 실습</div></div>
+      <div class="cd"><span class="n">04</span><h3>음악과 침묵</h3><p>스코어 · 라이트모티프 · 무음 · 미셸 시옹</p><div class="ex">같은 장면, 다른 음악</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 역사 -->
+<section class="slide" data-title="사운드의 역사" data-note="1분. 핵심은 1927년. 미셸 시옹은 무성영화를 '듣지 못하는 영화(Deaf Cinema)'라고 불렀습니다 — 극장에서는 늘 피아노나 오케스트라가 연주하고 있었으니까요.">
+  <div class="hd"><div class="sl">01 · 사운드의 역사</div><h1>“무성”이 아니라 <span class="am">듣지 못하는</span> 영화였다</h1></div>
+  <div class="body" style="justify-content:center">
+    <div class="hist">
+      <div class="h"><span class="y">1895</span><b>영화 탄생</b><p>소리 없는 영상 — 극장에선 <b>생음악</b> 연주</p></div>
+      <div class="h hot"><span class="y">1927</span><b>〈재즈 싱어〉</b><p>최초의 장편 <b>유성영화</b>(토키) — 대혁명</p></div>
+      <div class="h"><span class="y">1930s</span><b>유성영화 표준</b><p>전 세계 영화가 <b>말하기</b> 시작</p></div>
+      <div class="h"><span class="y">1970s</span><b>돌비 스테레오</b><p><b>다채널</b> 사운드 시대</p></div>
+      <div class="h"><span class="y">지금</span><b>돌비 애트모스</b><p>머리 위까지 — <b>360도</b> 공간 음향</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 재즈 싱어 -->
+<section class="slide" data-title="〈재즈 싱어〉 1927" data-note="짧게 보여 주고 생각 질문 1로 토론. 예상 답: 배우가 마이크 근처에 묶여 카메라 움직임이 줄었다, 몸짓 · 표정으로 말하던 영화의 '보편 언어'가 사라진다 등.">
+  <div class="hd"><div class="sl">01 · 사운드의 역사 · 예시</div><h1>영화가 처음 <span class="am">말을 했을 때</span></h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">생각 질문</span>
+        <h3>“유성영화는 <span class="rd">영화 예술의 죽음</span>이다”</h3>
+        <p>당시 일부 영화인들의 반대.<br>소리가 생기면 <b>잃어버리는 것</b>도 있었을까?</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="22NQuPrwbHA" data-title="〈재즈 싱어〉 1927 — 최초의 장편 유성영화"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 재료 -->
+<section class="slide" data-title="소리의 재료" data-note="1분. 앰비언트는 '공간 자체의 소리'. 실습할 때 앰비언트를 30초 따로 녹음해 두면 편집이 훨씬 자연스러워집니다(룸톤).">
+  <div class="hd"><div class="sl">02 · 영화 사운드의 재료</div><h1>세 가지 재료, 그리고 하나 더</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">DIALOGUE</span><h3>대사</h3><p>인물이 하는 <b>말</b></p><div class="ex">“내 아버지를 모욕하지 마라”</div></div>
+      <div class="cd"><span class="n">SFX</span><h3>효과음</h3><p>행동 · 환경에서 나오는 소리</p><div class="ex">총소리 · 빗소리 · 발자국</div></div>
+      <div class="cd"><span class="n">MUSIC</span><h3>음악</h3><p>배경음악 · 영화 스코어</p><div class="ex">〈인터스텔라〉 오르간</div></div>
+      <div class="cd" style="border-color:var(--amber-b);background:var(--amber-d)"><span class="n">+ AMBIENT</span><h3>앰비언트</h3><p>공간 자체의 <b>분위기</b>를 만드는 소리</p><div class="ex">카페 웅성거림 · 바람 · 새소리</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 핵심 질문 -->
+<section class="slide" data-title="핵심 · 누가 듣는 소리?" data-note="오늘의 가장 중요한 장. 이 질문 하나만 기억하면 모든 소리를 구분할 수 있습니다. diegesis = 그리스어 '이야기의 세계'.">
+  <div class="hd"><div class="sl">03 · 다이어제틱 vs 논-다이어제틱</div><h1>질문은 딱 하나</h1></div>
+  <div class="body center">
+    <div class="define" style="font-size:62px">“이 소리, <span class="am">영화 속 인물</span>도 들을 수 있어?”</div>
+    <div class="dq">
+      <div class="col"><span class="q">YES → DIEGETIC</span><h3>다이어제틱</h3><p style="font-size:27px">영화 <b>속</b> 세계의 소리 — 인물도 듣는다<br><span style="color:var(--tx2)">대화 · 발자국 · 장면 속 라디오 · 빗소리</span></p></div>
+      <div class="col a"><span class="q">NO → NON-DIEGETIC</span><h3>논-다이어제틱</h3><p style="font-size:27px">영화 <b>밖</b>에서 오는 소리 — 관객만 듣는다<br><span style="color:var(--tx2)">배경음악 · 내레이션 · 극적 효과음</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 예시 4 -->
+<section class="slide" data-title="대표 장면 넷" data-note="각 칸을 읽기 전에 학생에게 먼저 '인물도 들을까?'를 묻고 답을 확인하세요. 기정의 '제시카 송'은 노래처럼 들려도 인물이 직접 부르니 다이어제틱.">
+  <div class="hd"><div class="sl">03 · 대표 장면</div><h1>인물도 듣나, 관객만 듣나</h1></div>
+  <div class="body">
+    <div class="ex4">
+      <div class="e"><small>〈대부〉 1972</small><b>점점 커지는 지하철 소리</b><p>레스토랑 밖을 실제로 지나는 소리 → <em>다이어제틱</em></p></div>
+      <div class="e"><small>〈기생충〉 2019</small><b>“제시카, 외동딸, 일리노이 시카고…”</b><p>초인종 앞에서 기정이 직접 부르는 노래 → <em>다이어제틱</em></p></div>
+      <div class="e"><small>〈쇼생크 탈출〉 1994</small><b>레드의 내레이션</b><p>영화 내내 흐르지만 다른 인물은 못 듣는다 → <em class="nd">논-다이어제틱</em></p></div>
+      <div class="e"><small>〈죠스〉 1975 · 〈사이코〉 1960</small><b>“두둥, 두둥” · 날카로운 현악</b><p>상어가 오는 걸 <b>관객만</b> 안다 → <em class="nd">논-다이어제틱</em></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 죠스 -->
+<section class="slide" data-title="〈죠스〉 테마" data-note="음악만 나오는 영상입니다. 먼저 눈을 감고 30초 들어 보게 하세요. 생각 질문 2: 이 음악이 없었다면 같은 공포를 만들 수 있을까?">
+  <div class="hd"><div class="sl">03 · 논-다이어제틱 · 예시</div><h1>음표 두 개로 만드는 공포</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈죠스〉 1975 · 존 윌리엄스</span>
+        <h3>화면 속 사람들은 <span class="tl">모른 채</span> 수영하고,<br>관객만 <span class="rd">안다</span></h3>
+        <p>그 공포는 순전히 <b>음악</b>이 만든 것.<br><b>생각해 보기</b> — 이 음악이 없었다면?</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="GfQu5po6USo" data-title="〈죠스〉 메인 테마 — 존 윌리엄스"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 사이코 -->
+<section class="slide" data-title="〈사이코〉 음악 있을 때 vs 없을 때" data-note="⚠ 흑백 영화의 샤워실 살해 장면입니다(직접적 노출 · 유혈 묘사는 적지만 칼로 공격하는 장면). 학생 상황에 맞게 판단하세요. 같은 장면을 음악 없이 → 음악과 함께 보여 줍니다. 23장 '같은 장면, 다른 음악' 실험과 이어집니다.">
+  <div class="hd"><div class="sl">03 · 논-다이어제틱 · 실험</div><h1>같은 장면, 음악만 뺐다</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈사이코〉 1960 · 히치콕</span>
+        <h3>마리온은 그 소리를 <span class="tl">못 듣는다</span><br>우리만 듣고 <span class="rd">얼어붙는다</span></h3>
+        <p>음악이 빠지면 같은 장면이 얼마나 <b>달라지는지</b> 직접 비교.</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="fZkLZ3IXcWM" data-title="〈사이코〉 샤워 장면 — 음악 있을 때 vs 없을 때"></div><p class="note">⚠ 흑백 · <b>공격 장면</b> 포함 — 교사 판단</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 트랜스 베이비 드라이버 -->
+<section class="slide" data-title="트랜스-다이어제틱 · 〈베이비 드라이버〉" data-note="오프닝 6분 중 앞 2~3분만 보여 줘도 충분합니다(은행 강도 후 자동차 추격, 총기 등장). 볼 포인트: 이어폰 음악(다이어제틱)이 곧 영화 전체의 배경음악(논-다이어제틱)이 되고, 타이어 · 사이렌까지 비트에 맞는다.">
+  <div class="hd"><div class="sl">03 · 트랜스-다이어제틱 Trans-Diegetic</div><h1>경계를 <span class="am">넘나드는</span> 소리</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈베이비 드라이버〉 2017</span>
+        <h3><span class="tl">이어폰 음악</span>이 →<br><span class="am">영화 전체의 음악</span>이 된다</h3>
+        <p>타이어 · 사이렌 · 총성까지 <b>비트에 맞춰</b>.<br>“이 주인공은 세상을 <b>음악으로 필터링</b>하는 사람이야.”</p>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="6XMuUVw7TOM" data-title="〈베이비 드라이버〉 오프닝 6분"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 트랜스 2편 -->
+<section class="slide" data-title="트랜스-다이어제틱 · 두 장면 더" data-note="왼쪽: 피핀의 노래(인물이 부름) → 파라미르 부대의 돌격 장면 위로 흐른다(전투 장면, 유혈은 거의 없음). 오른쪽: 실제 탭 소리와 배경음악이 하나로. 하나만 골라도 됩니다.">
+  <div class="hd"><div class="sl">03 · 트랜스-다이어제틱 · 예시</div><h1>노래 하나로 두 세계를 잇다</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="kECEwaHwjRw" data-title="〈반지의 제왕: 왕의 귀환〉 피핀의 노래 · 파라미르의 돌격"></div><h3>〈반지의 제왕: 왕의 귀환〉</h3><p>피핀이 <b>부르는</b> 노래가 → 돌격하는 부대 장면의 <b>배경음악</b>으로</p></div>
+      <div class="it"><div class="yt" data-vid="waTDxRZ93Qc" data-title="〈라라랜드〉 A Lovely Night"></div><h3>〈라라랜드〉 언덕 위의 춤</h3><p>구두의 <b>탭 소리</b>와 <b>배경음악</b>이 자연스럽게 하나로</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 헷갈리는 포인트 -->
+<section class="slide" data-title="헷갈리기 쉬운 포인트" data-note="기준은 녹음 방식이 아니라 '소리의 출처'. 스튜디오에서 녹음한 폭발음도, 폭발이 영화 속에서 일어났다면 다이어제틱.">
+  <div class="hd"><div class="sl">03 · 헷갈리기 쉬운 포인트</div><h1>기준은 녹음 방식이 아니라 <span class="am">출처</span></h1></div>
+  <div class="body">
+    <div class="cards c3">
+      <div class="cd"><span class="n">Q</span><h3 style="font-size:32px">현장 녹음이 아니면 논-다이어제틱?</h3><p>아니다. 스튜디오에서 만든 폭발음도 폭발이 <b>영화 속</b>에서 났다면</p><div class="ex">→ 다이어제틱</div></div>
+      <div class="cd"><span class="n">Q</span><h3 style="font-size:32px">장면 속 라디오 음악은?</h3><p>배경음악처럼 들려도 인물이 <b>같이 듣는다</b></p><div class="ex">→ 다이어제틱</div></div>
+      <div class="cd"><span class="n">Q</span><h3 style="font-size:32px">보이스오버는 항상 논-다이어제틱?</h3><p>거의 그렇지만, 인물이 다른 인물에게 말하는 <b>회상</b>이라면 예외</p><div class="ex">→ 상황에 따라</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 퀴즈 -->
+<section class="slide" data-title="퀴즈 · 누가 듣는 소리?" data-blank="1" data-note="빈칸 가린 채 시작 — 한 줄씩 손을 들게 하고 B. 5번이 트랜스-다이어제틱.">
+  <div class="hd"><div class="sl">확인 퀴즈</div><h1>다이어제틱일까, 논-다이어제틱일까?</h1></div>
+  <div class="body center">
+    <div class="qz q5">
+      <div class="qi"><span class="n">Q1</span><p>영화 속 카페에서 흘러나오는 재즈</p><span class="blank">다이어제틱</span></div>
+      <div class="qi"><span class="n">Q2</span><p>주인공이 위험할 때 깔리는 긴장된 현악</p><span class="blank">논-다이어제틱</span></div>
+      <div class="qi"><span class="n">Q3</span><p>주인공이 이어폰으로 듣는 음악</p><span class="blank">다이어제틱</span></div>
+      <div class="qi"><span class="n">Q4</span><p>“그날 이후 모든 게 달라졌다” 내레이션</p><span class="blank">논-다이어제틱</span></div>
+      <div class="qi"><span class="n">Q5</span><p>그 이어폰 음악이 점점 배경음악이 된다</p><span class="blank">트랜스-다이어제틱</span></div>
+    </div>
+    <div class="ft" style="margin-top:14px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 15 폴리 -->
+<section class="slide" data-title="폴리 Foley" data-note="이름은 1920년대 할리우드의 잭 폴리에서. 배우는 실제로 치지 않는데 '퍽!' 소리는 어디서? — 질문으로 시작하세요. 오른쪽 영상은 한국어(스브스뉴스) 폴리 아티스트 인터뷰.">
+  <div class="hd"><div class="sl">04 · 폴리 Foley</div><h1>거짓말로 <span class="am">진짜 소리</span>를 만든다</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <table class="sm" style="font-size:23px">
+          <tr><th style="width:30%">종류</th><th>만드는 법</th></tr>
+          <tr><td class="c0">풋스텝</td><td>여러 재질 바닥을 직접 걸으며</td></tr>
+          <tr><td class="c0">무브</td><td>옷깃 · 물건 스치는 소리를 마이크 앞에서</td></tr>
+          <tr><td class="c0">스페시픽</td><td>독특한 소리 — 창의적인 재료로</td></tr>
+        </table>
+        <div class="triv">
+          <div><b>광선검</b><span>영사기 모터 + TV 간섭음</span></div>
+          <div><b>말발굽</b><span>코코넛 껍데기 두 개</span></div>
+        </div>
+      </div>
+      <div class="ytw" style="flex-basis:740px"><div class="yt" data-vid="qtMHq6kF02U" data-title="폴리 아티스트 — 스브스뉴스"></div><p class="note">현장 소리보다 만든 소리가 <b>더 진짜 같은</b> 이유</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 ADR -->
+<section class="slide" data-title="ADR · 후시 녹음" data-note="생각 질문 3: 왜 현장 소리를 그냥 안 쓸까? — 현장엔 원하지 않는 소음이 섞이고, 원하는 소리는 작게 녹음되기 때문. 배우들은 ADR을 아주 싫어한다고 합니다 — 몇 달 전 감정을 입모양에 맞춰 다시 살려야 하니까요.">
+  <div class="hd"><div class="sl">04 · ADR Automated Dialogue Replacement</div><h1>대사를 <span class="am">다시</span> 녹음한다</h1></div>
+  <div class="body">
+    <div class="adr">
+      <div>
+        <div class="define" style="font-size:56px;text-align:left">스튜디오에서 화면을 보며<br><span class="am">입모양에 맞춰</span> 다시</div>
+        <p style="font-size:27px;color:var(--tx2);margin-top:26px;line-height:1.5">‘루핑(Looping)’ · 한국에선 <b>후시 녹음</b><br>반대로 촬영하며 녹음하는 것은 <b>동시 녹음</b></p>
+      </div>
+      <div class="col"><h3>이럴 때 필요하다</h3><ul>
+        <li>헬기 · 차 · 바람 소리가 섞였을 때</li>
+        <li>연기는 완벽한데 마이크가 못 잡았을 때</li>
+        <li>감독이 대사 뉘앙스를 바꾸고 싶을 때</li>
+        <li>해외 개봉용 더빙</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 스코어 OST -->
+<section class="slide" data-title="스코어 vs OST" data-note="1분. 학생들이 아는 OST를 물어보세요. 스코어는 대개 가사 없이 장면에 맞춰 작곡된 음악.">
+  <div class="hd"><div class="sl">05 · 영화음악</div><h1>감정을 설계하는 소리</h1></div>
+  <div class="body" style="justify-content:center">
+    <table>
+      <tr><th style="width:24%">구분</th><th>설명</th><th style="width:36%">예시</th></tr>
+      <tr><td class="c0">오리지널 스코어</td><td>이 영화만을 위해 작곡가가 <b>새로 만든</b> 음악</td><td>한스 짐머 〈인터스텔라〉 오르간</td></tr>
+      <tr><td class="c0">OST</td><td>영화에 쓰인 기존 곡 · 신곡의 <b>모음</b></td><td>〈가디언즈 오브 갤럭시〉 70~80년대 팝</td></tr>
+      <tr><td class="c0">라이트모티프</td><td>특정 인물 · 감정마다 <b>반복</b>되는 짧은 선율 — 소리로 만드는 복선</td><td>〈스타워즈〉 다스 베이더 · 〈다크 나이트〉 조커의 첼로</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 18 해리포터 BGM -->
+<section class="slide" data-title="배경음악의 힘 · 〈해리포터〉" data-note="1분 안팎의 세로 쇼츠. 선생님께 혼나는 같은 장면이 음악에 따라 달라 보입니다.">
+  <div class="hd"><div class="sl">05 · 영화음악 · 예시</div><h1>혼나는 장면도 음악이 바꾼다</h1></div>
+  <div class="body">
+    <div class="mrow" style="align-items:center;justify-content:center;gap:60px">
+      <div style="flex:0 0 320px"><div class="yt v916" data-vid="AvrmmI0LC1Y" data-title="영화 BGM이 중요한 이유 — 〈해리포터〉"></div></div>
+      <div class="txt" style="flex:0 0 640px">
+        <span class="tag">〈해리포터〉</span>
+        <h3>같은 장면,<br>음악이 바뀌면 <span class="am">감정</span>이 바뀐다</h3>
+        <p>〈죠스〉의 “두둥”처럼 — 음악이 들리는 순간 우리는 <b>이미 무언가를 느끼기 시작</b>한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 범죄도시 실험 -->
+<section class="slide" data-title="실험 · 〈범죄도시〉 소리 끄고 켜기" data-note="⚠ 격투 장면(15세 이상 관람가 영화). 학습터의 '배경음악 비교 영상'은 현재 재생이 안 되는 상태라, 원본으로 교실 실험을 합니다: ① 플레이어에서 음소거하고 20초 → ② 소리 켜고 같은 구간 20초. 효과음(타격음)과 음악이 얼마나 많은 일을 하는지 묻습니다.">
+  <div class="hd"><div class="sl">05 · 교실 실험</div><h1>같은 장면, <span class="tl">소리 끄고</span> 한 번 · <span class="am">켜고</span> 한 번</h1></div>
+  <div class="body">
+    <div class="mrow">
+      <div class="txt">
+        <span class="tag">〈범죄도시〉 화장실 격투</span>
+        <ul>
+          <li><b>① 음소거</b>로 20초 — 어떤 느낌?</li>
+          <li><b>② 소리 켜고</b> 같은 구간 다시</li>
+          <li>무엇이 달라졌나 — <b>타격음 · 음악 · 대사</b> 중 가장 큰 역할은?</li>
+        </ul>
+      </div>
+      <div class="ytw"><div class="yt" data-vid="idENXLLrrFI" data-title="〈범죄도시〉 화장실 격투 장면"></div><p class="note">⚠ 격투 장면 — 플레이어의 🔇 음소거 버튼부터 누르고 시작</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 무음 -->
+<section class="slide" data-title="무음 — 가장 강한 소리" data-note="갑자기 모든 소리가 사라지면 어떤 기분? — 불안 · 긴장 · 무언가 일어날 것 같은 느낌. 〈노예 12년〉은 체벌 장면이라 영상 없이 말로만 소개합니다.">
+  <div class="hd"><div class="sl">06 · 무음 Silence</div><h1>소리가 <span class="am">없는 것</span>이 가장 강한 소리</h1></div>
+  <div class="body">
+    <div class="cards c4">
+      <div class="cd"><span class="n">2017</span><h3>〈덩케르크〉</h3><p>폭발 직전 소리를 <b>순간적으로 뺀다</b> — 침묵 뒤의 폭발이 더 크다</p><div class="ex">충격</div></div>
+      <div class="cd"><span class="n">2013</span><h3>〈노예 12년〉</h3><p>체벌 장면에서 음악을 <b>완전히 제거</b> — 더 사실적으로</p><div class="ex">“감추지 않겠다”</div></div>
+      <div class="cd"><span class="n">2013</span><h3>〈그래비티〉</h3><p>우주에선 소리가 전달되지 않는다 — 폭발도 <b>무음</b></p><div class="ex">광활함 · 고립감</div></div>
+      <div class="cd"><span class="n">2021</span><h3>〈코다〉</h3><p>딸의 공연 중 소리를 빼서 관객도 <b>부모처럼</b> 듣지 못하게</p><div class="ex">공감</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 덩케르크 코다 -->
+<section class="slide" data-title="무음 · 영상 두 편" data-note="왼쪽: Vox 영어 해설(자막 권장) — 셰퍼드 톤, 영원히 올라가는 것처럼 들리는 소리 착시. 오른쪽: 〈코다〉 공연 장면 — 소리가 사라지는 순간에 집중.">
+  <div class="hd"><div class="sl">06 · 무음 · 예시</div><h1>침묵과 착시로 만드는 긴장</h1></div>
+  <div class="body">
+    <div class="ytpair">
+      <div class="it"><div class="yt" data-vid="LVWTQcZbLgY" data-title="The sound illusion that makes Dunkirk so intense — Vox"></div><h3>〈덩케르크〉 사운드의 비밀</h3><p><b>셰퍼드 톤</b> — 끝없이 고조되는 것처럼 느껴지는 소리 착시</p></div>
+      <div class="it"><div class="yt" data-vid="etSTNBS-Ol8" data-title="〈코다〉 공연 장면"></div><h3>〈코다〉 사라진 노래</h3><p>관객은 <b>주변 사람들의 반응</b>으로만 노래를 짐작한다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 미셸 시옹 -->
+<section class="slide" data-title="미셸 시옹 · 세 가지 개념" data-note="'노크 소리' 버튼을 누르면 문 두드리는 소리가 납니다 — 누가 있는지 보이지 않으니 불안해지는 것이 아쿠스마틱. 부가 가치는 다음 장에서 직접 실험합니다.">
+  <div class="hd"><div class="sl">07 · 미셸 시옹 Michel Chion</div><h1>“우리는 <span class="am">귀로도</span> 본다”</h1></div>
+  <div class="body">
+    <div class="cards c3 ch3">
+      <div class="cd"><span class="n">ACOUSMATIC</span><h3>아쿠스마틱</h3><p>출처가 <b>보이지 않는</b> 소리 — 문 밖의 노크. 모르니까 무섭다</p><button class="sbtn knock" type="button" id="knockBtn">🚪 노크 소리 듣기 <small>재생</small></button></div>
+      <div class="cd"><span class="n">ADDED VALUE</span><h3>부가 가치</h3><p>소리가 이미지에 <b>감정을 입힌다</b> — 같은 장면도 음악 따라 달라 보인다</p><div class="ex">→ 다음 장에서 실험</div></div>
+      <div class="cd"><span class="n">AUDIO-VISION</span><h3>오디오비전</h3><p>우리는 보고 듣는 것을 <b>나누지 않고</b> 하나로 경험한다</p><div class="ex">소리가 바뀌면 그림도 바뀐다</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 부가 가치 실험 -->
+<section class="slide" data-title="실험 · 같은 장면, 다른 음악" data-note="🔊 소리가 나는 장. 버튼마다 브라우저가 즉석에서 만든 짧은 음악이 반복됩니다(저작권 걱정 없음). 그림은 전혀 바뀌지 않습니다 — 각 음악에서 '이 사람은 지금 어디로, 왜 가는 걸까?'를 물어보세요. 다른 장으로 넘어가면 자동으로 멈춥니다.">
+  <div class="hd"><div class="sl">07 · 부가 가치 Added Value · 직접 실험</div><h1>그림은 그대로, <span class="am">음악만</span> 바꾼다</h1></div>
+  <div class="body" style="padding-top:24px">
+    <div class="mood" id="mood">
+      <div class="scr">
+        <svg viewBox="0 0 880 495" aria-label="복도 끝 문을 향해 걸어가는 사람">
+          <defs><linearGradient id="dl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e2b8"/><stop offset="1" stop-color="#c9a970"/></linearGradient>
+          <radialGradient id="gl" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#3a3f4b"/><stop offset="1" stop-color="#14161c"/></radialGradient></defs>
+          <rect width="880" height="495" fill="url(#gl)"/>
+          <path d="M0 0 L380 170 H500 L880 0Z" fill="#1d2028"/>
+          <path d="M0 495 L380 300 H500 L880 495Z" fill="#262a33"/>
+          <path d="M0 0 L380 170 V300 L0 495Z" fill="#20232b"/>
+          <path d="M880 0 L500 170 V300 L880 495Z" fill="#1b1e25"/>
+          <g stroke="#2f3440" stroke-width="2"><path d="M110 50 V438 M220 100 V383 M300 135 V345"/><path d="M770 50 V438 M660 100 V383 M580 135 V345"/></g>
+          <rect x="412" y="196" width="56" height="104" fill="url(#dl)"/>
+          <path d="M412 196 L440 204 V292 L412 300Z" fill="#7a6545" opacity=".7"/>
+          <path d="M412 300 L300 495 H580 L468 300Z" fill="#f2e2b8" opacity=".07"/>
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="440 500; 440 302" dur="9s" repeatCount="indefinite"/>
+            <g>
+              <animateTransform attributeName="transform" type="scale" values="1.25; .3" dur="9s" repeatCount="indefinite"/>
+              <g>
+                <animateTransform attributeName="transform" type="translate" values="0 0; 0 -6; 0 0" dur=".9s" repeatCount="indefinite"/>
+                <ellipse cx="0" cy="-4" rx="40" ry="8" fill="#000" opacity=".4"/>
+                <path d="M-34 -6 L-30 -150 C-30 -190 30 -190 30 -150 L34 -6 H8 L4 -90 H-4 L-8 -6Z" fill="#090a0d"/>
+                <circle cx="0" cy="-206" r="25" fill="#090a0d"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <span class="now" id="moodNow">🔇 무음</span>
+      </div>
+      <div class="side">
+        <button class="sbtn on" type="button" data-mood="off">🔇 무음 <small>그림만</small></button>
+        <button class="sbtn" type="button" data-mood="sad">슬픈 음악 <small>느린 단조</small></button>
+        <button class="sbtn" type="button" data-mood="horror">공포 음악 <small>낮은 울림 · 심장 소리</small></button>
+        <button class="sbtn" type="button" data-mood="comedy">코미디 음악 <small>통통 튀는 장조</small></button>
+        <button class="sbtn" type="button" data-mood="action">액션 음악 <small>북 · 빠른 박자</small></button>
+        <p>이 사람은 지금 <b>어디로, 왜</b> 가는 걸까?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 24 알고 보면 -->
+<section class="slide" data-title="알고 보면 다르게 들린다" data-note="오늘 배운 것을 '영화 볼 때 체크 포인트'로 정리. J컷은 지난 시간(S#06 편집)과 연결.">
+  <div class="hd"><div class="sl">알고 보면 다르게 들리는 포인트</div><h1>이제 영화를 <span class="am">귀로</span>보자</h1></div>
+  <div class="body center">
+    <ul class="chk" style="grid-template-columns:1fr">
+      <li>공포 영화의 진짜 무기는 이미지가 아니라 <b>소리</b> — 눈을 감아도 무섭다</li>
+      <li>음악이 <b>없는</b> 장면을 찾아라 — 감독이 일부러 뺐다면 이유가 있다</li>
+      <li>소리가 <b>먼저</b> 들리면 긴장한다 — J컷</li>
+      <li>장면 속 라디오 음악도 <b>감독이 고른 것</b> — 가사까지 의도다</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 25 실습 폴리 -->
+<section class="slide" data-title="실습 · 교실 폴리 챌린지" data-note="재료 힌트(학생이 먼저 고민하게 한 뒤): 빗소리 = 비닐봉지를 손가락으로 톡톡 / 쟁반에 쌀 · 소금 흘리기, 말발굽 = 컵 두 개를 책상에 번갈아, 눈 밟는 소리 = 전분 · 밀가루 봉지를 손으로 꾹꾹, 주먹 소리 = 두꺼운 책 · 점퍼를 주먹으로. 휴대폰 녹음 앱으로 가까이에서.">
+  <div class="hd"><div class="sl">실습</div><h1>교실 물건으로 소리를 만들어라</h1></div>
+  <div class="body center">
+    <div class="warnbar">진짜 그 물건은 <b>금지</b> — 교실에 있는 것만으로, 휴대폰을 <b>가까이</b> 대고 녹음</div>
+    <div class="sheet">
+      <div class="srow"><span class="i">01</span><b>빗소리</b><span>무엇으로? </span></div>
+      <div class="srow"><span class="i">02</span><b>말발굽</b><span>무엇으로? </span></div>
+      <div class="srow"><span class="i">03</span><b>눈 밟는 소리</b><span>무엇으로? </span></div>
+      <div class="srow"><span class="i">04</span><b>주먹 한 방 “퍽!”</b><span>무엇으로? </span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 26 타이머 -->
+<section class="slide" data-title="⏱ 실습 12분" data-note="T 시작 · 정지, R 처음부터. 끝나면 조별로 녹음을 들려주고, 다른 조가 무슨 소리인지 맞혀 봅니다(눈 감고!).">
+  <div class="hd"><div class="sl">실습</div><h1>⏱ 교실 폴리 챌린지</h1></div>
+  <div class="body center">
+    <div class="timer" data-min="12"><div class="tval">12:00</div><div class="tstate">대기</div></div>
+    <div class="tmarks"><div class="tmark"><b>06:00</b>두 개 녹음</div><div class="tmark"><b>02:00</b>네 개 모두</div><div class="tmark"><b>00:00</b>눈 감고 맞히기</div></div>
+    <div class="thint"><b>T</b> 시작 · 정지 &nbsp;·&nbsp; <b>R</b> 처음부터 &nbsp;·&nbsp; 숫자를 클릭해도 됩니다</div>
+  </div>
+</section>
+
+<!-- 27 입시 -->
+<section class="slide" data-title="입시 체크리스트" data-note="실기 면접 · 분석 문제에서 '이 장면의 사운드 효과를 설명하라' 유형으로 나옵니다.">
+  <div class="hd"><div class="sl">입시에서는 이렇게 나온다</div><h1>“이 장면에서 소리는 어떤 역할을 하는가?”</h1></div>
+  <div class="body center">
+    <ul class="chk">
+      <li><b>다이어제틱 · 논-다이어제틱</b>을 예로 구분한다</li>
+      <li><b>트랜스-다이어제틱</b> 장면 하나를 말할 수 있다</li>
+      <li><b>폴리</b>와 <b>ADR</b>이 필요한 이유</li>
+      <li><b>라이트모티프</b>의 예와 효과</li>
+      <li><b>무음</b>이 더 강한 장면을 설명한다</li>
+      <li>내 영화에서 음악을 <b>넣을 곳 · 뺄 곳</b>의 기준</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 28 정리 -->
+<section class="slide" data-title="오늘의 정리" data-blank="1" data-note="빈칸 가린 채 시작 — 먼저 묻고 B.">
+  <div class="hd"><div class="sl">정리</div><h1>오늘의 정리</h1></div>
+  <div class="body center">
+    <ol class="recap">
+      <li>인물도 듣는 소리 → <span class="blank">다이어제틱</span></li>
+      <li>스튜디오에서 새로 만드는 효과음 → <span class="blank">폴리</span></li>
+      <li>인물마다 반복되는 짧은 선율 → <span class="blank">라이트모티프</span></li>
+      <li>소리가 이미지에 감정을 입힌다 → <span class="blank">부가 가치</span></li>
+    </ol>
+    <div class="ft" style="margin-top:20px"><span class="hint">B 키 — 정답 공개</span></div>
+  </div>
+</section>
+
+<!-- 29 다음 -->
+<section class="slide" data-title="다음 시간 · 조명" data-note="1분. 생각 질문 7을 숙제로: 너희 영화를 만든다면 어떤 장면에 음악을 넣고, 어떤 장면에서 뺄까?">
+  <div class="hd"><div class="sl">다음 시간</div><h1>소리 다음은, 빛</h1></div>
+  <div class="body center">
+    <div class="next">
+      <div class="col a"><h3>다음 시간 · S#08 조명</h3><ul><li>3포인트 조명</li><li>하이키 · 로우키</li><li>색온도와 빛의 방향</li></ul></div>
+      <div class="col"><h3>복습 · 생각해 오기</h3><ul><li>학습터 <b>기초 이론 · S#07</b> 읽기</li><li>내 영화에서 음악을 <b>넣을</b> 장면 · <b>뺄</b> 장면</li><li>영화 한 편을 <b>눈 감고</b> 5분 듣기</li></ul></div>
+    </div>
+    <div class="ft" style="margin-top:34px"><a href="../../#t7" style="color:var(--teal)">학습터 S#07 읽기 자료 열기 ↗</a> &nbsp;·&nbsp; <a href="../" style="color:var(--teal)">프레젠테이션 목록 ↗</a></div>
+  </div>
+</section>
+
+<!-- 30 부록 -->
+<section class="slide" data-title="부록 · 핵심 용어" data-note="질문이 나올 때 O 키로 바로 여세요.">
+  <div class="hd"><div class="sl">부록</div><h1>핵심 용어 한눈에</h1></div>
+  <div class="body">
+    <div class="gl">
+      <div class="gi"><b>다이어제틱</b><span>영화 속 세계의 소리 — 인물도 듣는다</span></div>
+      <div class="gi"><b>논-다이어제틱</b><span>관객만 듣는 소리 — 배경음악 · 내레이션</span></div>
+      <div class="gi"><b>트랜스-다이어제틱</b><span>두 경계를 넘나드는 소리</span></div>
+      <div class="gi"><b>앰비언트</b><span>공간 자체의 분위기 소리</span></div>
+      <div class="gi"><b>폴리</b><span>스튜디오에서 새로 만드는 효과음</span></div>
+      <div class="gi"><b>ADR · 후시 녹음</b><span>대사를 스튜디오에서 다시 녹음</span></div>
+      <div class="gi"><b>라이트모티프</b><span>인물 · 감정마다 반복되는 주제 선율</span></div>
+      <div class="gi"><b>아쿠스마틱</b><span>출처가 보이지 않는 소리</span></div>
+      <div class="gi"><b>부가 가치</b><span>소리가 이미지에 감정을 더한다</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="../assets/deck.js"></script>
+<script>
+/* S#07 전용 — 브라우저가 즉석에서 만드는 음악 · 노크 소리 (외부 파일 없음) */
+(function(){
+  'use strict';
+  let AC=null,bus=null,sched=null,drones=[],step=0,nextT=0,curMood='off';
+  const mtof=m=>440*Math.pow(2,(m-69)/12);
+  function ctx(){
+    if(!AC){AC=new (window.AudioContext||window.webkitAudioContext)();}
+    if(AC.state==='suspended')AC.resume();
+    return AC;
+  }
+  let NB=null;
+  function noiseBuf(){if(NB)return NB;const n=AC.sampleRate;NB=AC.createBuffer(1,n,n);const d=NB.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;return NB;}
+  function newBus(){
+    const g=AC.createGain();g.gain.value=0.0001;
+    const comp=AC.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;
+    g.connect(comp);comp.connect(AC.destination);
+    g.gain.setTargetAtTime(0.9,AC.currentTime,0.08);
+    return g;
+  }
+  /* 음 하나 */
+  function tone(f,t,dur,o){
+    o=o||{};const osc=AC.createOscillator(),g=AC.createGain();
+    osc.type=o.type||'sine';osc.frequency.setValueAtTime(f,t);
+    if(o.toF)osc.frequency.exponentialRampToValueAtTime(o.toF,t+(o.glide||dur));
+    if(o.detune)osc.detune.value=o.detune;
+    const a=o.a||0.01,peak=o.g||0.1;
+    g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    let last=g;
+    if(o.lp){const f2=AC.createBiquadFilter();f2.type='lowpass';f2.frequency.value=o.lp;g.connect(f2);last=f2;}
+    osc.connect(g);last.connect(o.dest||bus);osc.start(t);osc.stop(t+dur+0.05);
+  }
+  function noise(t,dur,o){
+    o=o||{};const s=AC.createBufferSource();s.buffer=noiseBuf();
+    const f=AC.createBiquadFilter();f.type=o.ft||'bandpass';f.frequency.value=o.f||1800;f.Q.value=o.q||0.8;
+    const g=AC.createGain();g.gain.setValueAtTime(o.g||0.2,t);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    s.connect(f);f.connect(g);g.connect(o.dest||bus);s.start(t,Math.random()*0.5);s.stop(t+dur+0.05);
+  }
+  const kick=(t,g)=>tone(130,t,0.32,{toF:42,glide:0.25,g:g||0.7});
+
+  /* 분위기별 한 박자 */
+  const SAD={beat:0.8,chords:[[57,60,64],[53,57,60],[50,53,57],[52,56,59]]};
+  const COM={beat:0.2,
+    bar:[{root:[48,43],ch:[60,64,67],mel:[72,0,76,0,79,0,76,0,77,0,74,0,71,0,67,0]},
+         {root:[43,50],ch:[59,62,65],mel:[74,0,71,0,67,0,71,0,72,0,76,0,72,0,0,0]}]};
+  const MOODS={
+    sad:{beat:SAD.beat,start(){},play(t,i){
+      const c=SAD.chords[Math.floor(i/4)%4],b=i%4;
+      if(b===0){c.forEach(m=>{tone(mtof(m),t,SAD.beat*4.2,{type:'triangle',a:0.7,g:0.09,lp:1400});tone(mtof(m),t,SAD.beat*4.2,{a:0.7,g:0.07,detune:6});});
+        tone(mtof(c[0]-12),t,SAD.beat*4,{a:0.3,g:0.2});}
+      const arp=[c[0]+12,c[1]+12,c[2]+12,c[1]+12][b];
+      tone(mtof(arp),t,1.6,{a:0.005,g:0.13});tone(mtof(arp)*2,t,0.8,{a:0.005,g:0.03});
+    }},
+    horror:{beat:0.9,start(t){
+      [41.2,41.9,61.7].forEach((f,k)=>{const o=AC.createOscillator(),g=AC.createGain(),lp=AC.createBiquadFilter();
+        o.type='sawtooth';o.frequency.value=f;lp.type='lowpass';lp.frequency.value=170;g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(k===2?0.05:0.13,t+2);o.connect(lp);lp.connect(g);g.connect(bus);o.start(t);drones.push(o);});
+    },play(t,i){
+      if(i%2===0){kick(t,0.55);kick(t+0.26,0.35);}
+      if(i%8===3){tone(mtof(87),t,5,{a:2.5,g:0.018});tone(mtof(88),t,5,{a:2.5,g:0.018});}
+      if(i%16===11)noise(t,2.2,{f:5200,q:6,g:0.05});
+    }},
+    comedy:{beat:COM.beat,start(){},play(t,i){
+      const s=i%16,B=COM.bar[Math.floor(i/16)%2];
+      if(s%8===0)tone(mtof(B.root[0]),t,0.16,{type:'triangle',g:0.42});
+      if(s%8===4)tone(mtof(B.root[1]),t,0.16,{type:'triangle',g:0.4});
+      if(s%4===2)B.ch.forEach(m=>tone(mtof(m),t,0.09,{type:'square',g:0.05,lp:2500}));
+      const m=B.mel[s];if(m){tone(mtof(m),t,0.18,{type:'triangle',g:0.26});tone(mtof(m+12),t,0.07,{g:0.06});}
+      if(s===14&&Math.floor(i/16)%2===1)tone(1200,t,0.25,{toF:400,glide:0.22,type:'triangle',g:0.06});
+    }},
+    action:{beat:0.19,start(){},play(t,i){
+      const s=i%16;
+      tone(mtof(40),t,0.15,{type:'sawtooth',g:0.11,lp:420});
+      if([0,3,6,8,11,14].includes(s))kick(t,0.75);
+      if(s===4||s===12)noise(t,0.18,{f:1600,q:0.6,g:0.35});
+      if(s%2===1)noise(t,0.04,{ft:'highpass',f:7000,g:0.08});
+      if(s===0){const root=[52,50,48,50][Math.floor(i/16)%4];[root,root+7,root+12].forEach(m=>tone(mtof(m),t,0.5,{type:'sawtooth',g:0.035,lp:2200}));}
+    }}
+  };
+  function stop(){
+    clearInterval(sched);sched=null;
+    if(bus){const b=bus,ds=drones;b.gain.cancelScheduledValues(AC.currentTime);b.gain.setTargetAtTime(0.0001,AC.currentTime,0.08);
+      setTimeout(()=>{ds.forEach(o=>{try{o.stop();}catch(e){}});b.disconnect();},500);}
+    bus=null;drones=[];curMood='off';
+  }
+  function play(mood){
+    stop();if(mood==='off')return;
+    ctx();bus=newBus();curMood=mood;const M=MOODS[mood];
+    step=0;nextT=AC.currentTime+0.08;M.start(nextT);
+    sched=setInterval(()=>{while(nextT<AC.currentTime+0.25){M.play(nextT,step);nextT+=M.beat;step++;}},40);
+  }
+
+  /* 23장 — 같은 장면, 다른 음악 */
+  const mood=document.getElementById('mood');
+  if(mood){
+    const NAME={off:'🔇 무음',sad:'♪ 슬픈 음악',horror:'♪ 공포 음악',comedy:'♪ 코미디 음악',action:'♪ 액션 음악'};
+    const btns=mood.querySelectorAll('.sbtn');
+    const mark=k=>{btns.forEach(b=>b.classList.toggle('on',b.dataset.mood===k));document.getElementById('moodNow').textContent=NAME[k];};
+    btns.forEach(b=>b.addEventListener('click',()=>{play(b.dataset.mood);mark(b.dataset.mood);}));
+    /* 다른 장으로 넘어가면 멈춤 */
+    const sl=mood.closest('.slide');
+    new MutationObserver(()=>{if(!sl.classList.contains('on')&&curMood!=='off'){stop();mark('off');}}).observe(sl,{attributes:true,attributeFilter:['class']});
+    window.__mood={play,stop,get cur(){return curMood;}};
+  }
+
+  /* 22장 — 노크 (아쿠스마틱) */
+  const kb=document.getElementById('knockBtn');
+  if(kb)kb.addEventListener('click',()=>{
+    ctx();const out=AC.createGain();out.gain.value=0.9;out.connect(AC.destination);
+    const t0=AC.currentTime+0.05;
+    [0,0.3,0.6,1.6,1.82].forEach(d=>{const t=t0+d;
+      tone(110,t,0.14,{toF:70,glide:0.1,g:0.9,dest:out});
+      noise(t,0.07,{f:420,q:1.2,g:0.9,dest:out});});
+  });
+})();
+</script>
+</body>
+</html>
